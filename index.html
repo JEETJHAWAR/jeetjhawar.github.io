@@ -55,98 +55,6 @@
   ::-webkit-scrollbar-thumb { background: #2d5470; border-radius: 6px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--c-violet); }
 
-  /* ───────────────────────── INTRO (Netflix-style) ───────────────────────── */
-  #intro {
-    position: fixed; inset: 0; z-index: 1000;
-    background-color: #000;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    overflow: hidden;
-    animation: introBg 0.5s ease-out 3.15s forwards;
-  }
-  #intro.done { display: none; }
-  @keyframes introBg { to { background-color: transparent; } }
-  .intro-logo {
-    display: grid;
-    filter: drop-shadow(0 0 30px rgba(125,125,252,0.3));
-    animation:
-      logoShrink 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1.75s forwards,
-      logoOut 0.22s ease 2.3s forwards;
-    will-change: transform, opacity;
-  }
-  @keyframes logoShrink { to { transform: scale(0.245); } }
-  @keyframes logoOut { to { opacity: 0; visibility: hidden; } }
-  /* Act 1 — coloured bars of varied widths fly in (slow, then faster) and build the JJ */
-  /* Act 2 — the bars settle to pure white */
-  .intro-logo .slice {
-    grid-area: 1 / 1;
-    font-family: 'Orbitron', sans-serif; font-weight: 900;
-    font-size: clamp(7rem, 32vw, 17rem);
-    letter-spacing: 0.04em; line-height: 1.1;
-    color: var(--c);
-    clip-path: inset(-15% calc(100% - var(--l) - var(--w)) -15% var(--l));
-    opacity: 0;
-    animation:
-      introIn var(--dur) cubic-bezier(0.16, 1, 0.3, 1) var(--d) forwards,
-      introWhite 0.45s ease 1.4s forwards;
-    will-change: transform, opacity;
-  }
-  @keyframes introIn {
-    0%   { transform: translateY(var(--f)) scaleY(1.9); opacity: 0; }
-    55%  { opacity: 1; }
-    100% { transform: translateY(0) scaleY(1); opacity: 1; }
-  }
-  @keyframes introWhite { to { color: #ffffff; } }
-  /* Act 3 — each J slides home while EET / HAWAR slide out of them */
-  .intro-name {
-    position: absolute;
-    display: flex; gap: 0.5em;
-    font-family: 'Orbitron', sans-serif; font-weight: 900;
-    font-size: clamp(1.7rem, 6.2vw, 4.2rem);
-    letter-spacing: 0.14em; line-height: 1.1; white-space: nowrap;
-    color: var(--white);
-    filter: drop-shadow(0 0 20px rgba(125,211,252,0.45));
-    opacity: 0;
-    animation:
-      nameIn 0.22s ease 2.22s forwards,
-      wordOut 0.35s ease-in 3.1s forwards;
-    will-change: transform, opacity;
-  }
-  @keyframes nameIn { to { opacity: 1; } }
-  @keyframes wordOut { to { opacity: 0; transform: scale(1.06); } }
-  .intro-name .wg { display: inline-flex; }
-  .intro-name .wg1 { transform: translateX(4.145em); }
-  .intro-name .wg2 { transform: translateX(0.994em); }
-  .intro-name .wg1, .intro-name .wg2 {
-    animation: wgHome 0.7s cubic-bezier(0.22, 1, 0.36, 1) 2.4s forwards;
-    will-change: transform;
-  }
-  @keyframes wgHome { to { transform: translateX(0); } }
-  .intro-name .rest {
-    display: inline-block;
-    clip-path: inset(-20% 105% -20% -5%);
-    transform: translateX(-0.5em);
-    animation: restOut 0.65s cubic-bezier(0.22, 1, 0.36, 1) 2.55s forwards;
-    will-change: transform, clip-path;
-  }
-  @keyframes restOut {
-    to { clip-path: inset(-20% -5% -20% -5%); transform: translateX(0); }
-  }
-  .intro-bar {
-    position: absolute; top: 0; left: 0;
-    width: 26vw; height: 4px; border-radius: 0 0 4px 4px;
-    background: linear-gradient(90deg, transparent, #7dd3fc 40%, #ffffff 55%, transparent);
-    box-shadow: 0 0 18px rgba(125,211,252,0.8);
-    transform: translateX(-28vw);
-    animation: introSweep 0.95s ease-in-out 0.12s;
-    will-change: transform;
-  }
-  @keyframes introSweep {
-    from { transform: translateX(-28vw); }
-    to   { transform: translateX(104vw); }
-  }
-  @media (prefers-reduced-motion: reduce) { #intro { display: none; } }
-
   /* ───────────────────────── NAV ───────────────────────── */
   header {
     position: fixed; top: 0; left: 0; right: 0; z-index: 200;
@@ -783,13 +691,6 @@
 </head>
 <body>
 
-<!-- ═════════════ INTRO ═════════════ -->
-<div id="intro" aria-hidden="true">
-  <div class="intro-bar"></div>
-  <div class="intro-logo"><span class="slice" style="--l:0.000%;--w:2.390%;--f:55vh;--d:0ms;--dur:950ms;--c:#22d3ee">JJ</span><span class="slice" style="--l:2.310%;--w:1.905%;--f:-66vh;--d:44ms;--dur:937ms;--c:#818cf8">JJ</span><span class="slice" style="--l:4.135%;--w:3.308%;--f:77vh;--d:87ms;--dur:924ms;--c:#67e8f9">JJ</span><span class="slice" style="--l:7.363%;--w:1.685%;--f:-58vh;--d:130ms;--dur:911ms;--c:#7dd3fc">JJ</span><span class="slice" style="--l:8.968%;--w:2.985%;--f:69vh;--d:171ms;--dur:898ms;--c:#a78bfa">JJ</span><span class="slice" style="--l:11.873%;--w:2.508%;--f:-80vh;--d:211ms;--dur:885ms;--c:#ffffff">JJ</span><span class="slice" style="--l:14.301%;--w:1.645%;--f:61vh;--d:249ms;--dur:873ms;--c:#38bdf8">JJ</span><span class="slice" style="--l:15.866%;--w:2.905%;--f:-72vh;--d:287ms;--dur:860ms;--c:#e0f2fe">JJ</span><span class="slice" style="--l:18.691%;--w:1.587%;--f:83vh;--d:323ms;--dur:847ms;--c:#22d3ee">JJ</span><span class="slice" style="--l:20.198%;--w:2.698%;--f:-64vh;--d:359ms;--dur:834ms;--c:#818cf8">JJ</span><span class="slice" style="--l:22.817%;--w:1.678%;--f:75vh;--d:393ms;--dur:821ms;--c:#67e8f9">JJ</span><span class="slice" style="--l:24.415%;--w:1.737%;--f:-56vh;--d:426ms;--dur:808ms;--c:#7dd3fc">JJ</span><span class="slice" style="--l:26.071%;--w:2.673%;--f:67vh;--d:458ms;--dur:796ms;--c:#a78bfa">JJ</span><span class="slice" style="--l:28.664%;--w:3.801%;--f:-78vh;--d:488ms;--dur:783ms;--c:#ffffff">JJ</span><span class="slice" style="--l:32.385%;--w:1.829%;--f:59vh;--d:518ms;--dur:770ms;--c:#38bdf8">JJ</span><span class="slice" style="--l:34.134%;--w:2.108%;--f:-70vh;--d:546ms;--dur:757ms;--c:#e0f2fe">JJ</span><span class="slice" style="--l:36.162%;--w:3.242%;--f:81vh;--d:573ms;--dur:744ms;--c:#22d3ee">JJ</span><span class="slice" style="--l:39.324%;--w:4.140%;--f:-62vh;--d:599ms;--dur:732ms;--c:#818cf8">JJ</span><span class="slice" style="--l:43.384%;--w:3.101%;--f:73vh;--d:624ms;--dur:719ms;--c:#67e8f9">JJ</span><span class="slice" style="--l:46.404%;--w:2.595%;--f:-84vh;--d:648ms;--dur:706ms;--c:#7dd3fc">JJ</span><span class="slice" style="--l:48.919%;--w:4.220%;--f:65vh;--d:671ms;--dur:693ms;--c:#a78bfa">JJ</span><span class="slice" style="--l:53.059%;--w:1.613%;--f:-76vh;--d:692ms;--dur:680ms;--c:#ffffff">JJ</span><span class="slice" style="--l:54.592%;--w:3.890%;--f:57vh;--d:712ms;--dur:667ms;--c:#38bdf8">JJ</span><span class="slice" style="--l:58.401%;--w:2.294%;--f:-68vh;--d:731ms;--dur:655ms;--c:#e0f2fe">JJ</span><span class="slice" style="--l:60.616%;--w:1.887%;--f:79vh;--d:749ms;--dur:642ms;--c:#22d3ee">JJ</span><span class="slice" style="--l:62.422%;--w:1.812%;--f:-60vh;--d:766ms;--dur:629ms;--c:#818cf8">JJ</span><span class="slice" style="--l:64.155%;--w:2.347%;--f:71vh;--d:782ms;--dur:616ms;--c:#67e8f9">JJ</span><span class="slice" style="--l:66.422%;--w:3.771%;--f:-82vh;--d:796ms;--dur:603ms;--c:#7dd3fc">JJ</span><span class="slice" style="--l:70.113%;--w:1.989%;--f:63vh;--d:809ms;--dur:591ms;--c:#a78bfa">JJ</span><span class="slice" style="--l:72.022%;--w:3.113%;--f:-74vh;--d:822ms;--dur:578ms;--c:#ffffff">JJ</span><span class="slice" style="--l:75.055%;--w:3.274%;--f:55vh;--d:833ms;--dur:565ms;--c:#38bdf8">JJ</span><span class="slice" style="--l:78.249%;--w:2.526%;--f:-66vh;--d:842ms;--dur:552ms;--c:#e0f2fe">JJ</span><span class="slice" style="--l:80.696%;--w:3.018%;--f:77vh;--d:851ms;--dur:539ms;--c:#22d3ee">JJ</span><span class="slice" style="--l:83.634%;--w:1.658%;--f:-58vh;--d:859ms;--dur:526ms;--c:#818cf8">JJ</span><span class="slice" style="--l:85.212%;--w:1.649%;--f:69vh;--d:865ms;--dur:514ms;--c:#67e8f9">JJ</span><span class="slice" style="--l:86.781%;--w:2.060%;--f:-80vh;--d:870ms;--dur:501ms;--c:#7dd3fc">JJ</span><span class="slice" style="--l:88.761%;--w:3.390%;--f:61vh;--d:874ms;--dur:488ms;--c:#a78bfa">JJ</span><span class="slice" style="--l:92.071%;--w:2.681%;--f:-72vh;--d:877ms;--dur:475ms;--c:#ffffff">JJ</span><span class="slice" style="--l:94.673%;--w:2.363%;--f:83vh;--d:879ms;--dur:462ms;--c:#38bdf8">JJ</span><span class="slice" style="--l:96.956%;--w:3.124%;--f:-64vh;--d:880ms;--dur:450ms;--c:#e0f2fe">JJ</span></div>
-  <div class="intro-name"><span class="wg wg1"><span class="lead">J</span><span class="rest">EET</span></span><span class="wg wg2"><span class="lead">J</span><span class="rest">HAWAR</span></span></div>
-</div>
-
 <!-- ═════════════ NAV ═════════════ -->
 <header id="topbar">
   <a class="brand" href="#home"><span class="dot"></span>JEET&nbsp;JHAWAR</a>
@@ -1370,15 +1271,6 @@ const MODALS = {
     pills: ['CBSE', 'Head Boy', 'MUN', 'Chess', 'Debate']
   }
 };
-
-/* ── Intro ── */
-(function () {
-  const intro = document.getElementById('intro');
-  if (!intro) return;
-  const kill = () => intro.classList.add('done');
-  intro.addEventListener('click', kill);
-  setTimeout(kill, 3800);
-})();
 
 /* ── Nav solid on scroll ── */
 const topbar = document.getElementById('topbar');

@@ -7,11 +7,11 @@
 <meta name="description" content="Jeet Jhawar — BMS (Honours), IIM Kozhikode. Data-driven operator, MUN champion, state-level chess player. Streaming now.">
 <meta property="og:title" content="Jeet Jhawar — Portfolio">
 <meta property="og:description" content="Analytical. Strategic. Streaming now — work samples, experience and achievements.">
-<meta property="og:image" content="images/iimk-front.jpg">
+<meta property="og:image" content="images/space-stars.jpg">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0a0a'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='30' fill='white' text-anchor='middle'%3EJJ%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,25 +26,34 @@
     --grey-2:    #b3b3b3;
     --grey-3:    #808080;
     --grey-4:    #4d4d4d;
-    --glow:      rgba(255,255,255,0.06);
+    --glow:      rgba(139,92,246,0.10);
+    --c-cyan:    #22d3ee;
+    --c-violet:  #8b5cf6;
+    --c-magenta: #e879f9;
+    --c-green:   #46d369;
+    --aurora:    linear-gradient(100deg, #22d3ee, #8b5cf6 48%, #e879f9 90%);
   }
 
   html { scroll-behavior: smooth; }
 
   body {
     font-family: 'Inter', -apple-system, sans-serif;
-    background: var(--bg);
+    background:
+      radial-gradient(1200px 620px at 88% 8%, rgba(139,92,246,0.08), transparent 60%),
+      radial-gradient(1000px 540px at 6% 55%, rgba(34,211,238,0.06), transparent 55%),
+      radial-gradient(900px 500px at 70% 95%, rgba(232,121,249,0.05), transparent 55%),
+      var(--bg);
     color: var(--grey-1);
     overflow-x: hidden;
   }
 
-  ::selection { background: var(--white); color: var(--bg); }
+  ::selection { background: var(--c-violet); color: var(--white); }
 
   /* Scrollbar */
   ::-webkit-scrollbar { width: 10px; height: 8px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--grey-4); border-radius: 6px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--grey-3); }
+  ::-webkit-scrollbar-thumb { background: #4c3d78; border-radius: 6px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--c-violet); }
 
   /* ───────────────────────── NAV ───────────────────────── */
   header {
@@ -57,22 +66,23 @@
   }
   header.solid { background-color: #0a0a0a; background-image: none; border-bottom: 1px solid var(--line); }
   .brand {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.9rem; letter-spacing: 0.10em;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.05rem; letter-spacing: 0.18em;
     color: var(--white); text-decoration: none;
     line-height: 1; display: flex; align-items: center; gap: 10px;
     flex-shrink: 0;
   }
-  .brand .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--white); box-shadow: 0 0 12px 2px rgba(255,255,255,0.8); animation: pulse 3s ease-in-out infinite; }
+  .brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--aurora); box-shadow: 0 0 14px 3px rgba(139,92,246,0.75); animation: pulse 3s ease-in-out infinite; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 
   nav.links { display: flex; gap: 22px; }
   nav.links a {
     font-size: 0.82rem; font-weight: 500; color: var(--grey-1);
-    text-decoration: none; transition: color 0.25s;
+    text-decoration: none; transition: color 0.25s, text-shadow 0.25s;
     letter-spacing: 0.01em;
   }
-  nav.links a:hover, nav.links a.active { color: var(--grey-3); }
+  nav.links a:hover, nav.links a.active { color: var(--c-cyan); text-shadow: 0 0 14px rgba(34,211,238,0.5); }
 
   .nav-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
   .btn-resume {
@@ -98,10 +108,12 @@
   .hero-media {
     position: absolute; inset: 0;
     background:
-      linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.45) 35%, rgba(10,10,10,0.25) 60%, rgba(10,10,10,0.6) 100%),
-      linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.15) 100%),
-      url('images/iimk-aerial.jpg') center 30% / cover no-repeat;
-    filter: grayscale(0.55) contrast(1.06);
+      radial-gradient(ellipse 60% 45% at 78% 25%, rgba(139,92,246,0.28), transparent 70%),
+      radial-gradient(ellipse 50% 40% at 12% 85%, rgba(34,211,238,0.20), transparent 65%),
+      linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.35) 30%, rgba(10,10,10,0.1) 60%, rgba(10,10,10,0.5) 100%),
+      linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.05) 100%),
+      url('images/space-stars.jpg') center 35% / cover no-repeat;
+    filter: saturate(1.15) contrast(1.04);
   }
   #stars { position: absolute; inset: 0; pointer-events: none; opacity: 0.9; }
   .hero-inner {
@@ -112,35 +124,43 @@
   .hero-eyebrow {
     display: flex; align-items: center; gap: 10px;
     font-size: 0.78rem; font-weight: 700; letter-spacing: 0.42em;
-    color: var(--grey-2); text-transform: uppercase;
+    color: var(--c-cyan); text-transform: uppercase;
+    text-shadow: 0 0 18px rgba(34,211,238,0.45);
     margin-bottom: 18px;
   }
   .hero-eyebrow .jj {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem; letter-spacing: 0.05em; color: var(--white);
+    font-family: 'Orbitron', sans-serif; font-weight: 900;
+    font-size: 1.15rem; letter-spacing: 0.1em; color: var(--white);
     line-height: 0.9;
   }
   h1.hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4.2rem, 12vw, 9.5rem);
-    line-height: 0.92;
-    color: var(--white);
-    letter-spacing: 0.015em;
-    text-shadow: 0 4px 40px rgba(0,0,0,0.6);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 7.5vw, 6rem);
+    line-height: 1.04;
+    letter-spacing: 0.03em;
+    background: linear-gradient(95deg, #ffffff 5%, #22d3ee 32%, #8b5cf6 62%, #e879f9 88%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 7s linear infinite;
+    filter: drop-shadow(0 0 26px rgba(139,92,246,0.4));
     margin-bottom: 20px;
   }
+  @keyframes shine { to { background-position: 200% center; } }
   .hero-meta {
     display: flex; align-items: center; flex-wrap: wrap; gap: 14px;
     font-size: 0.88rem; color: var(--grey-2); font-weight: 500;
     margin-bottom: 22px;
   }
-  .match { color: var(--white); font-weight: 700; }
+  .match { color: var(--c-green); font-weight: 700; }
   .badge-cert {
-    border: 1px solid var(--grey-3); color: var(--grey-2);
+    border: 1px solid rgba(34,211,238,0.55); color: var(--c-cyan);
     font-size: 0.68rem; padding: 2px 7px; letter-spacing: 0.08em;
   }
   .badge-hd {
-    border: 1px solid var(--grey-3); color: var(--grey-2);
+    border: 1px solid rgba(232,121,249,0.55); color: var(--c-magenta);
     font-size: 0.62rem; padding: 2px 5px; border-radius: 3px; letter-spacing: 0.05em;
   }
   .hero-desc {
@@ -153,13 +173,14 @@
   .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
   .btn-play {
     display: inline-flex; align-items: center; gap: 12px;
-    background: var(--white); color: #000;
-    font-size: 1.02rem; font-weight: 700;
+    background: var(--aurora); color: #06060a;
+    font-size: 1.02rem; font-weight: 800;
     padding: 13px 28px; border-radius: 4px;
     text-decoration: none; border: none; cursor: pointer;
-    transition: opacity 0.2s, transform 0.15s;
+    box-shadow: 0 0 26px rgba(139,92,246,0.45);
+    transition: box-shadow 0.25s, transform 0.15s, filter 0.2s;
   }
-  .btn-play:hover { opacity: 0.82; transform: scale(1.03); }
+  .btn-play:hover { filter: brightness(1.12); transform: scale(1.03); box-shadow: 0 0 40px rgba(34,211,238,0.55); }
   .btn-play svg { width: 22px; height: 22px; }
   .btn-info {
     display: inline-flex; align-items: center; gap: 12px;
@@ -192,7 +213,9 @@
   }
   .row-kicker {
     font-size: 0.7rem; font-weight: 700; letter-spacing: 0.3em;
-    text-transform: uppercase; color: var(--grey-3);
+    text-transform: uppercase;
+    background: var(--aurora);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .row-wrap { position: relative; }
   .row-scroll {
@@ -234,7 +257,7 @@
   .card img.thumb {
     position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover;
-    filter: grayscale(1) contrast(1.05) brightness(0.82);
+    filter: saturate(1.05) contrast(1.04) brightness(0.8);
     transition: filter 0.5s ease, transform 0.6s ease;
   }
   .card::after {
@@ -245,9 +268,9 @@
   .card:hover {
     transform: scale(1.12);
     z-index: 15;
-    box-shadow: 0 18px 50px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.14);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.85), 0 0 0 1px rgba(139,92,246,0.45), 0 0 34px rgba(139,92,246,0.25);
   }
-  .card:hover img.thumb { filter: grayscale(0) contrast(1) brightness(0.9); transform: scale(1.05); }
+  .card:hover img.thumb { filter: saturate(1.15) contrast(1.02) brightness(0.95); transform: scale(1.05); }
   .card-mark {
     position: absolute; top: 8px; left: 10px; z-index: 3;
     font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem;
@@ -290,15 +313,19 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 9.5rem; line-height: 0.75;
     color: var(--bg);
-    -webkit-text-stroke: 3px var(--grey-3);
+    -webkit-text-stroke: 3px rgba(139,92,246,0.75);
     flex: 0 0 auto;
     margin-right: -14px;
     margin-bottom: -8px;
     z-index: 1;
-    transition: -webkit-text-stroke-color 0.3s, transform 0.3s;
+    transition: -webkit-text-stroke-color 0.3s, transform 0.3s, filter 0.3s;
     user-select: none;
   }
-  .card-ranked:hover .rank-num { -webkit-text-stroke-color: var(--white); transform: translateY(-6px); }
+  .card-ranked:hover .rank-num {
+    -webkit-text-stroke-color: var(--c-cyan);
+    transform: translateY(-6px);
+    filter: drop-shadow(0 0 14px rgba(34,211,238,0.55));
+  }
   .rank-poster {
     position: relative; z-index: 2;
     flex: 1 1 auto; min-width: 0; aspect-ratio: 3/4.1;
@@ -315,10 +342,10 @@
   .rank-poster img {
     position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover;
-    filter: grayscale(1) brightness(0.6) contrast(1.1);
+    filter: saturate(1.05) brightness(0.68) contrast(1.06);
     transition: filter 0.5s;
   }
-  .card-ranked:hover .rank-poster img { filter: grayscale(0.1) brightness(0.62) contrast(1.05); }
+  .card-ranked:hover .rank-poster img { filter: saturate(1.2) brightness(0.78) contrast(1.03); }
   .rank-poster .poster-grad {
     position: absolute; inset: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.15) 55%);
@@ -330,7 +357,7 @@
   .poster-tag {
     display: inline-block;
     font-size: 0.58rem; font-weight: 800; letter-spacing: 0.14em;
-    text-transform: uppercase; color: #000; background: var(--white);
+    text-transform: uppercase; color: #06060a; background: var(--aurora);
     padding: 3px 7px; border-radius: 2px; margin-bottom: 9px;
   }
   .poster-title {
@@ -381,10 +408,10 @@
   }
   .ep-thumb img {
     width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(0.85) brightness(0.85);
+    filter: saturate(1) brightness(0.85);
     transition: filter 0.4s;
   }
-  .episode:hover .ep-thumb img { filter: grayscale(0) brightness(0.95); }
+  .episode:hover .ep-thumb img { filter: saturate(1.15) brightness(0.98); }
   .ep-thumb .ep-play {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
     opacity: 0; transition: opacity 0.3s;
@@ -420,23 +447,28 @@
     border: 1px solid var(--line);
     overflow: hidden;
     cursor: default;
-    transition: transform 0.3s, border-color 0.3s;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
   }
+  .genre-grid .genre-tile:nth-child(1) { background: linear-gradient(135deg, #0e3a4f 0%, #0a1522 70%); }
+  .genre-grid .genre-tile:nth-child(2) { background: linear-gradient(135deg, #33205e 0%, #120c22 70%); }
+  .genre-grid .genre-tile:nth-child(3) { background: linear-gradient(135deg, #4d1e44 0%, #1c0b18 70%); }
+  .genre-grid .genre-tile:nth-child(4) { background: linear-gradient(135deg, #123f30 0%, #08150f 70%); }
+  .genre-grid .genre-tile:nth-child(5) { background: linear-gradient(135deg, #43310f 0%, #171106 70%); }
   .genre-tile::before {
     content: '';
     position: absolute; top: -40px; right: -40px;
     width: 130px; height: 130px; border-radius: 50%;
-    background: radial-gradient(circle, var(--glow), transparent 70%);
+    background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 70%);
     transition: transform 0.5s;
   }
-  .genre-tile:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.25); }
+  .genre-tile:hover { transform: translateY(-5px); border-color: rgba(139,92,246,0.55); box-shadow: 0 10px 34px rgba(139,92,246,0.18); }
   .genre-tile:hover::before { transform: scale(1.6); }
   .genre-tile h4 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.45rem; letter-spacing: 0.05em; color: var(--white);
     margin-bottom: 4px;
   }
-  .genre-tile .g-level { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey-3); margin-bottom: 14px; }
+  .genre-tile .g-level { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 14px; }
   .genre-tile ul { list-style: none; }
   .genre-tile li {
     font-size: 0.78rem; color: var(--grey-2); padding: 3px 0 3px 16px;
@@ -461,17 +493,17 @@
     padding: 22px;
     transition: border-color 0.3s, transform 0.3s;
   }
-  .soon-card:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-4px); }
+  .soon-card:hover { border-color: rgba(34,211,238,0.5); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(34,211,238,0.12); }
   .soon-label {
     font-size: 0.62rem; font-weight: 800; letter-spacing: 0.22em;
     text-transform: uppercase; color: var(--grey-3); margin-bottom: 10px;
     display: flex; align-items: center; gap: 8px;
   }
-  .soon-label .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--white); animation: pulse 2s infinite; }
+  .soon-label .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-cyan); box-shadow: 0 0 10px rgba(34,211,238,0.8); animation: pulse 2s infinite; }
   .soon-card h4 { font-size: 1.02rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
   .soon-card p { font-size: 0.78rem; color: var(--grey-2); line-height: 1.5; margin-bottom: 16px; }
   .soon-track { height: 3px; background: var(--grey-4); border-radius: 2px; overflow: hidden; }
-  .soon-fill { height: 100%; width: 0; background: var(--white); border-radius: 2px; transition: width 1.4s cubic-bezier(0.4,0,0.2,1); }
+  .soon-fill { height: 100%; width: 0; background: var(--aurora); border-radius: 2px; transition: width 1.4s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 0 8px rgba(139,92,246,0.7); }
   .soon-pct { font-size: 0.68rem; color: var(--grey-3); margin-top: 8px; }
 
   /* ─────────────────── CONTACT / BILLBOARD ─────────────────── */
@@ -487,12 +519,16 @@
   }
   #contact .contact-kicker {
     font-size: 0.72rem; font-weight: 700; letter-spacing: 0.42em;
-    text-transform: uppercase; color: var(--grey-2); margin-bottom: 16px;
+    text-transform: uppercase; color: var(--c-cyan);
+    text-shadow: 0 0 16px rgba(34,211,238,0.5); margin-bottom: 16px;
   }
   #contact h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.6rem, 6vw, 4.6rem);
-    color: var(--white); letter-spacing: 0.02em;
+    font-family: 'Orbitron', sans-serif; font-weight: 900;
+    font-size: clamp(1.9rem, 4.6vw, 3.6rem);
+    letter-spacing: 0.03em;
+    background: linear-gradient(95deg, #ffffff 10%, #22d3ee 45%, #e879f9 90%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 22px rgba(34,211,238,0.35));
     margin-bottom: 14px;
   }
   #contact .contact-copy {
@@ -511,7 +547,7 @@
     backdrop-filter: blur(6px);
     transition: border-color 0.25s, transform 0.2s, background 0.25s;
   }
-  .contact-chip:hover { border-color: var(--white); background: rgba(30,30,30,0.9); transform: translateY(-3px); }
+  .contact-chip:hover { border-color: var(--c-cyan); background: rgba(30,30,30,0.9); transform: translateY(-3px); box-shadow: 0 8px 26px rgba(34,211,238,0.18); }
   .contact-chip svg { width: 17px; height: 17px; fill: currentColor; }
 
   /* ─────────────────── FOOTER (Netflix style) ─────────────────── */
@@ -521,8 +557,8 @@
     color: var(--grey-3);
   }
   .foot-social { display: flex; gap: 22px; margin-bottom: 28px; }
-  .foot-social a { color: var(--grey-1); transition: color 0.25s, transform 0.2s; display: inline-flex; }
-  .foot-social a:hover { color: var(--white); transform: translateY(-2px); }
+  .foot-social a { color: var(--grey-1); transition: color 0.25s, transform 0.2s, filter 0.25s; display: inline-flex; }
+  .foot-social a:hover { color: var(--c-cyan); transform: translateY(-2px); filter: drop-shadow(0 0 10px rgba(34,211,238,0.6)); }
   .foot-social svg { width: 22px; height: 22px; fill: currentColor; }
   .foot-grid {
     display: grid; grid-template-columns: repeat(4, 1fr);
@@ -575,7 +611,7 @@
   }
   .modal-hero img {
     width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(0.35) brightness(0.75);
+    filter: saturate(1.1) brightness(0.8);
   }
   .modal-hero::after {
     content: ''; position: absolute; inset: 0;
@@ -1074,9 +1110,9 @@
     Whether you have a role in mind or just want to talk — reach out.
   </p>
   <div class="contact-row reveal">
-    <a class="contact-chip" href="mailto:bms25jeet@iimk.ac.in">
+    <a class="contact-chip" href="mailto:jeetjhawar700@gmail.com">
       <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      bms25jeet@iimk.ac.in
+      jeetjhawar700@gmail.com
     </a>
     <a class="contact-chip" href="https://linkedin.com/in/jeetjhawar" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
@@ -1107,7 +1143,7 @@
     <a class="social-github" href="https://github.com/JEETJHAWAR" target="_blank" rel="noopener" aria-label="GitHub">
       <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
     </a>
-    <a href="mailto:bms25jeet@iimk.ac.in" aria-label="Email">
+    <a href="mailto:jeetjhawar700@gmail.com" aria-label="Email">
       <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
     </a>
   </div>
@@ -1120,7 +1156,7 @@
     <a href="#soon">Coming Soon</a>
     <a href="assets/Jeet_Jhawar_Resume.docx" download>Resume (.docx)</a>
     <a href="assets/Jeet_Jhawar_Resume.pdf" download>Resume (PDF)</a>
-    <a href="mailto:bms25jeet@iimk.ac.in">Email</a>
+    <a href="mailto:jeetjhawar700@gmail.com">Email</a>
     <a href="https://linkedin.com/in/jeetjhawar" target="_blank" rel="noopener">LinkedIn</a>
     <a href="#home">Back to Top</a>
     <a href="#contact">Contact</a>
@@ -1319,12 +1355,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.c
   function resize() {
     w = canvas.width = canvas.offsetWidth;
     h = canvas.height = canvas.offsetHeight;
-    stars = Array.from({ length: Math.min(160, w / 8) }, () => ({
+    const tints = ['255,255,255', '255,255,255', '255,255,255', '34,211,238', '139,92,246', '232,121,249'];
+    stars = Array.from({ length: Math.min(180, w / 7) }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
-      r: Math.random() * 1.3 + 0.2,
+      r: Math.random() * 1.4 + 0.2,
       tw: Math.random() * Math.PI * 2,
-      sp: 0.008 + Math.random() * 0.02
+      sp: 0.008 + Math.random() * 0.02,
+      c: tints[Math.floor(Math.random() * tints.length)]
     }));
   }
   resize();
@@ -1348,14 +1386,18 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.c
     ctx.clearRect(0, 0, w, h);
     for (const s of stars) {
       s.tw += s.sp;
-      const a = 0.25 + Math.abs(Math.sin(s.tw)) * 0.65;
-      ctx.globalAlpha = a;
-      ctx.fillStyle = '#fff';
+      const a = 0.25 + Math.abs(Math.sin(s.tw)) * 0.7;
+      ctx.fillStyle = `rgba(${s.c},${a})`;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
       ctx.fill();
+      if (s.r > 1.2) {
+        ctx.fillStyle = `rgba(${s.c},${a * 0.15})`;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
-    ctx.globalAlpha = 1;
     meteors = meteors.filter(m => m.life > 0);
     for (const m of meteors) {
       const grad = ctx.createLinearGradient(m.x, m.y, m.x - m.vx * 10, m.y - m.vy * 10);

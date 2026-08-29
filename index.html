@@ -58,34 +58,53 @@
   /* ───────────────────────── INTRO (Netflix-style) ───────────────────────── */
   #intro {
     position: fixed; inset: 0; z-index: 1000;
-    background: #000;
+    background-color: #000;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer;
-    animation: introFade 0.65s ease 2.25s forwards;
+    overflow: hidden;
+    animation: introBg 0.6s ease 1.85s forwards;
   }
   #intro.done { display: none; }
-  @keyframes introFade { to { opacity: 0; visibility: hidden; } }
+  @keyframes introBg { to { background-color: transparent; } }
   .intro-logo {
-    font-family: 'Orbitron', sans-serif; font-weight: 900;
-    font-size: clamp(7rem, 32vw, 17rem);
-    letter-spacing: 0.04em;
-    background: linear-gradient(100deg, #ffffff 35%, #7dd3fc 65%, #38bdf8 88%);
-    background-size: 250% auto;
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    filter: drop-shadow(0 0 46px rgba(56,189,248,0.5));
-    animation:
-      introZoom 2.25s cubic-bezier(0.32, 0, 0.15, 1) forwards,
-      introShine 1.7s ease 0.35s;
+    display: grid;
+    animation: introZoom 1.6s cubic-bezier(0.32, 0, 0.15, 1) forwards;
   }
   @keyframes introZoom {
     0%   { transform: scale(2.7); opacity: 0; }
-    18%  { opacity: 1; }
-    58%  { transform: scale(1); }
-    100% { transform: scale(0.93); }
+    22%  { opacity: 1; }
+    70%  { transform: scale(1); }
+    100% { transform: scale(0.97); }
   }
+  .intro-logo .slice {
+    grid-area: 1 / 1;
+    font-family: 'Orbitron', sans-serif; font-weight: 900;
+    font-size: clamp(7rem, 32vw, 17rem);
+    letter-spacing: 0.04em; line-height: 1.1;
+    background: linear-gradient(100deg, #ffffff 35%, #7dd3fc 65%, #38bdf8 88%);
+    background-size: 250% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 40px rgba(56,189,248,0.5));
+    clip-path: inset(-15% calc(100% - (var(--i) + 1) * 8.42%) -15% calc(var(--i) * 8.33%));
+    animation:
+      introShine 1.5s ease,
+      introSplit 0.85s cubic-bezier(0.55, 0, 0.85, 0.4) forwards;
+    animation-delay: 0.3s, calc(1.75s + var(--i) * 0.022s);
+  }
+  .intro-logo .slice:nth-child(odd)  { --ty: -64vh; }
+  .intro-logo .slice:nth-child(even) { --ty: 66vh; }
   @keyframes introShine {
     from { background-position: 210% center; }
     to   { background-position: 0% center; }
+  }
+  @keyframes introSplit {
+    0%   { transform: translate(0, 0) scaleY(1); opacity: 1; }
+    30%  { opacity: 1; }
+    100% {
+      transform: translate(calc((var(--i) - 5.5) * 2.4vw), var(--ty)) scaleY(3.4);
+      opacity: 0;
+      filter: brightness(1.9) drop-shadow(0 0 34px rgba(125,211,252,0.9));
+    }
   }
   .intro-bar {
     position: absolute; top: 0; left: 0;
@@ -93,7 +112,7 @@
     background: linear-gradient(90deg, transparent, #7dd3fc 40%, #ffffff 55%, transparent);
     box-shadow: 0 0 20px rgba(125,211,252,0.85), 0 0 44px rgba(56,189,248,0.5);
     transform: translateX(-26vw);
-    animation: introSweep 1.05s ease-in-out 0.2s 2;
+    animation: introSweep 0.82s ease-in-out 0.15s 2;
   }
   @keyframes introSweep {
     from { transform: translateX(-26vw); }
@@ -743,7 +762,9 @@
 <!-- ═════════════ INTRO ═════════════ -->
 <div id="intro" aria-hidden="true">
   <div class="intro-bar"></div>
-  <div class="intro-logo">JJ</div>
+  <div class="intro-logo">
+    <span class="slice" style="--i:0">JJ</span><span class="slice" style="--i:1">JJ</span><span class="slice" style="--i:2">JJ</span><span class="slice" style="--i:3">JJ</span><span class="slice" style="--i:4">JJ</span><span class="slice" style="--i:5">JJ</span><span class="slice" style="--i:6">JJ</span><span class="slice" style="--i:7">JJ</span><span class="slice" style="--i:8">JJ</span><span class="slice" style="--i:9">JJ</span><span class="slice" style="--i:10">JJ</span><span class="slice" style="--i:11">JJ</span>
+  </div>
 </div>
 
 <!-- ═════════════ NAV ═════════════ -->
@@ -1333,7 +1354,7 @@ const MODALS = {
   if (!intro) return;
   const kill = () => intro.classList.add('done');
   intro.addEventListener('click', kill);
-  setTimeout(kill, 3050);
+  setTimeout(kill, 2900);
 })();
 
 /* ── Nav solid on scroll ── */

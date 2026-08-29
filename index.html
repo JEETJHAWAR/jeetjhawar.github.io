@@ -62,7 +62,7 @@
     display: flex; align-items: center; justify-content: center;
     cursor: pointer;
     overflow: hidden;
-    animation: introBg 0.5s ease-out 2.05s forwards;
+    animation: introBg 0.5s ease-out 2.6s forwards;
   }
   #intro.done { display: none; }
   @keyframes introBg { to { background-color: transparent; } }
@@ -80,12 +80,12 @@
     background: linear-gradient(100deg, #ffffff 32%, #cfeaff 50%, #ffffff 68%);
     background-size: 300% auto;
     -webkit-background-clip: text; background-clip: text; color: transparent;
-    clip-path: inset(-15% calc(100% - (var(--i) + 1) * 3.22%) -15% calc(var(--i) * 3.125%));
+    clip-path: inset(-15% calc(100% - (var(--i) + 1) * 2.14%) -15% calc(var(--i) * 2.0833%));
     opacity: 0;
     animation:
-      introIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-      introOpen 0.55s cubic-bezier(0.6, 0, 0.9, 0.55) forwards;
-    animation-delay: var(--d), calc(1.1s + var(--i) * 6ms);
+      introIn var(--dur) cubic-bezier(0.16, 1, 0.3, 1) forwards,
+      introOpen 0.6s cubic-bezier(0.6, 0, 0.9, 0.55) forwards;
+    animation-delay: var(--d), calc(1.5s + var(--i) * 4ms);
     will-change: transform, opacity;
   }
   @keyframes introIn {
@@ -97,7 +97,7 @@
     0%   { transform: translate(0, 0) scaleY(1); opacity: 1; }
     30%  { opacity: 1; }
     100% {
-      transform: translate(calc((var(--i) - 15.5) * 3vw), calc((var(--i) - 15.5) * 0.25vh)) scaleY(3.1);
+      transform: translate(calc((var(--i) - 23.5) * 2.1vw), calc((var(--i) - 23.5) * 0.2vh)) scaleY(3);
       opacity: 0;
     }
   }
@@ -111,13 +111,14 @@
     text-shadow: 0 0 36px rgba(125,211,252,0.45);
     opacity: 0;
     animation:
-      wordIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.3s forwards,
-      wordOut 0.4s ease-in 2.05s forwards;
-    will-change: transform, opacity, letter-spacing;
+      wordIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 1.55s forwards,
+      wordOut 0.35s ease-in 2.45s forwards;
+    will-change: transform, opacity, letter-spacing, filter;
   }
   @keyframes wordIn {
-    0%   { opacity: 0; transform: scale(0.88); letter-spacing: 0.55em; }
-    100% { opacity: 1; transform: scale(1); letter-spacing: 0.24em; }
+    0%   { opacity: 0; transform: scale(0.55); letter-spacing: 0.06em; filter: blur(9px); }
+    60%  { opacity: 1; }
+    100% { opacity: 1; transform: scale(1); letter-spacing: 0.24em; filter: blur(0); }
   }
   @keyframes wordOut {
     to { opacity: 0; transform: scale(1.07); }
@@ -128,7 +129,7 @@
     background: linear-gradient(90deg, transparent, #7dd3fc 40%, #ffffff 55%, transparent);
     box-shadow: 0 0 18px rgba(125,211,252,0.8);
     transform: translateX(-28vw);
-    animation: introSweep 0.6s ease-in-out 0.12s;
+    animation: introSweep 0.95s ease-in-out 0.12s;
     will-change: transform;
   }
   @keyframes introSweep {
@@ -776,7 +777,7 @@
 <!-- ═════════════ INTRO ═════════════ -->
 <div id="intro" aria-hidden="true">
   <div class="intro-bar"></div>
-  <div class="intro-logo"><span class="slice" style="--i:0;--f:58vh;--d:341ms">JJ</span><span class="slice" style="--i:1;--f:-65vh;--d:319ms">JJ</span><span class="slice" style="--i:2;--f:72vh;--d:297ms">JJ</span><span class="slice" style="--i:3;--f:-79vh;--d:275ms">JJ</span><span class="slice" style="--i:4;--f:60vh;--d:253ms">JJ</span><span class="slice" style="--i:5;--f:-67vh;--d:231ms">JJ</span><span class="slice" style="--i:6;--f:74vh;--d:209ms">JJ</span><span class="slice" style="--i:7;--f:-81vh;--d:187ms">JJ</span><span class="slice" style="--i:8;--f:62vh;--d:165ms">JJ</span><span class="slice" style="--i:9;--f:-69vh;--d:143ms">JJ</span><span class="slice" style="--i:10;--f:76vh;--d:121ms">JJ</span><span class="slice" style="--i:11;--f:-83vh;--d:99ms">JJ</span><span class="slice" style="--i:12;--f:64vh;--d:77ms">JJ</span><span class="slice" style="--i:13;--f:-71vh;--d:55ms">JJ</span><span class="slice" style="--i:14;--f:78vh;--d:33ms">JJ</span><span class="slice" style="--i:15;--f:-59vh;--d:11ms">JJ</span><span class="slice" style="--i:16;--f:66vh;--d:11ms">JJ</span><span class="slice" style="--i:17;--f:-73vh;--d:33ms">JJ</span><span class="slice" style="--i:18;--f:80vh;--d:55ms">JJ</span><span class="slice" style="--i:19;--f:-61vh;--d:77ms">JJ</span><span class="slice" style="--i:20;--f:68vh;--d:99ms">JJ</span><span class="slice" style="--i:21;--f:-75vh;--d:121ms">JJ</span><span class="slice" style="--i:22;--f:82vh;--d:143ms">JJ</span><span class="slice" style="--i:23;--f:-63vh;--d:165ms">JJ</span><span class="slice" style="--i:24;--f:70vh;--d:187ms">JJ</span><span class="slice" style="--i:25;--f:-77vh;--d:209ms">JJ</span><span class="slice" style="--i:26;--f:58vh;--d:231ms">JJ</span><span class="slice" style="--i:27;--f:-65vh;--d:253ms">JJ</span><span class="slice" style="--i:28;--f:72vh;--d:275ms">JJ</span><span class="slice" style="--i:29;--f:-79vh;--d:297ms">JJ</span><span class="slice" style="--i:30;--f:60vh;--d:319ms">JJ</span><span class="slice" style="--i:31;--f:-67vh;--d:341ms">JJ</span></div>
+  <div class="intro-logo"><span class="slice" style="--i:0;--f:55vh;--d:0ms;--dur:950ms">JJ</span><span class="slice" style="--i:1;--f:-66vh;--d:37ms;--dur:939ms">JJ</span><span class="slice" style="--i:2;--f:77vh;--d:73ms;--dur:928ms">JJ</span><span class="slice" style="--i:3;--f:-58vh;--d:108ms;--dur:918ms">JJ</span><span class="slice" style="--i:4;--f:69vh;--d:143ms;--dur:907ms">JJ</span><span class="slice" style="--i:5;--f:-80vh;--d:177ms;--dur:896ms">JJ</span><span class="slice" style="--i:6;--f:61vh;--d:210ms;--dur:886ms">JJ</span><span class="slice" style="--i:7;--f:-72vh;--d:242ms;--dur:875ms">JJ</span><span class="slice" style="--i:8;--f:83vh;--d:274ms;--dur:864ms">JJ</span><span class="slice" style="--i:9;--f:-64vh;--d:304ms;--dur:854ms">JJ</span><span class="slice" style="--i:10;--f:75vh;--d:334ms;--dur:843ms">JJ</span><span class="slice" style="--i:11;--f:-56vh;--d:363ms;--dur:832ms">JJ</span><span class="slice" style="--i:12;--f:67vh;--d:391ms;--dur:822ms">JJ</span><span class="slice" style="--i:13;--f:-78vh;--d:419ms;--dur:811ms">JJ</span><span class="slice" style="--i:14;--f:59vh;--d:446ms;--dur:801ms">JJ</span><span class="slice" style="--i:15;--f:-70vh;--d:472ms;--dur:790ms">JJ</span><span class="slice" style="--i:16;--f:81vh;--d:497ms;--dur:779ms">JJ</span><span class="slice" style="--i:17;--f:-62vh;--d:521ms;--dur:769ms">JJ</span><span class="slice" style="--i:18;--f:73vh;--d:544ms;--dur:758ms">JJ</span><span class="slice" style="--i:19;--f:-84vh;--d:567ms;--dur:747ms">JJ</span><span class="slice" style="--i:20;--f:65vh;--d:589ms;--dur:737ms">JJ</span><span class="slice" style="--i:21;--f:-76vh;--d:610ms;--dur:726ms">JJ</span><span class="slice" style="--i:22;--f:57vh;--d:631ms;--dur:715ms">JJ</span><span class="slice" style="--i:23;--f:-68vh;--d:650ms;--dur:705ms">JJ</span><span class="slice" style="--i:24;--f:79vh;--d:669ms;--dur:694ms">JJ</span><span class="slice" style="--i:25;--f:-60vh;--d:687ms;--dur:684ms">JJ</span><span class="slice" style="--i:26;--f:71vh;--d:704ms;--dur:673ms">JJ</span><span class="slice" style="--i:27;--f:-82vh;--d:720ms;--dur:662ms">JJ</span><span class="slice" style="--i:28;--f:63vh;--d:736ms;--dur:652ms">JJ</span><span class="slice" style="--i:29;--f:-74vh;--d:750ms;--dur:641ms">JJ</span><span class="slice" style="--i:30;--f:55vh;--d:764ms;--dur:630ms">JJ</span><span class="slice" style="--i:31;--f:-66vh;--d:778ms;--dur:620ms">JJ</span><span class="slice" style="--i:32;--f:77vh;--d:790ms;--dur:609ms">JJ</span><span class="slice" style="--i:33;--f:-58vh;--d:801ms;--dur:598ms">JJ</span><span class="slice" style="--i:34;--f:69vh;--d:812ms;--dur:588ms">JJ</span><span class="slice" style="--i:35;--f:-80vh;--d:822ms;--dur:577ms">JJ</span><span class="slice" style="--i:36;--f:61vh;--d:831ms;--dur:567ms">JJ</span><span class="slice" style="--i:37;--f:-72vh;--d:840ms;--dur:556ms">JJ</span><span class="slice" style="--i:38;--f:83vh;--d:847ms;--dur:545ms">JJ</span><span class="slice" style="--i:39;--f:-64vh;--d:854ms;--dur:535ms">JJ</span><span class="slice" style="--i:40;--f:75vh;--d:860ms;--dur:524ms">JJ</span><span class="slice" style="--i:41;--f:-56vh;--d:865ms;--dur:513ms">JJ</span><span class="slice" style="--i:42;--f:67vh;--d:870ms;--dur:503ms">JJ</span><span class="slice" style="--i:43;--f:-78vh;--d:873ms;--dur:492ms">JJ</span><span class="slice" style="--i:44;--f:59vh;--d:876ms;--dur:481ms">JJ</span><span class="slice" style="--i:45;--f:-70vh;--d:878ms;--dur:471ms">JJ</span><span class="slice" style="--i:46;--f:81vh;--d:879ms;--dur:460ms">JJ</span><span class="slice" style="--i:47;--f:-62vh;--d:880ms;--dur:450ms">JJ</span></div>
   <div class="intro-word">JEET&nbsp;JHAWAR</div>
 </div>
 
@@ -1367,7 +1368,7 @@ const MODALS = {
   if (!intro) return;
   const kill = () => intro.classList.add('done');
   intro.addEventListener('click', kill);
-  setTimeout(kill, 2650);
+  setTimeout(kill, 3150);
 })();
 
 /* ── Nav solid on scroll ── */

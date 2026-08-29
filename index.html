@@ -1382,6 +1382,41 @@ document.querySelectorAll('.row-wrap').forEach(wrap => {
   if (right) right.addEventListener('click', () => scroller.scrollBy({ left: scroller.clientWidth * 0.85, behavior: 'smooth' }));
 });
 
+/* ── Auto-rolling work row ── */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const scroller = document.querySelector('#work .row-scroll');
+  if (!scroller) return;
+  scroller.style.scrollBehavior = 'auto';
+  const originals = Array.from(scroller.children);
+  originals.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.classList.remove('reveal');
+    scroller.appendChild(clone);
+  });
+  const period = () => scroller.children[originals.length].offsetLeft - scroller.children[0].offsetLeft;
+  let paused = false, resumeTimer;
+  const pause = () => { paused = true; clearTimeout(resumeTimer); };
+  const resume = delay => { clearTimeout(resumeTimer); resumeTimer = setTimeout(() => { paused = false; }, delay); };
+  const wrap = scroller.parentElement;
+  wrap.addEventListener('mouseenter', pause);
+  wrap.addEventListener('mouseleave', () => resume(400));
+  scroller.addEventListener('touchstart', pause, { passive: true });
+  scroller.addEventListener('touchend', () => resume(2500), { passive: true });
+  let last = performance.now();
+  function roll(now) {
+    const dt = Math.min(now - last, 100);
+    last = now;
+    if (!paused && !document.hidden) {
+      scroller.scrollLeft += 0.045 * dt;
+      const p = period();
+      if (p > 0 && scroller.scrollLeft >= p) scroller.scrollLeft -= p;
+    }
+    requestAnimationFrame(roll);
+  }
+  requestAnimationFrame(roll);
+})();
+
 /* ── Reveal + progress bars ── */
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {

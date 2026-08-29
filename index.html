@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jeet Jhawar — Portfolio</title>
+<meta name="description" content="Jeet Jhawar — BMS (Honours), IIM Kozhikode. Data-driven operator, MUN champion, state-level chess player. Streaming now.">
+<meta property="og:title" content="Jeet Jhawar — Portfolio">
+<meta property="og:description" content="Analytical. Strategic. Streaming now — work samples, experience and achievements.">
+<meta property="og:image" content="images/iimk-front.jpg">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0a0a'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='30' fill='white' text-anchor='middle'%3EJJ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0a0a0a;
+    --bg-soft:   #141414;
+    --card:      #181818;
+    --card-hi:   #232323;
+    --line:      rgba(255,255,255,0.10);
+    --white:     #ffffff;
+    --grey-1:    #e5e5e5;
+    --grey-2:    #b3b3b3;
+    --grey-3:    #808080;
+    --grey-4:    #4d4d4d;
+    --glow:      rgba(255,255,255,0.06);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--grey-1);
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--white); color: var(--bg); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--grey-4); border-radius: 6px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--grey-3); }
+
+  /* ───────────────────────── NAV ───────────────────────── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; gap: 36px;
+    padding: 0 4%;
+    height: 68px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent);
+    transition: background-color 0.4s ease;
+  }
+  header.solid { background-color: #0a0a0a; background-image: none; border-bottom: 1px solid var(--line); }
+  .brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.9rem; letter-spacing: 0.10em;
+    color: var(--white); text-decoration: none;
+    line-height: 1; display: flex; align-items: center; gap: 10px;
+    flex-shrink: 0;
+  }
+  .brand .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--white); box-shadow: 0 0 12px 2px rgba(255,255,255,0.8); animation: pulse 3s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  nav.links { display: flex; gap: 22px; }
+  nav.links a {
+    font-size: 0.82rem; font-weight: 500; color: var(--grey-1);
+    text-decoration: none; transition: color 0.25s;
+    letter-spacing: 0.01em;
+  }
+  nav.links a:hover, nav.links a.active { color: var(--grey-3); }
+
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+  .btn-resume {
+    background: var(--white); color: #000;
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.03em;
+    padding: 9px 18px; border-radius: 3px; text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-resume:hover { opacity: 0.82; transform: translateY(-1px); }
+
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--white); margin: 5px 0; transition: 0.3s; }
+
+  /* ───────────────────────── HERO ───────────────────────── */
+  #home {
+    position: relative;
+    min-height: 100vh;
+    display: flex; align-items: center;
+    overflow: hidden;
+    background: #000;
+  }
+  .hero-media {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.45) 35%, rgba(10,10,10,0.25) 60%, rgba(10,10,10,0.6) 100%),
+      linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.15) 100%),
+      url('images/iimk-aerial.jpg') center 30% / cover no-repeat;
+    filter: grayscale(0.55) contrast(1.06);
+  }
+  #stars { position: absolute; inset: 0; pointer-events: none; opacity: 0.9; }
+  .hero-inner {
+    position: relative; z-index: 2;
+    padding: 120px 4% 140px;
+    max-width: 780px;
+  }
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.42em;
+    color: var(--grey-2); text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .hero-eyebrow .jj {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; letter-spacing: 0.05em; color: var(--white);
+    line-height: 0.9;
+  }
+  h1.hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4.2rem, 12vw, 9.5rem);
+    line-height: 0.92;
+    color: var(--white);
+    letter-spacing: 0.015em;
+    text-shadow: 0 4px 40px rgba(0,0,0,0.6);
+    margin-bottom: 20px;
+  }
+  .hero-meta {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 14px;
+    font-size: 0.88rem; color: var(--grey-2); font-weight: 500;
+    margin-bottom: 22px;
+  }
+  .match { color: var(--white); font-weight: 700; }
+  .badge-cert {
+    border: 1px solid var(--grey-3); color: var(--grey-2);
+    font-size: 0.68rem; padding: 2px 7px; letter-spacing: 0.08em;
+  }
+  .badge-hd {
+    border: 1px solid var(--grey-3); color: var(--grey-2);
+    font-size: 0.62rem; padding: 2px 5px; border-radius: 3px; letter-spacing: 0.05em;
+  }
+  .hero-desc {
+    font-size: clamp(0.95rem, 1.35vw, 1.12rem);
+    line-height: 1.65; color: var(--grey-1);
+    max-width: 620px;
+    margin-bottom: 34px;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.8);
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-play {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--white); color: #000;
+    font-size: 1.02rem; font-weight: 700;
+    padding: 13px 28px; border-radius: 4px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .btn-play:hover { opacity: 0.82; transform: scale(1.03); }
+  .btn-play svg { width: 22px; height: 22px; }
+  .btn-info {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: rgba(109,109,110,0.4); color: var(--white);
+    font-size: 1.02rem; font-weight: 600;
+    padding: 13px 26px; border-radius: 4px;
+    text-decoration: none; border: none; cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-info:hover { background: rgba(109,109,110,0.25); transform: scale(1.03); }
+  .hero-sub {
+    margin-top: 14px; font-size: 0.75rem; color: var(--grey-3);
+  }
+  .hero-sub a { color: var(--grey-2); text-decoration: underline; }
+  .hero-sub a:hover { color: var(--white); }
+
+  .hero-fade { position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(to bottom, transparent, #0a0a0a); z-index: 2; pointer-events: none; }
+
+  /* ───────────────────────── ROWS ───────────────────────── */
+  main { position: relative; z-index: 3; }
+  .row-section { padding: 26px 0 30px; position: relative; }
+  .row-head {
+    display: flex; align-items: baseline; gap: 16px;
+    padding: 0 4%; margin-bottom: 14px;
+  }
+  .row-title {
+    font-size: clamp(1.15rem, 2vw, 1.5rem); font-weight: 700; color: var(--grey-1);
+    letter-spacing: 0.01em;
+  }
+  .row-kicker {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--grey-3);
+  }
+  .row-wrap { position: relative; }
+  .row-scroll {
+    display: flex; gap: 12px;
+    overflow-x: auto; overflow-y: visible;
+    padding: 30px 4% 44px;
+    margin: -30px 0 -30px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  .row-scroll::-webkit-scrollbar { display: none; }
+
+  .row-arrow {
+    position: absolute; top: 0; bottom: 0; width: 3.4%;
+    min-width: 42px;
+    background: rgba(10,10,10,0.55);
+    border: none; cursor: pointer; z-index: 20;
+    color: var(--white); font-size: 1.8rem;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.25s, background 0.2s;
+  }
+  .row-wrap:hover .row-arrow { opacity: 1; }
+  .row-arrow:hover { background: rgba(10,10,10,0.8); }
+  .row-arrow.left { left: 0; }
+  .row-arrow.right { right: 0; }
+
+  /* Card */
+  .card {
+    position: relative;
+    flex: 0 0 300px;
+    aspect-ratio: 16/9;
+    border-radius: 5px;
+    background: var(--card);
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 0.35s;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .card img.thumb {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.05) brightness(0.82);
+    transition: filter 0.5s ease, transform 0.6s ease;
+  }
+  .card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.1) 100%);
+    transition: opacity 0.4s;
+  }
+  .card:hover {
+    transform: scale(1.12);
+    z-index: 15;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.14);
+  }
+  .card:hover img.thumb { filter: grayscale(0) contrast(1) brightness(0.9); transform: scale(1.05); }
+  .card-mark {
+    position: absolute; top: 8px; left: 10px; z-index: 3;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem;
+    color: var(--white); text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+    letter-spacing: 0.04em;
+  }
+  .card-body {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+    padding: 12px 14px;
+  }
+  .card-title {
+    font-size: 0.95rem; font-weight: 700; color: var(--white);
+    line-height: 1.25; margin-bottom: 5px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+  }
+  .card-meta {
+    display: flex; align-items: center; gap: 9px;
+    font-size: 0.68rem; color: var(--grey-2);
+    opacity: 0; transform: translateY(6px);
+    transition: opacity 0.3s 0.08s, transform 0.3s 0.08s;
+  }
+  .card:hover .card-meta { opacity: 1; transform: translateY(0); }
+  .card-meta .match { font-size: 0.7rem; }
+  .card-tagline {
+    font-size: 0.7rem; color: var(--grey-2); line-height: 1.45;
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height 0.35s ease, opacity 0.3s 0.1s, margin 0.35s;
+  }
+  .card:hover .card-tagline { max-height: 48px; opacity: 1; margin-top: 6px; }
+
+  /* Top 10 achievements row */
+  .card-ranked {
+    flex: 0 0 260px;
+    display: flex; align-items: flex-end;
+    aspect-ratio: 16/9.5;
+    background: transparent; border: none;
+    overflow: visible;
+  }
+  .rank-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 9.5rem; line-height: 0.75;
+    color: var(--bg);
+    -webkit-text-stroke: 3px var(--grey-3);
+    flex: 0 0 auto;
+    margin-right: -14px;
+    margin-bottom: -8px;
+    z-index: 1;
+    transition: -webkit-text-stroke-color 0.3s, transform 0.3s;
+    user-select: none;
+  }
+  .card-ranked:hover .rank-num { -webkit-text-stroke-color: var(--white); transform: translateY(-6px); }
+  .rank-poster {
+    position: relative; z-index: 2;
+    flex: 1 1 auto; min-width: 0; aspect-ratio: 3/4.1;
+    border-radius: 5px; overflow: hidden;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.2,0.9,0.3,1), box-shadow 0.3s;
+  }
+  .card-ranked:hover .rank-poster {
+    transform: scale(1.09);
+    box-shadow: 0 16px 44px rgba(0,0,0,0.8);
+  }
+  .rank-poster img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) brightness(0.6) contrast(1.1);
+    transition: filter 0.5s;
+  }
+  .card-ranked:hover .rank-poster img { filter: grayscale(0.1) brightness(0.62) contrast(1.05); }
+  .rank-poster .poster-grad {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.15) 55%);
+  }
+  .poster-body {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 14px;
+  }
+  .poster-tag {
+    display: inline-block;
+    font-size: 0.58rem; font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #000; background: var(--white);
+    padding: 3px 7px; border-radius: 2px; margin-bottom: 9px;
+  }
+  .poster-title {
+    font-size: 0.92rem; font-weight: 700; color: var(--white); line-height: 1.3;
+    margin-bottom: 5px;
+  }
+  .poster-sub { font-size: 0.68rem; color: var(--grey-2); line-height: 1.45; }
+
+  /* Episodes (experience) */
+  #experience { padding: 40px 4%; }
+  .episodes-box {
+    max-width: 900px; margin: 0 auto;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .episodes-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 26px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .episodes-head h3 { font-size: 1.25rem; font-weight: 700; color: var(--white); }
+  .season-badge {
+    font-size: 0.75rem; color: var(--grey-2);
+    border: 1px solid var(--line); border-radius: 3px;
+    padding: 6px 12px; background: var(--card);
+  }
+  .episode {
+    display: grid;
+    grid-template-columns: 34px 150px 1fr;
+    gap: 18px; align-items: center;
+    padding: 18px 26px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    transition: background 0.25s;
+  }
+  .episode:last-child { border-bottom: none; }
+  .episode:hover { background: var(--card-hi); }
+  .ep-num {
+    font-size: 1.5rem; color: var(--grey-3); font-weight: 300;
+    text-align: center;
+  }
+  .ep-thumb {
+    position: relative;
+    aspect-ratio: 16/9; border-radius: 4px; overflow: hidden;
+    background: var(--card);
+  }
+  .ep-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(0.85) brightness(0.85);
+    transition: filter 0.4s;
+  }
+  .episode:hover .ep-thumb img { filter: grayscale(0) brightness(0.95); }
+  .ep-thumb .ep-play {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .episode:hover .ep-thumb .ep-play { opacity: 1; }
+  .ep-play span {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1.5px solid var(--white); background: rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-size: 0.7rem; padding-left: 2px;
+  }
+  .ep-info h4 {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    font-size: 0.95rem; font-weight: 700; color: var(--grey-1);
+    margin-bottom: 6px;
+  }
+  .ep-info h4 .ep-dur { font-size: 0.78rem; color: var(--grey-3); font-weight: 400; flex-shrink: 0; }
+  .ep-info p { font-size: 0.8rem; color: var(--grey-2); line-height: 1.55; }
+
+  /* Genre tiles (skills) */
+  .genre-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+    padding: 0 4%;
+  }
+  .genre-tile {
+    position: relative;
+    border-radius: 6px;
+    padding: 22px 20px 20px;
+    min-height: 150px;
+    background: linear-gradient(135deg, #1d1d1d, #101010);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    cursor: default;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .genre-tile::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 130px; height: 130px; border-radius: 50%;
+    background: radial-gradient(circle, var(--glow), transparent 70%);
+    transition: transform 0.5s;
+  }
+  .genre-tile:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.25); }
+  .genre-tile:hover::before { transform: scale(1.6); }
+  .genre-tile h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.45rem; letter-spacing: 0.05em; color: var(--white);
+    margin-bottom: 4px;
+  }
+  .genre-tile .g-level { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey-3); margin-bottom: 14px; }
+  .genre-tile ul { list-style: none; }
+  .genre-tile li {
+    font-size: 0.78rem; color: var(--grey-2); padding: 3px 0 3px 16px;
+    position: relative;
+  }
+  .genre-tile li::before {
+    content: ''; position: absolute; left: 0; top: 10px;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--grey-3);
+  }
+
+  /* Coming soon */
+  .soon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px; padding: 0 4%;
+  }
+  .soon-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 22px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .soon-card:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-4px); }
+  .soon-label {
+    font-size: 0.62rem; font-weight: 800; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--grey-3); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .soon-label .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--white); animation: pulse 2s infinite; }
+  .soon-card h4 { font-size: 1.02rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .soon-card p { font-size: 0.78rem; color: var(--grey-2); line-height: 1.5; margin-bottom: 16px; }
+  .soon-track { height: 3px; background: var(--grey-4); border-radius: 2px; overflow: hidden; }
+  .soon-fill { height: 100%; width: 0; background: var(--white); border-radius: 2px; transition: width 1.4s cubic-bezier(0.4,0,0.2,1); }
+  .soon-pct { font-size: 0.68rem; color: var(--grey-3); margin-top: 8px; }
+
+  /* ─────────────────── CONTACT / BILLBOARD ─────────────────── */
+  #contact {
+    position: relative;
+    margin-top: 60px;
+    padding: 110px 4%;
+    text-align: center;
+    overflow: hidden;
+    background:
+      linear-gradient(to bottom, #0a0a0a 0%, rgba(10,10,10,0.55) 30%, rgba(10,10,10,0.55) 70%, #0a0a0a 100%),
+      url('images/space-earth.jpg') center / cover no-repeat;
+  }
+  #contact .contact-kicker {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.42em;
+    text-transform: uppercase; color: var(--grey-2); margin-bottom: 16px;
+  }
+  #contact h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    color: var(--white); letter-spacing: 0.02em;
+    margin-bottom: 14px;
+  }
+  #contact .contact-copy {
+    font-size: 0.98rem; color: var(--grey-1); max-width: 520px;
+    margin: 0 auto 38px; line-height: 1.7;
+  }
+  .contact-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .contact-chip {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 24px;
+    background: rgba(20,20,20,0.75);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--grey-1); text-decoration: none;
+    font-size: 0.86rem; font-weight: 600;
+    backdrop-filter: blur(6px);
+    transition: border-color 0.25s, transform 0.2s, background 0.25s;
+  }
+  .contact-chip:hover { border-color: var(--white); background: rgba(30,30,30,0.9); transform: translateY(-3px); }
+  .contact-chip svg { width: 17px; height: 17px; fill: currentColor; }
+
+  /* ─────────────────── FOOTER (Netflix style) ─────────────────── */
+  footer {
+    padding: 60px 4% 36px;
+    max-width: 1100px; margin: 0 auto;
+    color: var(--grey-3);
+  }
+  .foot-social { display: flex; gap: 22px; margin-bottom: 28px; }
+  .foot-social a { color: var(--grey-1); transition: color 0.25s, transform 0.2s; display: inline-flex; }
+  .foot-social a:hover { color: var(--white); transform: translateY(-2px); }
+  .foot-social svg { width: 22px; height: 22px; fill: currentColor; }
+  .foot-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 14px 20px; margin-bottom: 34px;
+  }
+  .foot-grid a {
+    font-size: 0.8rem; color: var(--grey-3); text-decoration: none;
+  }
+  .foot-grid a:hover { text-decoration: underline; color: var(--grey-2); }
+  .foot-code {
+    display: inline-block;
+    font-size: 0.78rem; color: var(--grey-3);
+    border: 1px solid var(--grey-4); padding: 8px 14px;
+    margin-bottom: 22px; background: transparent;
+    cursor: pointer; transition: color 0.2s, border-color 0.2s;
+  }
+  .foot-code:hover { color: var(--white); border-color: var(--grey-2); }
+  .foot-copy { font-size: 0.72rem; line-height: 1.8; }
+  .foot-chess { display: inline-flex; gap: 3px; vertical-align: middle; margin-left: 10px; }
+  .foot-chess span { width: 7px; height: 7px; display: block; }
+  .foot-chess span:nth-child(odd) { background: var(--grey-2); opacity: 0.7; }
+  .foot-chess span:nth-child(even) { background: var(--grey-4); }
+
+  /* ─────────────────── MODAL ─────────────────── */
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(3px);
+    display: none; align-items: flex-start; justify-content: center;
+    overflow-y: auto;
+    padding: 4vh 16px 6vh;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal-backdrop.show { opacity: 1; }
+  .modal {
+    width: 100%; max-width: 780px;
+    background: var(--bg-soft);
+    border-radius: 8px;
+    overflow: hidden;
+    transform: translateY(26px) scale(0.98);
+    transition: transform 0.35s cubic-bezier(0.2,0.9,0.3,1);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .modal-backdrop.show .modal { transform: translateY(0) scale(1); }
+  .modal-hero {
+    position: relative; aspect-ratio: 16/7.2;
+    background: var(--card);
+  }
+  .modal-hero img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(0.35) brightness(0.75);
+  }
+  .modal-hero::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, #141414 2%, rgba(20,20,20,0.25) 50%, rgba(20,20,20,0.15) 100%);
+  }
+  .modal-close {
+    position: absolute; top: 14px; right: 14px; z-index: 5;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(10,10,10,0.8); border: none; cursor: pointer;
+    color: var(--white); font-size: 1.15rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .modal-close:hover { background: #000; transform: rotate(90deg); }
+  .modal-hero-title {
+    position: absolute; left: 34px; bottom: 22px; right: 34px; z-index: 4;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+    color: var(--white); letter-spacing: 0.02em; line-height: 1;
+    text-shadow: 0 3px 24px rgba(0,0,0,0.8);
+  }
+  .modal-body { padding: 26px 34px 36px; }
+  .modal-meta {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 12px;
+    font-size: 0.82rem; color: var(--grey-2); margin-bottom: 18px;
+  }
+  .modal-desc { font-size: 0.92rem; line-height: 1.75; color: var(--grey-1); margin-bottom: 24px; }
+  .modal-metrics {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px; margin-bottom: 24px;
+  }
+  .m-metric {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 5px; padding: 13px 15px;
+    font-size: 0.78rem; color: var(--grey-2); line-height: 1.45;
+  }
+  .m-metric strong { display: block; color: var(--white); font-size: 0.95rem; margin-bottom: 3px; }
+  .modal-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--grey-2);
+    border: 1px solid var(--line); border-radius: 20px;
+    padding: 5px 13px;
+  }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ─────────────────── RESPONSIVE ─────────────────── */
+  @media (max-width: 860px) {
+    nav.links {
+      position: fixed; top: 68px; left: 0; right: 0;
+      flex-direction: column; gap: 0;
+      background: rgba(10,10,10,0.97);
+      border-bottom: 1px solid var(--line);
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    nav.links.open { max-height: 340px; }
+    nav.links a { padding: 15px 5%; border-top: 1px solid var(--line); font-size: 0.9rem; }
+    .hamburger { display: block; }
+    .episode { grid-template-columns: 26px 110px 1fr; gap: 12px; padding: 14px 16px; }
+    .ep-info h4 { flex-direction: column; gap: 2px; }
+    .ep-info p {
+      font-size: 0.74rem;
+      display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card { flex-basis: 240px; }
+    .card-ranked { flex-basis: 215px; }
+    .rank-num { font-size: 7rem; margin-right: -20px; }
+    .modal-body { padding: 20px 20px 28px; }
+    .modal-hero-title { left: 20px; right: 20px; }
+    .foot-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═════════════ NAV ═════════════ -->
+<header id="topbar">
+  <a class="brand" href="#home"><span class="dot"></span>JEET&nbsp;JHAWAR</a>
+  <nav class="links" id="navlinks">
+    <a href="#work">Work</a>
+    <a href="#experience">Experience</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="nav-right">
+    <a class="btn-resume" href="assets/Jeet_Jhawar_Resume.docx" download>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 16l-6-6h4V2h4v8h4l-6 6zm-8 2h16v4H4v-4z"/></svg>
+      Resume
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ═════════════ HERO ═════════════ -->
+<section id="home">
+  <div class="hero-media"></div>
+  <canvas id="stars"></canvas>
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span class="jj">JJ</span> A Portfolio Series</div>
+    <h1 class="hero-title">JEET<br>JHAWAR</h1>
+    <div class="hero-meta">
+      <span class="match">97% Match</span>
+      <span>2025 – 2029</span>
+      <span class="badge-cert">BMS (H)</span>
+      <span>IIM Kozhikode</span>
+      <span class="badge-hd">HD</span>
+    </div>
+    <p class="hero-desc">
+      Analytical. Strategic. Ready to build. From tracking a 100+ contact B2B pipeline
+      at IIM Kozhikode to leading 1,000+ students as Head Boy — a story of decisions
+      run on data, teams held together, and games won move by move.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-play" href="assets/Jeet_Jhawar_Resume.docx" download>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Download Resume
+      </a>
+      <a class="btn-info" href="#work">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        More Info
+      </a>
+    </div>
+    <p class="hero-sub">Word format (.docx), grey &amp; white template · also available as <a href="assets/Jeet_Jhawar_Resume.pdf" download>PDF</a></p>
+  </div>
+  <div class="hero-fade"></div>
+</section>
+
+<main>
+
+<!-- ═════════════ WORK SAMPLES ═════════════ -->
+<section class="row-section" id="work">
+  <div class="row-head reveal">
+    <div class="row-title">Now Streaming — Work Samples</div>
+    <div class="row-kicker">What I've actually done</div>
+  </div>
+  <div class="row-wrap">
+    <button class="row-arrow left" aria-label="Scroll left">‹</button>
+    <div class="row-scroll">
+
+      <div class="card reveal" data-modal="pipeline">
+        <img class="thumb" src="images/stock-dashboard.jpg" alt="Analytics dashboard">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">B2B Sponsor Outreach Tracker</div>
+          <div class="card-meta"><span class="match">98% Match</span><span>Data</span><span>IIMK Council</span></div>
+          <div class="card-tagline">100+ contacts mapped across a full funnel — cold to converted.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-modal="dashboard">
+        <img class="thumb" src="images/stock-analytics.jpg" alt="Laptop with charts">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">Campus Event P&amp;L Dashboard</div>
+          <div class="card-meta"><span class="match">96% Match</span><span>Analytics</span><span>IIMK Council</span></div>
+          <div class="card-tagline">Turnout, budget vs actual and engagement — reported to leadership.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-modal="shortlist">
+        <img class="thumb" src="images/stock-writing.jpg" alt="Pen writing on paper">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">MUN Delegate Shortlisting System</div>
+          <div class="card-meta"><span class="match">95% Match</span><span>Ops</span><span>Head Boy</span></div>
+          <div class="card-tagline">100+ applicants, multi-criteria rubric, top 20 selected.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-modal="events">
+        <img class="thumb" src="images/stock-event.jpg" alt="Event confetti crowd">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">End-to-End Event Execution</div>
+          <div class="card-meta"><span class="match">94% Match</span><span>Ops</span><span>IIMK Council</span></div>
+          <div class="card-tagline">Vendors, schedules, sponsors and handoffs — one central node.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-modal="research">
+        <img class="thumb" src="images/stock-library.jpg" alt="Library shelves">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">Transportation Research Project</div>
+          <div class="card-meta"><span class="match">97% Match</span><span>Research</span><span>Balvigyan</span></div>
+          <div class="card-tagline">Best Research &amp; Project — inter-school commerce competition.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-modal="policy">
+        <img class="thumb" src="images/stock-mic.jpg" alt="Microphone on stage">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">Policy Research &amp; Argumentation</div>
+          <div class="card-meta"><span class="match">96% Match</span><span>Research</span><span>MUN Circuit</span></div>
+          <div class="card-tagline">Position papers, UN resolutions and pressure-tested arguments.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-modal="headboy">
+        <img class="thumb" src="images/stock-team.jpg" alt="Team working together">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">Leading 1,000+ Students</div>
+          <div class="card-meta"><span class="match">97% Match</span><span>Leadership</span><span>Head Boy</span></div>
+          <div class="card-tagline">The bridge between students, faculty and administration.</div>
+        </div>
+      </div>
+
+    </div>
+    <button class="row-arrow right" aria-label="Scroll right">›</button>
+  </div>
+</section>
+
+<!-- ═════════════ TOP ACHIEVEMENTS ═════════════ -->
+<section class="row-section" id="achievements">
+  <div class="row-head reveal">
+    <div class="row-title">Top 6 Achievements — All Time</div>
+    <div class="row-kicker">Moments that proved it</div>
+  </div>
+  <div class="row-wrap">
+    <button class="row-arrow left" aria-label="Scroll left">‹</button>
+    <div class="row-scroll">
+
+      <div class="card-ranked reveal">
+        <div class="rank-num">1</div>
+        <div class="rank-poster" data-modal="policy">
+          <img src="images/stock-mic.jpg" alt="">
+          <div class="poster-grad"></div>
+          <div class="poster-body">
+            <span class="poster-tag">2× Winner</span>
+            <div class="poster-title">Best Delegate — Masters' Summit MUN</div>
+            <div class="poster-sub">2024 &amp; 2025 · ₹15,000 cash prize</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-ranked reveal">
+        <div class="rank-num">2</div>
+        <div class="rank-poster" data-modal="policy">
+          <img src="images/space-satellite.jpg" alt="">
+          <div class="poster-grad"></div>
+          <div class="poster-body">
+            <span class="poster-tag">International</span>
+            <div class="poster-title">3rd — MU20 Opportunity Summit</div>
+            <div class="poster-sub">AIPPM · 2024 · national field</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-ranked reveal">
+        <div class="rank-num">3</div>
+        <div class="rank-poster" data-modal="research">
+          <img src="images/stock-library.jpg" alt="">
+          <div class="poster-grad"></div>
+          <div class="poster-body">
+            <span class="poster-tag">Best Research</span>
+            <div class="poster-title">Best Research &amp; Project — Balvigyan</div>
+            <div class="poster-sub">Inter-school commerce competition</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-ranked reveal">
+        <div class="rank-num">4</div>
+        <div class="rank-poster" data-modal="chess">
+          <img src="images/stock-chess.jpg" alt="">
+          <div class="poster-grad"></div>
+          <div class="poster-body">
+            <span class="poster-tag">State Level</span>
+            <div class="poster-title">2nd — U-19 State Rapid Chess</div>
+            <div class="poster-sub">2025 · strategy under the clock</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-ranked reveal">
+        <div class="rank-num">5</div>
+        <div class="rank-poster" data-modal="debate">
+          <img src="images/stock-conference.jpg" alt="">
+          <div class="poster-grad"></div>
+          <div class="poster-body">
+            <span class="poster-tag">1st Place</span>
+            <div class="poster-title">English Debate &amp; Elocution</div>
+            <div class="poster-sub">Plus Young TV Reporter — school level</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-ranked reveal">
+        <div class="rank-num">6</div>
+        <div class="rank-poster" data-modal="debate">
+          <img src="images/stock-event.jpg" alt="">
+          <div class="poster-grad"></div>
+          <div class="poster-body">
+            <span class="poster-tag">₹3,100 Prize</span>
+            <div class="poster-title">Spandan GK / Quiz / Debate</div>
+            <div class="poster-sub">Breadth, speed and structure</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <button class="row-arrow right" aria-label="Scroll right">›</button>
+  </div>
+</section>
+
+<!-- ═════════════ EXPERIENCE (EPISODES) ═════════════ -->
+<section id="experience">
+  <div class="row-head reveal" style="padding:0; margin-bottom:18px; max-width:900px; margin-left:auto; margin-right:auto;">
+    <div class="row-title">Episodes — Experience</div>
+    <div class="row-kicker">Where I've shown up</div>
+  </div>
+  <div class="episodes-box reveal">
+    <div class="episodes-head">
+      <h3>Jeet Jhawar: The Series</h3>
+      <span class="season-badge">2 Seasons · 2024 — Present</span>
+    </div>
+
+    <div class="episode" data-modal="pipeline">
+      <div class="ep-num">1</div>
+      <div class="ep-thumb"><img src="images/iimk-front.jpg" alt="IIM Kozhikode"><div class="ep-play"><span>▶</span></div></div>
+      <div class="ep-info">
+        <h4>Council Member — IIM Kozhikode <span class="ep-dur">2026 · Present</span></h4>
+        <p>Built and maintained a 100+ contact B2B outreach pipeline; documented event P&amp;L metrics across campus events; ran quality checks and built clean handover documentation for committee transitions.</p>
+      </div>
+    </div>
+
+    <div class="episode" data-modal="headboy">
+      <div class="ep-num">2</div>
+      <div class="ep-thumb"><img src="images/school.jpg" alt="St. Arnold's School" onerror="this.parentElement.classList.add('noimg'); this.remove();"><div class="ep-play"><span>▶</span></div></div>
+      <div class="ep-info">
+        <h4>Head Boy — St. Arnold's School, Indore <span class="ep-dur">2024 · 2025</span></h4>
+        <p>Led a student council serving 1,000+ students — event budgets, task delegation and stakeholder communication. Shortlisted 20 MUN delegates from 100+ applicants with rubric-based evaluation.</p>
+      </div>
+    </div>
+
+    <div class="episode" data-modal="pipeline">
+      <div class="ep-num">3</div>
+      <div class="ep-thumb"><img src="images/iimk-lawn.jpg" alt="IIMK campus"><div class="ep-play"><span>▶</span></div></div>
+      <div class="ep-info">
+        <h4>BMS (Honours) — IIM Kozhikode <span class="ep-dur">2025 · 2029</span></h4>
+        <p>Pursuing a Bachelor of Management Studies (Honours) at one of India's premier management institutions — while actively upskilling in SQL, Python and data analytics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ EDUCATION (LOCATIONS) ═════════════ -->
+<section class="row-section" id="education">
+  <div class="row-head reveal">
+    <div class="row-title">Filming Locations — Education</div>
+    <div class="row-kicker">Two campuses, one storyline</div>
+  </div>
+  <div class="row-wrap">
+    <div class="row-scroll">
+
+      <div class="card reveal" style="flex-basis: 460px;" data-modal="iimk">
+        <img class="thumb" src="images/iimk-aerial.jpg" alt="IIM Kozhikode campus">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">IIM Kozhikode — God's Own Campus</div>
+          <div class="card-meta"><span class="match">BMS (Honours)</span><span>2025 – 2029</span></div>
+          <div class="card-tagline">Premier management institution in the Kerala hills.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" style="flex-basis: 460px;" data-modal="school">
+        <img class="thumb" src="images/school.jpg" alt="St. Arnold's School" onerror="this.src='images/stock-library.jpg';">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">St. Arnold's School, Indore</div>
+          <div class="card-meta"><span class="match">Class XII: 95.6%</span><span>Class X: 95.0%</span><span>CBSE</span></div>
+          <div class="card-tagline">Where the story began — Head Boy, 2024–25.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" style="flex-basis: 460px;" data-modal="iimk">
+        <img class="thumb" src="images/iimk-front.jpg" alt="IIM Kozhikode building">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">Life on Campus</div>
+          <div class="card-meta"><span class="match">Council Member</span><span>Badminton Silver</span></div>
+          <div class="card-tagline">Council work, inter-IPM sport and the daily grind.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ SKILLS (GENRES) ═════════════ -->
+<section class="row-section" id="skills">
+  <div class="row-head reveal">
+    <div class="row-title">Browse by Genre — Skills</div>
+    <div class="row-kicker">The toolkit</div>
+  </div>
+  <div class="genre-grid">
+    <div class="genre-tile reveal">
+      <h4>Data &amp; Analytics</h4>
+      <div class="g-level">Advanced</div>
+      <ul>
+        <li>Excel / Google Sheets — Pivot Tables, XLOOKUP</li>
+        <li>Data cleaning &amp; quality checks</li>
+        <li>Funnel &amp; trend analysis</li>
+      </ul>
+    </div>
+    <div class="genre-tile reveal">
+      <h4>Operations</h4>
+      <div class="g-level">Strong</div>
+      <ul>
+        <li>Event coordination, end-to-end</li>
+        <li>Budget &amp; P&amp;L tracking</li>
+        <li>Documentation &amp; handovers</li>
+      </ul>
+    </div>
+    <div class="genre-tile reveal">
+      <h4>Communication</h4>
+      <div class="g-level">Competition Level</div>
+      <ul>
+        <li>Public speaking &amp; debate</li>
+        <li>Policy research &amp; position papers</li>
+        <li>Stakeholder management</li>
+      </ul>
+    </div>
+    <div class="genre-tile reveal">
+      <h4>Leadership</h4>
+      <div class="g-level">Proven</div>
+      <ul>
+        <li>Team leadership — 1,000+ students</li>
+        <li>Multi-criteria decision making</li>
+        <li>Cross-functional coordination</li>
+      </ul>
+    </div>
+    <div class="genre-tile reveal">
+      <h4>Strategy</h4>
+      <div class="g-level">State Level</div>
+      <ul>
+        <li>Rapid chess — U-19 state 2nd</li>
+        <li>Probabilistic thinking</li>
+        <li>Performance under time pressure</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ COMING SOON ═════════════ -->
+<section class="row-section" id="soon">
+  <div class="row-head reveal">
+    <div class="row-title">Coming Soon</div>
+    <div class="row-kicker">Currently in production</div>
+  </div>
+  <div class="soon-grid">
+    <div class="soon-card reveal">
+      <div class="soon-label"><span class="live-dot"></span> In Production</div>
+      <h4>Google Data Analytics Certificate</h4>
+      <p>Professional certificate (Coursera) — building formal foundations in the analytics workflow.</p>
+      <div class="soon-track"><div class="soon-fill" data-width="55"></div></div>
+      <div class="soon-pct">In progress</div>
+    </div>
+    <div class="soon-card reveal">
+      <div class="soon-label"><span class="live-dot"></span> In Production</div>
+      <h4>SQL</h4>
+      <p>Queries, joins and aggregations — the language of every serious data pipeline.</p>
+      <div class="soon-track"><div class="soon-fill" data-width="30"></div></div>
+      <div class="soon-pct">Learning</div>
+    </div>
+    <div class="soon-card reveal">
+      <div class="soon-label"><span class="live-dot"></span> In Production</div>
+      <h4>Python</h4>
+      <p>From spreadsheets to scripts — automating analysis and scaling what Excel started.</p>
+      <div class="soon-track"><div class="soon-fill" data-width="25"></div></div>
+      <div class="soon-pct">Learning</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ CONTACT ═════════════ -->
+<section id="contact">
+  <div class="contact-kicker reveal">Season 3 — casting now</div>
+  <h2 class="reveal">Let's build something</h2>
+  <p class="contact-copy reveal">
+    Open to internship opportunities, conversations and collaborations.
+    Whether you have a role in mind or just want to talk — reach out.
+  </p>
+  <div class="contact-row reveal">
+    <a class="contact-chip" href="mailto:bms25jeet@iimk.ac.in">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      bms25jeet@iimk.ac.in
+    </a>
+    <a class="contact-chip" href="https://linkedin.com/in/jeetjhawar" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+      LinkedIn
+    </a>
+    <a class="contact-chip social-instagram" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+      Instagram
+    </a>
+    <a class="contact-chip social-github" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      GitHub
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- ═════════════ FOOTER ═════════════ -->
+<footer>
+  <div class="foot-social">
+    <a href="https://linkedin.com/in/jeetjhawar" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+    </a>
+    <a class="social-instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+    </a>
+    <a class="social-github" href="#" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+    </a>
+    <a href="mailto:bms25jeet@iimk.ac.in" aria-label="Email">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </a>
+  </div>
+  <div class="foot-grid">
+    <a href="#work">Work Samples</a>
+    <a href="#experience">Experience</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#soon">Coming Soon</a>
+    <a href="assets/Jeet_Jhawar_Resume.docx" download>Resume (.docx)</a>
+    <a href="assets/Jeet_Jhawar_Resume.pdf" download>Resume (PDF)</a>
+    <a href="mailto:bms25jeet@iimk.ac.in">Email</a>
+    <a href="https://linkedin.com/in/jeetjhawar" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="#home">Back to Top</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="foot-code" onclick="document.getElementById('home').scrollIntoView()">Service Code: IIMK-2029</button>
+  <div class="foot-copy">
+    © 2026 Jeet Jhawar · IIM Kozhikode · Built as a work-sample portfolio, streamed in glorious monochrome.
+    <span class="foot-chess"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+  </div>
+</footer>
+
+<!-- ═════════════ MODAL ═════════════ -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-hero">
+      <img id="mImg" src="" alt="">
+      <button class="modal-close" id="mClose" aria-label="Close">✕</button>
+      <div class="modal-hero-title" id="mTitle"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-meta" id="mMeta"></div>
+      <p class="modal-desc" id="mDesc"></p>
+      <div class="modal-metrics" id="mMetrics"></div>
+      <div class="modal-pills" id="mPills"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Data for modals ── */
+const MODALS = {
+  pipeline: {
+    img: 'images/stock-dashboard.jpg',
+    title: 'B2B Sponsor Outreach Tracker',
+    meta: ['<span class="match">98% Match</span>', 'IIMK Council', 'Data & Analytics', '2026'],
+    desc: 'Built and owned a spreadsheet-based pipeline tracking 100+ marketing managers for campus event sponsorships. Mapped each contact across funnel stages (cold → contacted → responded → converted), response rates and follow-up cadence. Used the data to identify which contact segments had the highest engagement — and reprioritised outreach accordingly, increasing conversion quality within the pipeline.',
+    metrics: [['100+', 'contacts tracked end-to-end'], ['Multi-stage', 'funnel with response-rate analysis'], ['Segmentation', 'used to refine messaging strategy']],
+    pills: ['Excel / Google Sheets', 'Funnel Analysis', 'Data Cleaning', 'Stakeholder Reporting']
+  },
+  dashboard: {
+    img: 'images/stock-analytics.jpg',
+    title: 'Campus Event P&L Dashboard',
+    meta: ['<span class="match">96% Match</span>', 'IIMK Council', 'Analytics', '2026'],
+    desc: 'Documented and analysed event metrics across multiple campus events — tracking turnout vs targets, budget vs actual spend, and post-event engagement scores. Built structured reports for council leadership to make decisions on future event formats, timing and resource allocation. Ran quality checks on all data inputs before presenting findings.',
+    metrics: [['Budget vs Actual', 'tracked per event'], ['Turnout & Engagement', 'reported to leadership'], ['Outcomes', 'informed next-cycle decisions']],
+    pills: ['P&L Tracking', 'Pivot Tables', 'Budget Analysis', 'Quality Checks']
+  },
+  shortlist: {
+    img: 'images/stock-writing.jpg',
+    title: 'MUN Delegate Shortlisting System',
+    meta: ['<span class="match">95% Match</span>', 'Head Boy', 'Operations', '2024–25'],
+    desc: "Designed and ran the shortlisting process for the school's MUN delegation alongside teachers. Evaluated 100+ applicants using multi-criteria rubrics — assessing research quality, communication and prior MUN performance. Applied ranking logic to narrow down to the top 20 delegates, and ran similar selection rounds for cultural and academic events through the year.",
+    metrics: [['100+', 'applicants evaluated'], ['Top 20', 'selected via structured rubric'], ['Co-evaluated', 'alongside faculty']],
+    pills: ['Rubric Design', 'Multi-criteria Ranking', 'Decision Frameworks', 'Stakeholder Alignment']
+  },
+  events: {
+    img: 'images/stock-event.jpg',
+    title: 'End-to-End Campus Event Execution',
+    meta: ['<span class="match">94% Match</span>', 'IIMK Council', 'Operations', '2026'],
+    desc: 'Coordinated full logistics for multiple campus events — vendor communications, scheduling, cross-functional handoffs between student sub-teams and sponsor coordination. Built handover documentation so incoming council members could continue operations without disruption. Acted as the central node between sponsors, faculty and student teams.',
+    metrics: [['Multiple events', 'executed end-to-end'], ['Structured handovers', 'maintained for continuity'], ['3-way coordination', 'sponsors, faculty & students']],
+    pills: ['Project Coordination', 'Vendor Management', 'Documentation', 'Cross-team Handoffs']
+  },
+  research: {
+    img: 'images/stock-library.jpg',
+    title: 'Transportation Research Project',
+    meta: ['<span class="match">97% Match</span>', 'Balvigyan Commerce', 'Research', 'Inter-School'],
+    desc: 'Conducted an independent research project on Transportation for the Balvigyan Inter-School Commerce competition — primary and secondary data collection, identifying patterns in transportation economics and urban mobility, structuring findings into a coherent analytical narrative, and presenting conclusions to a judging panel. Won Best Research & Project across competing schools.',
+    metrics: [['🏆 Best Research', '& Project award winner'], ['Inter-school', 'commerce competition'], ['Economics', 'and urban mobility domain']],
+    pills: ['Data Collection', 'Pattern Analysis', 'Research Design', 'Structured Presentation']
+  },
+  policy: {
+    img: 'images/stock-mic.jpg',
+    title: 'Policy Research & Argumentation',
+    meta: ['<span class="match">96% Match</span>', 'MUN Circuit', 'Research', '2024–25'],
+    desc: "Deep policy research across multiple MUN conferences — UN resolutions, economic policy frameworks, international relations and geopolitical data — built into position papers and pressure-tested arguments. Best Delegate at Masters' Summit twice (₹15,000 prize), 3rd at MU20 Opportunity Summit (International, AIPPM), 2nd at Sahodaya MUN (ECOSOC).",
+    metrics: [['Best Delegate ×2', "Masters' Summit MUN"], ['₹15,000', 'cash prize'], ['International', 'MU20 Opportunity Summit']],
+    pills: ['Policy Research', 'Position Papers', 'Evidence Synthesis', 'Public Speaking']
+  },
+  headboy: {
+    img: 'images/stock-team.jpg',
+    title: 'Leading a 1,000+ Student Community',
+    meta: ['<span class="match">97% Match</span>', "St. Arnold's School", 'Leadership', '2024–25'],
+    desc: 'As Head Boy, operated as the bridge between student body, faculty and school administration. Made data-informed decisions on event planning, budget allocation and engagement strategy. Coordinated the student council, assigned responsibilities, ran regular check-ins and ensured smooth execution of school-wide initiatives across academic and cultural domains.',
+    metrics: [['1,000+', 'students represented'], ['Faculty & admin', 'liaison'], ['Data-informed', 'event & budget decisions']],
+    pills: ['Team Leadership', 'Budget Allocation', 'Stakeholder Communication', 'Decision Making']
+  },
+  chess: {
+    img: 'images/stock-chess.jpg',
+    title: 'Rapid Chess — Strategy Under the Clock',
+    meta: ['<span class="match">95% Match</span>', 'State Level', 'Strategy', '2025'],
+    desc: '2nd place at the U-19 State Level Rapid Chess championship (2025), 10th at U-18 UICC Trophy (2024) and 10th in Under-18 Boys at the UICC Rapid Chess Trophy. Chess is where the analytical habit was built — probabilistic thinking, pattern recognition and calm decisions under time pressure.',
+    metrics: [['2nd', 'U-19 State Rapid 2025'], ['Top 10', 'U-18 UICC Trophy'], ['Pattern recognition', 'trained daily']],
+    pills: ['Strategic Thinking', 'Pattern Recognition', 'Time Pressure', 'Probabilistic Thinking']
+  },
+  debate: {
+    img: 'images/stock-conference.jpg',
+    title: 'Debate, Elocution & Quiz',
+    meta: ['<span class="match">94% Match</span>', 'School & Inter-School', 'Communication'],
+    desc: "1st position in English Debate, English Elocution and Young TV Reporter competitions at school level. Winner of Spandan's GK/Quiz/Debate (₹3,100 prize) — breadth of general knowledge, quick thinking and structured argumentation under competition pressure.",
+    metrics: [['1st', 'Debate, Elocution, TV Reporter'], ['₹3,100', 'Spandan prize'], ['NCC / Military', 'Training — Inter-School 2023']],
+    pills: ['Public Speaking', 'Structured Argument', 'Quick Thinking', 'General Knowledge']
+  },
+  iimk: {
+    img: 'images/iimk-aerial.jpg',
+    title: 'IIM Kozhikode',
+    meta: ['<span class="match">BMS (Honours)</span>', '2025 – 2029', 'Kerala, India'],
+    desc: "Enrolled in the BMS (Honours) programme at the Indian Institute of Management Kozhikode — one of India's premier management institutions, set in the hills of Kerala. Active as a Council Member managing sponsor outreach and event analytics, silver medallist at the Inter-IPM College Badminton Tournament, and steadily building a data toolkit: Excel, Sheets, and now SQL and Python.",
+    metrics: [['BMS (Honours)', 'Class of 2029'], ['Council Member', 'sponsorships & analytics'], ['🏸 Silver', 'Inter-IPM Badminton']],
+    pills: ['Management', 'Analytics', 'Council', 'Campus Life']
+  },
+  school: {
+    img: 'images/school.jpg',
+    title: "St. Arnold's School, Indore",
+    meta: ['<span class="match">Head Boy 2024–25</span>', 'Class XII: 95.6%', 'Class X: 95.0%'],
+    desc: "Where the story began. CBSE schooling with 95.6% in Class XII and 95.0% in Class X — alongside the Head Boy office, MUN delegation building, competition wins in debate, elocution, quiz and research, and state-level chess. A schooling defined by showing up for both the scoreboard and the community.",
+    metrics: [['95.6%', 'Class XII (CBSE) 2025'], ['95.0%', 'Class X (CBSE) 2023'], ['Head Boy', '2024–25']],
+    pills: ['CBSE', 'Head Boy', 'MUN', 'Chess', 'Debate']
+  }
+};
+
+/* ── Nav solid on scroll ── */
+const topbar = document.getElementById('topbar');
+window.addEventListener('scroll', () => {
+  topbar.classList.toggle('solid', window.scrollY > 40);
+}, { passive: true });
+
+/* ── Hamburger ── */
+const hamburger = document.getElementById('hamburger');
+const navlinks = document.getElementById('navlinks');
+hamburger.addEventListener('click', () => navlinks.classList.toggle('open'));
+navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navlinks.classList.remove('open')));
+
+/* ── Row arrows ── */
+document.querySelectorAll('.row-wrap').forEach(wrap => {
+  const scroller = wrap.querySelector('.row-scroll');
+  const left = wrap.querySelector('.row-arrow.left');
+  const right = wrap.querySelector('.row-arrow.right');
+  if (left) left.addEventListener('click', () => scroller.scrollBy({ left: -scroller.clientWidth * 0.85, behavior: 'smooth' }));
+  if (right) right.addEventListener('click', () => scroller.scrollBy({ left: scroller.clientWidth * 0.85, behavior: 'smooth' }));
+});
+
+/* ── Reveal + progress bars ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('.soon-fill').forEach(f => f.style.width = f.dataset.width + '%');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .soon-card').forEach(el => obs.observe(el));
+
+/* ── Modal ── */
+const backdrop = document.getElementById('modalBackdrop');
+const mImg = document.getElementById('mImg');
+const mTitle = document.getElementById('mTitle');
+const mMeta = document.getElementById('mMeta');
+const mDesc = document.getElementById('mDesc');
+const mMetrics = document.getElementById('mMetrics');
+const mPills = document.getElementById('mPills');
+
+function openModal(key) {
+  const d = MODALS[key];
+  if (!d) return;
+  mImg.src = d.img;
+  mImg.onerror = () => { mImg.onerror = null; mImg.src = 'images/iimk-lawn.jpg'; };
+  mTitle.textContent = d.title;
+  mMeta.innerHTML = d.meta.map(m => `<span>${m}</span>`).join('');
+  mDesc.textContent = d.desc;
+  mMetrics.innerHTML = d.metrics.map(([a, b]) => `<div class="m-metric"><strong>${a}</strong>${b}</div>`).join('');
+  mPills.innerHTML = d.pills.map(p => `<span class="pill">${p}</span>`).join('');
+  backdrop.classList.add('open');
+  requestAnimationFrame(() => backdrop.classList.add('show'));
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  backdrop.classList.remove('show');
+  setTimeout(() => { backdrop.classList.remove('open'); document.body.style.overflow = ''; }, 300);
+}
+document.querySelectorAll('[data-modal]').forEach(el => {
+  el.addEventListener('click', () => openModal(el.dataset.modal));
+});
+document.getElementById('mClose').addEventListener('click', closeModal);
+backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.classList.contains('open')) closeModal(); });
+
+/* ── Starfield ── */
+(function () {
+  const canvas = document.getElementById('stars');
+  if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = canvas.getContext('2d');
+  let stars = [], meteors = [], w, h;
+
+  function resize() {
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+    stars = Array.from({ length: Math.min(160, w / 8) }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.3 + 0.2,
+      tw: Math.random() * Math.PI * 2,
+      sp: 0.008 + Math.random() * 0.02
+    }));
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function spawnMeteor() {
+    if (Math.random() < 0.35) {
+      meteors.push({
+        x: Math.random() * w * 0.8 + w * 0.2,
+        y: Math.random() * h * 0.3,
+        vx: -(4 + Math.random() * 4),
+        vy: 2 + Math.random() * 2,
+        life: 1
+      });
+    }
+    setTimeout(spawnMeteor, 4000 + Math.random() * 6000);
+  }
+  setTimeout(spawnMeteor, 3000);
+
+  function frame() {
+    ctx.clearRect(0, 0, w, h);
+    for (const s of stars) {
+      s.tw += s.sp;
+      const a = 0.25 + Math.abs(Math.sin(s.tw)) * 0.65;
+      ctx.globalAlpha = a;
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    meteors = meteors.filter(m => m.life > 0);
+    for (const m of meteors) {
+      const grad = ctx.createLinearGradient(m.x, m.y, m.x - m.vx * 10, m.y - m.vy * 10);
+      grad.addColorStop(0, `rgba(255,255,255,${0.8 * m.life})`);
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(m.x, m.y);
+      ctx.lineTo(m.x - m.vx * 10, m.y - m.vy * 10);
+      ctx.stroke();
+      m.x += m.vx; m.y += m.vy; m.life -= 0.02;
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+</body>
+</html>

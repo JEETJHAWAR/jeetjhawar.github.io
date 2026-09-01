@@ -1,0 +1,89 @@
+{
+  "heroBackground": "images/hero-starfield-v2.jpg",
+  "heroCards": [
+    { "num": "100+", "label": "B2B contacts tracked", "modal": "pipeline" },
+    { "num": "1,000+", "label": "Students led as Head Boy", "modal": "headboy" },
+    { "num": "🏆 ×2", "label": "Best Delegate — MUN", "modal": "ach-0" },
+    { "num": "♟ 2nd", "label": "U-19 State Rapid Chess", "modal": "ach-3" }
+  ],
+  "achievements": [
+    {
+      "tag": "2× Winner",
+      "title": "Best Delegate — Masters' Summit MUN",
+      "sub": "2024 & 2025 · ₹15,000 cash prize",
+      "img": "images/stock-mic.jpg",
+      "modal": {
+        "title": "Best Delegate ×2 — Masters' Summit MUN",
+        "meta": ["2× Winner", "Masters' Summit MUN", "2024 & 2025"],
+        "desc": "Back-to-back Best Delegate at Masters' Summit MUN in 2024 and 2025 — the circuit's proof of consistency. Two different agendas, the same method: deep committee research, evidence-first argumentation and coalition-building that holds up over long sessions. Came with a ₹15,000 cash prize.",
+        "metrics": [["Best Delegate", "Masters' Summit 2024"], ["Best Delegate", "Masters' Summit 2025"], ["₹15,000", "cash prize"]],
+        "pills": ["Diplomacy", "Research Depth", "Negotiation", "Consistency"]
+      }
+    },
+    {
+      "tag": "International",
+      "title": "3rd — MU20 Opportunity Summit",
+      "sub": "AIPPM · 2024 · national field",
+      "img": "images/space-satellite.jpg",
+      "modal": {
+        "title": "3rd — MU20 Opportunity Summit",
+        "meta": ["International", "AIPPM", "2024"],
+        "desc": "Placed 3rd in the AIPPM committee at the MU20 Opportunity Summit 2024 — an international summit drawing delegates from across the country. Contemporary Indian policy and economics, high-pressure committee dynamics, and arguments that had to survive scrutiny from a national field. Also took 2nd at Sahodaya MUN (ECOSOC).",
+        "metrics": [["3rd", "MU20 AIPPM · International"], ["2nd", "Sahodaya MUN · ECOSOC"], ["National field", "of competing delegates"]],
+        "pills": ["AIPPM", "Policy", "Economics", "International Summit"]
+      }
+    },
+    {
+      "tag": "Best Research",
+      "title": "Best Research & Project — Balvigyan",
+      "sub": "Inter-school commerce competition",
+      "img": "images/stock-library.jpg",
+      "modal": {
+        "title": "Transportation Research Project",
+        "meta": ["Best Research", "Balvigyan Commerce", "Inter-School"],
+        "desc": "Conducted an independent research project on Transportation for the Balvigyan Inter-School Commerce competition — primary and secondary data collection, identifying patterns in transportation economics and urban mobility, structuring findings into a coherent analytical narrative, and presenting conclusions to a judging panel. Won Best Research & Project across competing schools.",
+        "metrics": [["🏆 Best Research", "& Project award winner"], ["Inter-school", "commerce competition"], ["Economics", "and urban mobility domain"]],
+        "pills": ["Data Collection", "Pattern Analysis", "Research Design", "Structured Presentation"]
+      }
+    },
+    {
+      "tag": "State Level",
+      "title": "2nd — U-19 State Rapid Chess",
+      "sub": "2025 · strategy under the clock",
+      "img": "images/stock-chess.jpg",
+      "modal": {
+        "title": "Rapid Chess — Strategy Under the Clock",
+        "meta": ["State Level", "Strategy", "2025"],
+        "desc": "2nd place at the U-19 State Level Rapid Chess championship (2025), 10th at U-18 UICC Trophy (2024) and 10th in Under-18 Boys at the UICC Rapid Chess Trophy. Chess is where the analytical habit was built — probabilistic thinking, pattern recognition and calm decisions under time pressure.",
+        "metrics": [["2nd", "U-19 State Rapid 2025"], ["Top 10", "U-18 UICC Trophy"], ["Pattern recognition", "trained daily"]],
+        "pills": ["Strategic Thinking", "Pattern Recognition", "Time Pressure", "Probabilistic Thinking"]
+      }
+    },
+    {
+      "tag": "1st Place",
+      "title": "English Debate & Elocution",
+      "sub": "Plus Young TV Reporter — school level",
+      "img": "images/stock-conference.jpg",
+      "modal": {
+        "title": "Debate, Elocution & Quiz",
+        "meta": ["1st Place", "School & Inter-School", "Communication"],
+        "desc": "First place across the school's spoken-word circuit — English Debate, English Elocution and Young TV Reporter. Three different formats, one core skill: structure an argument fast, hold a room, and land the point before the clock runs out.",
+        "metrics": [["1st", "English Debate"], ["1st", "English Elocution"], ["1st", "Young TV Reporter"]],
+        "pills": ["Public Speaking", "Structured Argument", "Quick Thinking", "General Knowledge"]
+      }
+    },
+    {
+      "tag": "₹3,100 Prize",
+      "title": "Spandan GK / Quiz / Debate",
+      "sub": "Breadth, speed and structure",
+      "img": "images/stock-event.jpg",
+      "modal": {
+        "title": "Spandan — GK / Quiz / Debate",
+        "meta": ["Winner", "Spandan", "₹3,100 prize"],
+        "desc": "Won Spandan's combined GK / Quiz / Debate competition — a three-discipline gauntlet that tests breadth of general knowledge, buzzer-speed recall and structured argumentation under pressure, all in one sitting. Also represented the school at the Inter-School NCC / Military Training (2023).",
+        "metrics": [["₹3,100", "cash prize"], ["3 disciplines", "GK · Quiz · Debate"], ["NCC", "Inter-School Training 2023"]],
+        "pills": ["General Knowledge", "Quick Thinking", "Debate", "Competition Nerve"]
+      }
+    }
+  ]
+}

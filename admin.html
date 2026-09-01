@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JJ Admin — Control Room</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0a0a'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='26' fill='%2338bdf8' text-anchor='middle'%3EJA%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0a; --panel: #141414; --card: #1b1b1f; --line: rgba(255,255,255,0.1);
+    --white: #fff; --grey-1: #e5e5e5; --grey-2: #b3b3b3; --grey-3: #808080;
+    --cyan: #22d3ee; --blue: #38bdf8; --sky: #7dd3fc; --green: #46d369; --red: #f87171;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--grey-1); min-height: 100vh; }
+  header {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 4%; background: rgba(10,10,10,0.95); border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(8px);
+  }
+  .brand { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1rem; letter-spacing: 0.15em; color: var(--white); }
+  .brand span { color: var(--blue); }
+  header a.viewsite { margin-left: auto; color: var(--grey-2); font-size: 0.8rem; text-decoration: none; }
+  header a.viewsite:hover { color: var(--cyan); }
+  .btn {
+    background: var(--blue); color: #04121e; border: none; cursor: pointer;
+    font-weight: 700; font-size: 0.85rem; padding: 10px 22px; border-radius: 5px;
+    transition: filter 0.2s;
+  }
+  .btn:hover { filter: brightness(1.15); }
+  .btn:disabled { background: #2a3540; color: #6a7683; cursor: not-allowed; }
+  .btn.ghost { background: transparent; color: var(--grey-2); border: 1px solid var(--line); }
+  .btn.ghost:hover { color: var(--white); border-color: var(--grey-2); }
+  .btn.danger { background: transparent; color: var(--red); border: 1px solid rgba(248,113,113,0.4); }
+  .btn.small { padding: 6px 12px; font-size: 0.72rem; }
+
+  main { max-width: 980px; margin: 0 auto; padding: 30px 4% 100px; }
+  .banner {
+    border: 1px solid var(--line); border-radius: 8px; padding: 14px 18px;
+    font-size: 0.85rem; margin-bottom: 22px; line-height: 1.6;
+  }
+  .banner.warn { border-color: rgba(251,191,36,0.4); background: rgba(251,191,36,0.06); color: #fcd34d; }
+  .banner.ok { border-color: rgba(70,211,105,0.4); background: rgba(70,211,105,0.06); color: var(--green); }
+  .banner.err { border-color: rgba(248,113,113,0.4); background: rgba(248,113,113,0.06); color: var(--red); }
+  .banner a { color: inherit; }
+
+  section.panel {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 22px 24px; margin-bottom: 26px;
+  }
+  .panel h2 {
+    font-size: 1.02rem; font-weight: 800; color: var(--white); margin-bottom: 4px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .panel h2 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 10px rgba(56,189,248,0.7); }
+  .panel .hint { font-size: 0.76rem; color: var(--grey-3); margin-bottom: 18px; line-height: 1.55; }
+  .panel .hint a { color: var(--sky); }
+
+  label { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-3); margin: 12px 0 5px; }
+  input[type=text], input[type=password], textarea, select {
+    width: 100%; background: #0e0e12; color: var(--grey-1);
+    border: 1px solid var(--line); border-radius: 5px;
+    padding: 9px 12px; font-size: 0.86rem; font-family: inherit;
+  }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--blue); }
+  textarea { min-height: 84px; resize: vertical; line-height: 1.55; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 16px; }
+  @media (max-width: 700px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+  .item {
+    background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+    padding: 16px 18px; margin-bottom: 14px;
+  }
+  .item-head { display: flex; align-items: center; gap: 10px; }
+  .item-head .title { font-weight: 700; font-size: 0.9rem; color: var(--white); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .item-head img.thumb { width: 52px; height: 34px; object-fit: cover; border-radius: 4px; border: 1px solid var(--line); }
+  .item-body { display: none; margin-top: 8px; }
+  .item.open .item-body { display: block; }
+  .rank-chip { font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--blue); font-size: 1rem; width: 26px; text-align: center; }
+
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 14px; }
+  .gallery figure { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #0e0e12; }
+  .gallery img { width: 100%; height: 74px; object-fit: cover; display: block; }
+  .gallery figcaption { font-size: 0.62rem; color: var(--grey-3); padding: 5px 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .savebar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 60;
+    background: rgba(10,10,10,0.97); border-top: 1px solid var(--line);
+    padding: 13px 4%; display: flex; align-items: center; gap: 16px;
+    backdrop-filter: blur(8px);
+  }
+  .savebar .status { font-size: 0.8rem; color: var(--grey-3); flex: 1; }
+  .savebar .status.dirty { color: #fcd34d; }
+  .savebar .status.ok { color: var(--green); }
+  .savebar .status.err { color: var(--red); }
+  code { background: #0e0e12; border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; font-size: 0.78em; color: var(--sky); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">JJ <span>ADMIN</span></div>
+  <a class="viewsite" href="index.html" target="_blank" rel="noopener">View live site ↗</a>
+</header>
+
+<main>
+  <div id="topBanner"></div>
+
+  <!-- TOKEN -->
+  <section class="panel">
+    <h2><span class="dot"></span>Access</h2>
+    <p class="hint">
+      Changes are saved straight into the GitHub repository, so the page needs a GitHub token that only you hold.
+      Create one at <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>:
+      set <b>Repository access → Only select repositories → jeetjhawar.github.io</b>, and under
+      <b>Permissions → Repository permissions → Contents</b> choose <b>Read and write</b>. Then paste it below.
+      It is stored only in this browser (localStorage) — never in the repository.
+    </p>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <input type="password" id="tokenInput" placeholder="github_pat_…" style="flex:1;">
+      <button class="btn" id="tokenSave">Connect</button>
+      <button class="btn ghost" id="tokenClear">Forget</button>
+    </div>
+    <div id="tokenStatus" style="font-size:0.78rem; margin-top:10px; color:var(--grey-3);"></div>
+  </section>
+
+  <!-- HERO BOXES -->
+  <section class="panel">
+    <h2><span class="dot"></span>Hero floating boxes</h2>
+    <p class="hint">The moving stat boxes over the starfield. Up to 6 — each links to a popup.</p>
+    <div id="heroList"></div>
+    <button class="btn ghost small" id="addHero">+ Add box</button>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section class="panel">
+    <h2><span class="dot"></span>Top achievements</h2>
+    <p class="hint">The ranked Netflix-style row. Order here = rank on the site. Click a row to expand and edit everything, including its popup.</p>
+    <div id="achList"></div>
+    <button class="btn ghost small" id="addAch">+ Add achievement</button>
+  </section>
+
+  <!-- HERO BACKGROUND -->
+  <section class="panel">
+    <h2><span class="dot"></span>Hero background</h2>
+    <p class="hint">The image behind your name at the top of the site.</p>
+    <div style="display:flex; gap:14px; align-items:center;">
+      <select id="heroBgSelect" style="flex:1;"></select>
+      <img id="heroBgPreview" style="width:130px; height:74px; object-fit:cover; border-radius:6px; border:1px solid var(--line);" alt="">
+    </div>
+  </section>
+
+  <!-- PHOTOS -->
+  <section class="panel">
+    <h2><span class="dot"></span>Photos</h2>
+    <p class="hint">Everything in the site's <code>images/</code> folder. Upload a new photo, then pick it anywhere above. Keep files under ~2&nbsp;MB for fast loading.</p>
+    <input type="file" id="uploadInput" accept="image/*" style="display:none;">
+    <button class="btn small" id="uploadBtn">⬆ Upload photo</button>
+    <span id="uploadStatus" style="font-size:0.78rem; color:var(--grey-3); margin-left:10px;"></span>
+    <div class="gallery" id="gallery"></div>
+  </section>
+</main>
+
+<div class="savebar">
+  <div class="status" id="saveStatus">Loading content…</div>
+  <button class="btn ghost" id="reloadBtn">Discard &amp; reload</button>
+  <button class="btn" id="saveBtn" disabled>Save &amp; publish</button>
+</div>
+
+<script>
+const REPO = 'JEETJHAWAR/jeetjhawar.github.io';
+const API = 'https://api.github.com/repos/' + REPO + '/contents/';
+const STATIC_MODALS = {
+  pipeline: 'B2B Sponsor Outreach Tracker', dashboard: 'Campus Event P&L Dashboard',
+  shortlist: 'MUN Delegate Shortlisting', events: 'End-to-End Event Execution',
+  research: 'Transportation Research', policy: 'Policy Research & Argumentation',
+  headboy: 'Leading 1,000+ Students', iimk: 'IIM Kozhikode', school: "St. Arnold's School",
+  campuslife: 'Life on Campus'
+};
+
+let token = localStorage.getItem('jj_admin_token') || '';
+let state = null, sha = null, images = [], dirty = false;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+function b64ToUtf8(b64) {
+  const bin = atob(b64.replace(/\n/g, ''));
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+function utf8ToB64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+function headers(json = true) {
+  const h = { 'Accept': 'application/vnd.github+json' };
+  if (json) h['Content-Type'] = 'application/json';
+  if (token) h['Authorization'] = 'Bearer ' + token;
+  return h;
+}
+function markDirty() {
+  dirty = true;
+  $('saveBtn').disabled = !token;
+  const st = $('saveStatus');
+  st.textContent = token ? 'Unsaved changes' : 'Unsaved changes — connect your token to save';
+  st.className = 'status dirty';
+}
+function banner(kind, html) { $('topBanner').innerHTML = html ? '<div class="banner ' + kind + '">' + html + '</div>' : ''; }
+
+/* ── Token ── */
+function refreshTokenUI() {
+  $('tokenInput').value = token;
+  $('tokenStatus').textContent = token ? 'Token stored in this browser. Checking access…' : 'No token yet — the page is read-only.';
+  if (!token) { banner('warn', 'Read-only preview: connect your GitHub token in the Access panel to enable saving and uploads.'); return; }
+  fetch('https://api.github.com/repos/' + REPO, { headers: headers(false) })
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(d => {
+      const canWrite = d.permissions && (d.permissions.push || d.permissions.admin);
+      $('tokenStatus').textContent = canWrite ? '✓ Connected with write access.' : '⚠ Token connects but has no write permission — check Contents: Read and write.';
+      banner(canWrite ? '' : 'warn', canWrite ? '' : 'Token has no write access to the repository.');
+      if (canWrite && dirty) { $('saveBtn').disabled = false; $('saveStatus').textContent = 'Unsaved changes'; }
+      else if (canWrite) $('saveBtn').disabled = !dirty;
+    })
+    .catch(() => { $('tokenStatus').textContent = '✗ Token was rejected by GitHub — paste it again.'; banner('err', 'GitHub rejected the token. Create a new fine-grained token and reconnect.'); });
+}
+$('tokenSave').onclick = () => { token = $('tokenInput').value.trim(); localStorage.setItem('jj_admin_token', token); refreshTokenUI(); };
+$('tokenClear').onclick = () => { token = ''; localStorage.removeItem('jj_admin_token'); refreshTokenUI(); };
+
+/* ── Load ── */
+async function loadAll() {
+  try {
+    const r = await fetch(API + 'content.json?ts=' + Date.now(), { headers: headers(false) });
+    if (!r.ok) throw new Error('content.json: HTTP ' + r.status);
+    const d = await r.json();
+    sha = d.sha;
+    state = JSON.parse(b64ToUtf8(d.content));
+  } catch (e) {
+    banner('err', 'Could not load content.json from GitHub (' + esc(e.message) + '). Refresh to retry.');
+    $('saveStatus').textContent = 'Load failed'; return;
+  }
+  try {
+    const r = await fetch(API + 'images?ts=' + Date.now(), { headers: headers(false) });
+    images = (await r.json()).filter(f => f.type === 'file').map(f => 'images/' + f.name);
+  } catch (e) { images = []; }
+  dirty = false;
+  $('saveStatus').textContent = 'Loaded — no changes yet'; $('saveStatus').className = 'status';
+  $('saveBtn').disabled = true;
+  renderAll();
+}
+
+/* ── Renderers ── */
+function imgSelect(value, onchangeExpr) {
+  return '<select onchange="' + onchangeExpr + '">' +
+    images.map(p => '<option value="' + esc(p) + '"' + (p === value ? ' selected' : '') + '>' + esc(p.replace('images/', '')) + '</option>').join('') +
+    (images.includes(value) ? '' : '<option selected value="' + esc(value) + '">' + esc(value) + '</option>') +
+    '</select>';
+}
+function modalSelect(value, onchangeExpr) {
+  let opts = Object.entries(STATIC_MODALS).map(([k, v]) => '<option value="' + k + '"' + (k === value ? ' selected' : '') + '>' + esc(v) + '</option>').join('');
+  opts += (state.achievements || []).map((a, i) => { const k = 'ach-' + i; return '<option value="' + k + '"' + (k === value ? ' selected' : '') + '>Achievement #' + (i + 1) + ': ' + esc(a.title) + '</option>'; }).join('');
+  return '<select onchange="' + onchangeExpr + '">' + opts + '</select>';
+}
+
+function renderHero() {
+  $('heroList').innerHTML = (state.heroCards || []).map((c, i) => `
+    <div class="item open">
+      <div class="grid3">
+        <div><label>Big text</label><input type="text" value="${esc(c.num)}" oninput="state.heroCards[${i}].num=this.value;markDirty()"></div>
+        <div><label>Label</label><input type="text" value="${esc(c.label)}" oninput="state.heroCards[${i}].label=this.value;markDirty()"></div>
+        <div><label>Opens popup</label>${modalSelect(c.modal, `state.heroCards[${i}].modal=this.value;markDirty()`)}</div>
+      </div>
+      <div style="margin-top:12px;"><button class="btn danger small" onclick="state.heroCards.splice(${i},1);markDirty();renderHero()">Remove box</button></div>
+    </div>`).join('');
+  $('addHero').style.display = (state.heroCards || []).length >= 6 ? 'none' : '';
+}
+
+function metricRow(i, j) {
+  const m = (state.achievements[i].modal.metrics || [])[j] || ['', ''];
+  return `<div class="grid2">
+    <div><label>Metric ${j + 1} — bold</label><input type="text" value="${esc(m[0])}" oninput="achMetric(${i},${j},0,this.value)"></div>
+    <div><label>Metric ${j + 1} — caption</label><input type="text" value="${esc(m[1])}" oninput="achMetric(${i},${j},1,this.value)"></div>
+  </div>`;
+}
+function achMetric(i, j, k, v) {
+  const mm = state.achievements[i].modal;
+  mm.metrics = mm.metrics || [];
+  while (mm.metrics.length <= j) mm.metrics.push(['', '']);
+  mm.metrics[j][k] = v; markDirty();
+}
+function renderAch() {
+  $('achList').innerHTML = (state.achievements || []).map((a, i) => `
+    <div class="item" id="achItem${i}">
+      <div class="item-head" onclick="document.getElementById('achItem${i}').classList.toggle('open')" style="cursor:pointer;">
+        <div class="rank-chip">${i + 1}</div>
+        <img class="thumb" src="${esc(a.img)}" alt="">
+        <div class="title">${esc(a.title)}</div>
+        <button class="btn ghost small" onclick="event.stopPropagation();achMove(${i},-1)">↑</button>
+        <button class="btn ghost small" onclick="event.stopPropagation();achMove(${i},1)">↓</button>
+        <button class="btn danger small" onclick="event.stopPropagation();achRemove(${i})">Remove</button>
+      </div>
+      <div class="item-body">
+        <div class="grid3">
+          <div><label>Badge</label><input type="text" value="${esc(a.tag)}" oninput="state.achievements[${i}].tag=this.value;markDirty()"></div>
+          <div><label>Card title</label><input type="text" value="${esc(a.title)}" oninput="state.achievements[${i}].title=this.value;markDirty()"></div>
+          <div><label>Card subtitle</label><input type="text" value="${esc(a.sub)}" oninput="state.achievements[${i}].sub=this.value;markDirty()"></div>
+        </div>
+        <label>Photo</label>${imgSelect(a.img, `state.achievements[${i}].img=this.value;markDirty();renderAch()`)}
+        <hr style="border:none;border-top:1px solid var(--line);margin:18px 0 4px;">
+        <div class="grid2">
+          <div><label>Popup title</label><input type="text" value="${esc(a.modal.title)}" oninput="state.achievements[${i}].modal.title=this.value;markDirty()"></div>
+          <div><label>Popup tags (separate with |, first shows green)</label><input type="text" value="${esc((a.modal.meta || []).join(' | '))}" oninput="state.achievements[${i}].modal.meta=this.value.split('|').map(s=>s.trim()).filter(Boolean);markDirty()"></div>
+        </div>
+        <label>Popup description</label>
+        <textarea oninput="state.achievements[${i}].modal.desc=this.value;markDirty()">${esc(a.modal.desc)}</textarea>
+        ${metricRow(i, 0)}${metricRow(i, 1)}${metricRow(i, 2)}
+        <label>Skill pills (comma separated)</label>
+        <input type="text" value="${esc((a.modal.pills || []).join(', '))}" oninput="state.achievements[${i}].modal.pills=this.value.split(',').map(s=>s.trim()).filter(Boolean);markDirty()">
+      </div>
+    </div>`).join('');
+}
+function achMove(i, d) {
+  const arr = state.achievements, j = i + d;
+  if (j < 0 || j >= arr.length) return;
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+  fixHeroRefs(i, j); markDirty(); renderAch(); renderHero();
+}
+function achRemove(i) {
+  if (!confirm('Remove "' + state.achievements[i].title + '" from the site?')) return;
+  state.achievements.splice(i, 1);
+  (state.heroCards || []).forEach(c => {
+    const m = c.modal.match(/^ach-(\d+)$/);
+    if (m) { const n = +m[1]; if (n === i) c.modal = 'ach-0'; else if (n > i) c.modal = 'ach-' + (n - 1); }
+  });
+  markDirty(); renderAch(); renderHero();
+}
+function fixHeroRefs(i, j) {
+  (state.heroCards || []).forEach(c => {
+    if (c.modal === 'ach-' + i) c.modal = 'ach-' + j;
+    else if (c.modal === 'ach-' + j) c.modal = 'ach-' + i;
+  });
+}
+
+function renderBg() {
+  $('heroBgSelect').innerHTML = images.map(p => '<option value="' + esc(p) + '"' + (p === state.heroBackground ? ' selected' : '') + '>' + esc(p.replace('images/', '')) + '</option>').join('');
+  $('heroBgPreview').src = state.heroBackground;
+  $('heroBgSelect').onchange = e => { state.heroBackground = e.target.value; $('heroBgPreview').src = e.target.value; markDirty(); };
+}
+function renderGallery() {
+  $('gallery').innerHTML = images.map(p => '<figure><img src="' + esc(p) + '" loading="lazy" alt=""><figcaption>' + esc(p.replace('images/', '')) + '</figcaption></figure>').join('');
+}
+function renderAll() { renderHero(); renderAch(); renderBg(); renderGallery(); }
+
+/* ── Add buttons ── */
+$('addHero').onclick = () => {
+  state.heroCards = state.heroCards || [];
+  state.heroCards.push({ num: 'NEW', label: 'Describe it', modal: 'pipeline' });
+  markDirty(); renderHero();
+};
+$('addAch').onclick = () => {
+  state.achievements = state.achievements || [];
+  state.achievements.push({
+    tag: 'New', title: 'New achievement', sub: 'Year · context',
+    img: images[0] || 'images/stock-event.jpg',
+    modal: { title: 'New achievement', meta: ['New'], desc: 'Describe what you did and why it mattered.', metrics: [['', ''], ['', ''], ['', '']], pills: [] }
+  });
+  markDirty(); renderAch(); renderHero();
+};
+
+/* ── Upload ── */
+$('uploadBtn').onclick = () => { if (!token) { banner('warn', 'Connect your token first — uploads write to the repository.'); return; } $('uploadInput').click(); };
+$('uploadInput').onchange = async e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  let name = file.name.toLowerCase().replace(/[^a-z0-9.-]+/g, '-');
+  if (images.includes('images/' + name)) name = Date.now() + '-' + name;
+  $('uploadStatus').textContent = 'Uploading ' + name + '…';
+  try {
+    const buf = new Uint8Array(await file.arrayBuffer());
+    let bin = '';
+    for (let i = 0; i < buf.length; i += 0x8000) bin += String.fromCharCode.apply(null, buf.subarray(i, i + 0x8000));
+    const r = await fetch(API + 'images/' + name, {
+      method: 'PUT', headers: headers(),
+      body: JSON.stringify({ message: 'Admin: upload ' + name, content: btoa(bin) })
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    images.push('images/' + name);
+    $('uploadStatus').textContent = '✓ Uploaded ' + name + ' (live in ~1 min)';
+    renderGallery(); renderBg(); renderAch();
+  } catch (err) {
+    $('uploadStatus').textContent = '✗ Upload failed: ' + err.message;
+  }
+  e.target.value = '';
+};
+
+/* ── Save ── */
+$('saveBtn').onclick = async () => {
+  if (!token || !state) return;
+  $('saveBtn').disabled = true;
+  $('saveStatus').textContent = 'Saving…'; $('saveStatus').className = 'status';
+  const body = { message: 'Admin: update site content', content: utf8ToB64(JSON.stringify(state, null, 2)), sha };
+  try {
+    let r = await fetch(API + 'content.json', { method: 'PUT', headers: headers(), body: JSON.stringify(body) });
+    if (r.status === 409 || r.status === 422) {
+      const fresh = await fetch(API + 'content.json?ts=' + Date.now(), { headers: headers(false) }).then(x => x.json());
+      body.sha = fresh.sha;
+      r = await fetch(API + 'content.json', { method: 'PUT', headers: headers(), body: JSON.stringify(body) });
+    }
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    sha = d.content.sha; dirty = false;
+    $('saveStatus').textContent = '✓ Saved — the live site updates in about a minute.';
+    $('saveStatus').className = 'status ok';
+  } catch (err) {
+    $('saveStatus').textContent = '✗ Save failed: ' + err.message;
+    $('saveStatus').className = 'status err';
+    $('saveBtn').disabled = false;
+  }
+};
+$('reloadBtn').onclick = () => { if (!dirty || confirm('Discard unsaved changes?')) loadAll(); };
+
+window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+refreshTokenUI();
+loadAll();
+</script>
+</body>
+</html>

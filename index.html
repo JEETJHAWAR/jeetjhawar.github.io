@@ -112,7 +112,7 @@
       radial-gradient(ellipse 50% 40% at 12% 85%, rgba(34,211,238,0.20), transparent 65%),
       linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.35) 30%, rgba(10,10,10,0.1) 60%, rgba(10,10,10,0.5) 100%),
       linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.05) 100%),
-      url('images/hero-starfield-v2.jpg') center / cover no-repeat;
+      var(--hero-layer, url('images/hero-starfield-v2.jpg') center / cover no-repeat);
     filter: saturate(1.12) contrast(1.03);
   }
   #stars { position: absolute; inset: 0; pointer-events: none; opacity: 0.9; }
@@ -781,24 +781,7 @@
     </div>
     <p class="hero-sub">Word format (.docx), grey &amp; white template · also available as <a href="assets/Jeet_Jhawar_Resume.pdf" download>PDF</a></p>
   </div>
-  <div class="float-cards">
-    <div class="fcard" data-modal="pipeline" style="--r:7%;  --t:20%; --spd:6.5s; --fd:0s;">
-      <div class="fc-num">100+</div>
-      <div class="fc-label">B2B contacts tracked</div>
-    </div>
-    <div class="fcard" data-modal="headboy" style="--r:19%; --t:38%; --spd:7.5s; --fd:1.2s;">
-      <div class="fc-num">1,000+</div>
-      <div class="fc-label">Students led as Head Boy</div>
-    </div>
-    <div class="fcard" data-modal="policy" style="--r:5%;  --t:55%; --spd:6s;   --fd:0.6s;">
-      <div class="fc-num">🏆 ×2</div>
-      <div class="fc-label">Best Delegate — MUN</div>
-    </div>
-    <div class="fcard" data-modal="chess" style="--r:21%; --t:72%; --spd:8s;   --fd:1.8s;">
-      <div class="fc-num">♟ 2nd</div>
-      <div class="fc-label">U-19 State Rapid Chess</div>
-    </div>
-  </div>
+  <div class="float-cards" id="floatCards"></div>
   <div class="hero-fade"></div>
 </section>
 
@@ -897,87 +880,7 @@
   </div>
   <div class="row-wrap">
     <button class="row-arrow left" aria-label="Scroll left">‹</button>
-    <div class="row-scroll">
-
-      <div class="card-ranked reveal">
-        <div class="rank-num">1</div>
-        <div class="rank-poster" data-modal="masters">
-          <img src="images/stock-mic.jpg" alt="">
-          <div class="poster-grad"></div>
-          <div class="poster-body">
-            <span class="poster-tag">2× Winner</span>
-            <div class="poster-title">Best Delegate — Masters' Summit MUN</div>
-            <div class="poster-sub">2024 &amp; 2025 · ₹15,000 cash prize</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-ranked reveal">
-        <div class="rank-num">2</div>
-        <div class="rank-poster" data-modal="mu20">
-          <img src="images/space-satellite.jpg" alt="">
-          <div class="poster-grad"></div>
-          <div class="poster-body">
-            <span class="poster-tag">International</span>
-            <div class="poster-title">3rd — MU20 Opportunity Summit</div>
-            <div class="poster-sub">AIPPM · 2024 · national field</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-ranked reveal">
-        <div class="rank-num">3</div>
-        <div class="rank-poster" data-modal="research">
-          <img src="images/stock-library.jpg" alt="">
-          <div class="poster-grad"></div>
-          <div class="poster-body">
-            <span class="poster-tag">Best Research</span>
-            <div class="poster-title">Best Research &amp; Project — Balvigyan</div>
-            <div class="poster-sub">Inter-school commerce competition</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-ranked reveal">
-        <div class="rank-num">4</div>
-        <div class="rank-poster" data-modal="chess">
-          <img src="images/stock-chess.jpg" alt="">
-          <div class="poster-grad"></div>
-          <div class="poster-body">
-            <span class="poster-tag">State Level</span>
-            <div class="poster-title">2nd — U-19 State Rapid Chess</div>
-            <div class="poster-sub">2025 · strategy under the clock</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-ranked reveal">
-        <div class="rank-num">5</div>
-        <div class="rank-poster" data-modal="debate">
-          <img src="images/stock-conference.jpg" alt="">
-          <div class="poster-grad"></div>
-          <div class="poster-body">
-            <span class="poster-tag">1st Place</span>
-            <div class="poster-title">English Debate &amp; Elocution</div>
-            <div class="poster-sub">Plus Young TV Reporter — school level</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-ranked reveal">
-        <div class="rank-num">6</div>
-        <div class="rank-poster" data-modal="spandan">
-          <img src="images/stock-event.jpg" alt="">
-          <div class="poster-grad"></div>
-          <div class="poster-body">
-            <span class="poster-tag">₹3,100 Prize</span>
-            <div class="poster-title">Spandan GK / Quiz / Debate</div>
-            <div class="poster-sub">Breadth, speed and structure</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="row-scroll" id="achScroll"></div>
     <button class="row-arrow right" aria-label="Scroll right">›</button>
   </div>
 </section>
@@ -1295,46 +1198,6 @@ const MODALS = {
     metrics: [['1,000+', 'students represented'], ['Faculty & admin', 'liaison'], ['Data-informed', 'event & budget decisions']],
     pills: ['Team Leadership', 'Budget Allocation', 'Stakeholder Communication', 'Decision Making']
   },
-  masters: {
-    img: 'images/stock-mic.jpg',
-    title: "Best Delegate ×2 — Masters' Summit MUN",
-    meta: ['<span class="match">2× Winner</span>', "Masters' Summit MUN", '2024 & 2025'],
-    desc: "Back-to-back Best Delegate at Masters' Summit MUN in 2024 and 2025 — the circuit's proof of consistency. Two different agendas, the same method: deep committee research, evidence-first argumentation and coalition-building that holds up over long sessions. Came with a ₹15,000 cash prize.",
-    metrics: [['Best Delegate', "Masters' Summit 2024"], ['Best Delegate', "Masters' Summit 2025"], ['₹15,000', 'cash prize']],
-    pills: ['Diplomacy', 'Research Depth', 'Negotiation', 'Consistency']
-  },
-  mu20: {
-    img: 'images/space-satellite.jpg',
-    title: '3rd — MU20 Opportunity Summit',
-    meta: ['<span class="match">International</span>', 'AIPPM', '2024'],
-    desc: "Placed 3rd in the AIPPM committee at the MU20 Opportunity Summit 2024 — an international summit drawing delegates from across the country. Contemporary Indian policy and economics, high-pressure committee dynamics, and arguments that had to survive scrutiny from a national field. Also took 2nd at Sahodaya MUN (ECOSOC).",
-    metrics: [['3rd', 'MU20 AIPPM · International'], ['2nd', 'Sahodaya MUN · ECOSOC'], ['National field', 'of competing delegates']],
-    pills: ['AIPPM', 'Policy', 'Economics', 'International Summit']
-  },
-  spandan: {
-    img: 'images/stock-event.jpg',
-    title: 'Spandan — GK / Quiz / Debate',
-    meta: ['<span class="match">Winner</span>', 'Spandan', '₹3,100 prize'],
-    desc: "Won Spandan's combined GK / Quiz / Debate competition — a three-discipline gauntlet that tests breadth of general knowledge, buzzer-speed recall and structured argumentation under pressure, all in one sitting. Also represented the school at the Inter-School NCC / Military Training (2023).",
-    metrics: [['₹3,100', 'cash prize'], ['3 disciplines', 'GK · Quiz · Debate'], ['NCC', 'Inter-School Training 2023']],
-    pills: ['General Knowledge', 'Quick Thinking', 'Debate', 'Competition Nerve']
-  },
-  chess: {
-    img: 'images/stock-chess.jpg',
-    title: 'Rapid Chess — Strategy Under the Clock',
-    meta: ['<span class="match">95% Match</span>', 'State Level', 'Strategy', '2025'],
-    desc: '2nd place at the U-19 State Level Rapid Chess championship (2025), 10th at U-18 UICC Trophy (2024) and 10th in Under-18 Boys at the UICC Rapid Chess Trophy. Chess is where the analytical habit was built — probabilistic thinking, pattern recognition and calm decisions under time pressure.',
-    metrics: [['2nd', 'U-19 State Rapid 2025'], ['Top 10', 'U-18 UICC Trophy'], ['Pattern recognition', 'trained daily']],
-    pills: ['Strategic Thinking', 'Pattern Recognition', 'Time Pressure', 'Probabilistic Thinking']
-  },
-  debate: {
-    img: 'images/stock-conference.jpg',
-    title: 'Debate, Elocution & Quiz',
-    meta: ['<span class="match">94% Match</span>', 'School & Inter-School', 'Communication'],
-    desc: "First place across the school's spoken-word circuit — English Debate, English Elocution and Young TV Reporter. Three different formats, one core skill: structure an argument fast, hold a room, and land the point before the clock runs out.",
-    metrics: [['1st', 'English Debate'], ['1st', 'English Elocution'], ['1st', 'Young TV Reporter']],
-    pills: ['Public Speaking', 'Structured Argument', 'Quick Thinking', 'General Knowledge']
-  },
   iimk: {
     img: 'images/iimk-aerial.jpg',
     title: 'IIM Kozhikode',
@@ -1438,8 +1301,10 @@ const mDesc = document.getElementById('mDesc');
 const mMetrics = document.getElementById('mMetrics');
 const mPills = document.getElementById('mPills');
 
+const ALLMODALS = Object.assign({}, MODALS);
+
 function openModal(key) {
-  const d = MODALS[key];
+  const d = ALLMODALS[key];
   if (!d) return;
   mImg.src = d.img;
   mImg.onerror = () => { mImg.onerror = null; mImg.src = 'images/iimk-lawn.jpg'; };
@@ -1456,12 +1321,79 @@ function closeModal() {
   backdrop.classList.remove('show');
   setTimeout(() => { backdrop.classList.remove('open'); document.body.style.overflow = ''; }, 300);
 }
-document.querySelectorAll('[data-modal]').forEach(el => {
-  el.addEventListener('click', () => openModal(el.dataset.modal));
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-modal]');
+  if (el) openModal(el.dataset.modal);
 });
 document.getElementById('mClose').addEventListener('click', closeModal);
 backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.classList.contains('open')) closeModal(); });
+
+/* ── Content from content.json (edited via admin.html) ── */
+(function () {
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const FPOS = [
+    { r: '7%',  t: '20%', spd: '6.5s', fd: '0s' },
+    { r: '19%', t: '38%', spd: '7.5s', fd: '1.2s' },
+    { r: '5%',  t: '55%', spd: '6s',   fd: '0.6s' },
+    { r: '21%', t: '72%', spd: '8s',   fd: '1.8s' },
+    { r: '30%', t: '14%', spd: '7s',   fd: '0.9s' },
+    { r: '33%', t: '60%', spd: '6.8s', fd: '1.5s' }
+  ];
+
+  fetch('content.json?ts=' + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      // Achievement modals become ach-0, ach-1, ...
+      (data.achievements || []).forEach((a, i) => {
+        const m = a.modal || {};
+        ALLMODALS['ach-' + i] = {
+          img: a.img,
+          title: m.title || a.title,
+          meta: (m.meta || []).map((t, j) => j === 0 ? '<span class="match">' + esc(t) + '</span>' : esc(t)),
+          desc: m.desc || '',
+          metrics: m.metrics || [],
+          pills: m.pills || []
+        };
+      });
+
+      // Floating hero boxes
+      const fc = document.getElementById('floatCards');
+      if (fc) fc.innerHTML = (data.heroCards || []).slice(0, 6).map((c, i) => {
+        const p = FPOS[i % FPOS.length];
+        return '<div class="fcard" data-modal="' + esc(c.modal) + '" style="--r:' + p.r + ';--t:' + p.t +
+               ';--spd:' + p.spd + ';--fd:' + p.fd + ';">' +
+               '<div class="fc-num">' + esc(c.num) + '</div>' +
+               '<div class="fc-label">' + esc(c.label) + '</div></div>';
+      }).join('');
+
+      // Achievements Top-N row
+      const row = document.getElementById('achScroll');
+      if (row) row.innerHTML = (data.achievements || []).map((a, i) =>
+        '<div class="card-ranked reveal visible">' +
+        '<div class="rank-num">' + (i + 1) + '</div>' +
+        '<div class="rank-poster" data-modal="ach-' + i + '">' +
+        '<img src="' + esc(a.img) + '" alt="">' +
+        '<div class="poster-grad"></div>' +
+        '<div class="poster-body">' +
+        '<span class="poster-tag">' + esc(a.tag) + '</span>' +
+        '<div class="poster-title">' + esc(a.title) + '</div>' +
+        '<div class="poster-sub">' + esc(a.sub) + '</div>' +
+        '</div></div></div>'
+      ).join('');
+
+      // Row title follows the count
+      const title = document.querySelector('#achievements .row-title');
+      if (title && data.achievements) title.textContent = 'Top ' + data.achievements.length + ' Achievements — All Time';
+
+      // Hero background
+      if (data.heroBackground) {
+        const hm = document.querySelector('.hero-media');
+        if (hm) hm.style.setProperty('--hero-layer', "url('" + data.heroBackground + "') center / cover no-repeat");
+      }
+    })
+    .catch(err => console.error('content.json load failed', err));
+})();
 
 /* ── Starfield ── */
 (function () {

@@ -242,13 +242,27 @@ async function loadAll() {
     sha = d.sha;
     state = JSON.parse(b64ToUtf8(d.content));
   } catch (e) {
-    banner('err', 'Could not load content.json from GitHub (' + esc(e.message) + '). Refresh to retry.');
-    $('saveStatus').textContent = 'Load failed'; return;
+    // Fallback: read the deployed copy from this site's own origin (sha fetched at save time)
+    try {
+      const r2 = await fetch('content.json?ts=' + Date.now());
+      if (!r2.ok) throw new Error('HTTP ' + r2.status);
+      state = await r2.json();
+      sha = null;
+      banner('warn', 'Loaded the deployed content (GitHub API unreachable right now: ' + esc(e.message) + '). Editing works; saving will retry the API.');
+    } catch (e2) {
+      banner('err', 'Could not load content.json (' + esc(e.message) + ' / ' + esc(e2.message) + '). Refresh to retry.');
+      $('saveStatus').textContent = 'Load failed'; return;
+    }
   }
   try {
     const r = await fetch(API + 'images?ts=' + Date.now(), { headers: headers(false) });
     images = (await r.json()).filter(f => f.type === 'file').map(f => 'images/' + f.name);
-  } catch (e) { images = []; }
+  } catch (e) {
+    // Fallback: at least offer every image the content currently references
+    const used = new Set((state.achievements || []).map(a => a.img));
+    if (state.heroBackground) used.add(state.heroBackground);
+    images = Array.from(used);
+  }
   dirty = false;
   $('saveStatus').textContent = 'Loaded — no changes yet'; $('saveStatus').className = 'status';
   $('saveBtn').disabled = true;
@@ -406,6 +420,10 @@ $('saveBtn').onclick = async () => {
   $('saveStatus').textContent = 'Saving…'; $('saveStatus').className = 'status';
   const body = { message: 'Admin: update site content', content: utf8ToB64(JSON.stringify(state, null, 2)), sha };
   try {
+    if (!body.sha) {
+      const fresh = await fetch(API + 'content.json?ts=' + Date.now(), { headers: headers(false) }).then(x => x.json());
+      body.sha = fresh.sha;
+    }
     let r = await fetch(API + 'content.json', { method: 'PUT', headers: headers(), body: JSON.stringify(body) });
     if (r.status === 409 || r.status === 422) {
       const fresh = await fetch(API + 'content.json?ts=' + Date.now(), { headers: headers(false) }).then(x => x.json());

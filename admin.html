@@ -220,17 +220,34 @@ function refreshTokenUI() {
   $('tokenStatus').textContent = token ? 'Token stored in this browser. Checking access…' : 'No token yet — the page is read-only.';
   if (!token) { banner('warn', 'Read-only preview: connect your GitHub token in the Access panel to enable saving and uploads.'); return; }
   fetch('https://api.github.com/repos/' + REPO, { headers: headers(false) })
-    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(r => { if (!r.ok) { const e = new Error('HTTP ' + r.status); e.status = r.status; throw e; } return r.json(); })
     .then(d => {
       const canWrite = d.permissions && (d.permissions.push || d.permissions.admin);
-      $('tokenStatus').textContent = canWrite ? '✓ Connected with write access.' : '⚠ Token connects but has no write permission — check Contents: Read and write.';
-      banner(canWrite ? '' : 'warn', canWrite ? '' : 'Token has no write access to the repository.');
+      $('tokenStatus').textContent = canWrite ? '✓ Connected with write access.' : '⚠ Token is valid but has NO write permission on this repo. Edit the token on GitHub: Repository access → Only select repositories → jeetjhawar.github.io, and Permissions → Contents → Read and write.';
+      banner(canWrite ? '' : 'warn', canWrite ? '' : 'Token connects but cannot write — fix its repository access + Contents permission on GitHub.');
       if (canWrite && dirty) { $('saveBtn').disabled = false; $('saveStatus').textContent = 'Unsaved changes'; }
       else if (canWrite) $('saveBtn').disabled = !dirty;
     })
-    .catch(() => { $('tokenStatus').textContent = '✗ Token was rejected by GitHub — paste it again.'; banner('err', 'GitHub rejected the token. Create a new fine-grained token and reconnect.'); });
+    .catch(e => {
+      if (e.status === 401) {
+        $('tokenStatus').textContent = '✗ GitHub says this token is invalid or expired (401). Regenerate it and copy the FULL value (starts with github_pat_).';
+        banner('err', 'GitHub rejected the token (401 — invalid or expired). On GitHub, open the token, check its expiration, or generate a new one and copy it completely.');
+      } else if (e.status) {
+        $('tokenStatus').textContent = '✗ GitHub returned ' + e.status + ' — unexpected; try again in a minute.';
+        banner('err', 'GitHub returned HTTP ' + e.status + ' while checking the token.');
+      } else {
+        $('tokenStatus').textContent = '✗ Could not reach api.github.com — check your connection, VPN or ad-blocker.';
+        banner('err', 'Network problem reaching api.github.com (not a token problem). Disable blockers/VPN for this page and retry.');
+      }
+    });
 }
-$('tokenSave').onclick = () => { token = $('tokenInput').value.trim(); localStorage.setItem('jj_admin_token', token); refreshTokenUI(); };
+$('tokenSave').onclick = () => {
+  // strip whitespace and any invisible characters that ride along with copy-paste
+  token = $('tokenInput').value.replace(/[^\x21-\x7E]/g, '');
+  $('tokenInput').value = token;
+  localStorage.setItem('jj_admin_token', token);
+  refreshTokenUI();
+};
 $('tokenClear').onclick = () => { token = ''; localStorage.removeItem('jj_admin_token'); refreshTokenUI(); };
 
 /* ── Load ── */

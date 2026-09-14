@@ -2,6 +2,11 @@
   "heroBackground": "images/hero-starfield-v2.jpg",
   "heroCards": [
     {
+      "num": "🎲 Founder",
+      "label": "Blind Bluff — live storefront",
+      "modal": "blindbluff"
+    },
+    {
       "num": "100+",
       "label": "B2B contacts tracked",
       "modal": "pipeline"
@@ -61,7 +66,7 @@
     {
       "tag": "International",
       "title": "3rd — MU20 Opportunity Summit",
-      "sub": "AIPPM · 2024 · national field",
+      "sub": "AIPPM · 2024 · International",
       "img": "images/space-satellite.jpg",
       "modal": {
         "title": "3rd — MU20 Opportunity Summit",
@@ -70,7 +75,7 @@
           "AIPPM",
           "2024"
         ],
-        "desc": "Placed 3rd in the AIPPM committee at the MU20 Opportunity Summit 2024 — an international summit drawing delegates from across the country. Contemporary Indian policy and economics, high-pressure committee dynamics, and arguments that had to survive scrutiny from a national field. Also took 2nd at Sahodaya MUN (ECOSOC).",
+        "desc": "Placed 3rd in the AIPPM committee at the MU20 Opportunity Summit 2024 — an international summit. Contemporary Indian policy and economics, high-pressure committee dynamics, and arguments that had to survive scrutiny from a national field. Also took 2nd at Sahodaya MUN (ECOSOC).",
         "metrics": [
           [
             "3rd",
@@ -81,8 +86,8 @@
             "Sahodaya MUN · ECOSOC"
           ],
           [
-            "National field",
-            "of competing delegates"
+            "International",
+            "MU20 Opportunity Summit 2024"
           ]
         ],
         "pills": [
@@ -105,15 +110,15 @@
           "Strategy",
           "2025"
         ],
-        "desc": "2nd place at the U-19 State Level Rapid Chess championship (2025), 10th at U-18 UICC Trophy (2024) and 10th in Under-18 Boys at the UICC Rapid Chess Trophy. Chess is where the analytical habit was built — probabilistic thinking, pattern recognition and calm decisions under time pressure.",
+        "desc": "2nd place at the U-19 State Level Rapid Chess championship (2025) and 10th in Under-18 Boys at the UICC Trophy (2024). Chess is where the analytical habit was built — probabilistic thinking, pattern recognition and calm decisions under time pressure.",
         "metrics": [
           [
             "2nd",
             "U-19 State Rapid 2025"
           ],
           [
-            "Top 10",
-            "U-18 UICC Trophy"
+            "10th",
+            "Under-18 Boys · UICC Trophy 2024"
           ],
           [
             "Pattern recognition",
@@ -167,12 +172,12 @@
       "tag": "1st Place",
       "title": "English Debate & Elocution",
       "sub": "Plus Young TV Reporter — school level",
-      "img": "images/stock-conference.jpg",
+      "img": "images/debate-stage.jpg",
       "modal": {
         "title": "Debate, Elocution & Quiz",
         "meta": [
           "1st Place",
-          "School & Inter-School",
+          "School Level",
           "Communication"
         ],
         "desc": "First place across the school's spoken-word circuit — English Debate, English Elocution and Young TV Reporter. Three different formats, one core skill: structure an argument fast, hold a room, and land the point before the clock runs out.",

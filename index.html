@@ -4,11 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jeet Jhawar — Portfolio</title>
-<meta name="description" content="Jeet Jhawar — BMS (Honours), IIM Kozhikode. Data-driven operator, MUN champion, state-level chess player. Streaming now.">
+<meta name="description" content="Jeet Jhawar — Founder of Blind Bluff, Senior Marketing Manager at NextGenix, BMS (Honours) at IIM Kozhikode. Builder of Python and Firebase tools. Streaming now.">
 <meta property="og:title" content="Jeet Jhawar — Portfolio">
-<meta property="og:description" content="Analytical. Strategic. Streaming now — work samples, experience and achievements.">
-<meta property="og:image" content="images/space-stars.jpg">
+<meta property="og:description" content="Founder-operator. Blind Bluff, growth tooling, shipped automation — streaming now.">
+<meta property="og:image" content="https://jeetjhawar.github.io/images/hero-starfield-v2.jpg">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0a0a'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='30' fill='white' text-anchor='middle'%3EJJ%3C/text%3E%3C/svg%3E">
+<link rel="preload" as="image" href="images/hero-starfield-v2.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
@@ -101,6 +102,7 @@
   #home {
     position: relative;
     min-height: 100vh;
+    min-height: 100svh;
     display: flex; align-items: center;
     overflow: hidden;
     background: #000;
@@ -232,6 +234,21 @@
     50%      { transform: translateY(-15px); }
   }
   @media (max-width: 980px) { .float-cards { display: none; } }
+  .hero-stats { display: none; }
+  @media (max-width: 980px) {
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .hero-stats .hstat {
+      display: inline-flex; align-items: baseline; gap: 7px;
+      background: rgba(13, 20, 34, 0.6);
+      border: 1px solid rgba(125, 211, 252, 0.25);
+      border-radius: 6px; padding: 7px 12px; cursor: pointer;
+    }
+    .hero-stats .hstat b {
+      font-family: 'Orbitron', sans-serif; font-weight: 700;
+      font-size: 0.82rem; color: var(--white);
+    }
+    .hero-stats .hstat span { font-size: 0.66rem; color: var(--grey-2); }
+  }
 
   /* ───────────────────────── ROWS ───────────────────────── */
   main { position: relative; z-index: 3; }
@@ -487,6 +504,7 @@
   .genre-grid .genre-tile:nth-child(3) { background: linear-gradient(135deg, #0f3d5c 0%, #081826 70%); }
   .genre-grid .genre-tile:nth-child(4) { background: linear-gradient(135deg, #0f4440 0%, #071a18 70%); }
   .genre-grid .genre-tile:nth-child(5) { background: linear-gradient(135deg, #1b2a5e 0%, #0c1030 70%); }
+  .genre-grid .genre-tile:nth-child(6) { background: linear-gradient(135deg, #103a52 0%, #081522 70%); }
   .genre-tile::before {
     content: '';
     position: absolute; top: -40px; right: -40px;
@@ -742,7 +760,7 @@
     <a href="#contact">Contact</a>
   </nav>
   <div class="nav-right">
-    <a class="btn-resume" href="assets/Jeet_Jhawar_Resume.docx" download>
+    <a class="btn-resume" href="assets/Jeet_Jhawar_Resume.pdf" download>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 16l-6-6h4V2h4v8h4l-6 6zm-8 2h16v4H4v-4z"/></svg>
       Resume
     </a>
@@ -755,22 +773,21 @@
   <div class="hero-media"></div>
   <canvas id="stars"></canvas>
   <div class="hero-inner">
-    <div class="hero-eyebrow"><span class="jj">JJ</span> A Portfolio Series</div>
+    <div class="hero-eyebrow"><span class="jj">JJ</span> A Founder-Operator Series</div>
     <h1 class="hero-title">JEET<br>JHAWAR</h1>
     <div class="hero-meta">
       <span class="match">97% Match</span>
+      <span class="badge-cert">FOUNDER</span>
       <span>2025 – 2029</span>
       <span class="badge-cert">BMS (H)</span>
       <span>IIM Kozhikode</span>
       <span class="badge-hd">HD</span>
     </div>
     <p class="hero-desc">
-      Analytical. Strategic. Ready to build. From tracking a 100+ contact B2B pipeline
-      at IIM Kozhikode to leading 1,000+ students as Head Boy — a story of decisions
-      run on data, teams held together, and games won move by move.
+      Founder of Blind Bluff — a games brand with a live storefront shipping across India. Senior Marketing Manager leading a sales team. Builder of Python and Firebase tools that automate real work. From a 100+ B2B pipeline to a 100-player live quiz — shipped, not planned.
     </p>
     <div class="hero-actions">
-      <a class="btn-play" href="assets/Jeet_Jhawar_Resume.docx" download>
+      <a class="btn-play" href="assets/Jeet_Jhawar_Resume.pdf" download>
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
         Download Resume
       </a>
@@ -779,7 +796,8 @@
         More Info
       </a>
     </div>
-    <p class="hero-sub">Word format (.docx), grey &amp; white template · also available as <a href="assets/Jeet_Jhawar_Resume.pdf" download>PDF</a></p>
+    <p class="hero-sub">Sept 2026 · PDF · prefer Word? <a href="assets/Jeet_Jhawar_Resume.docx" download>Grab the .docx</a></p>
+    <div class="hero-stats" id="heroStats"></div>
   </div>
   <div class="float-cards" id="floatCards"></div>
   <div class="hero-fade"></div>
@@ -796,29 +814,88 @@
   <div class="row-wrap">
     <button class="row-arrow left" aria-label="Scroll left">‹</button>
     <div class="row-scroll">
+      <div class="card reveal" data-modal="blindbluff" tabindex="0" role="button" aria-label="Blind Bluff — The Games Brand">
+        <img class="thumb" src="images/blindbluff.jpg" alt="Blind Bluff — The Games Brand" loading="lazy" decoding="async">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">Blind Bluff — The Games Brand</div>
+          <div class="card-meta"><span class="match">99% Match</span><span>Founder</span><span>blindbluff.com</span></div>
+          <div class="card-tagline">Founder. Live storefront, 3 card games selling, 6 titles in production.</div>
+        </div>
+      </div>
 
-      <div class="card reveal" data-modal="pipeline">
-        <img class="thumb" src="images/stock-dashboard.jpg" alt="Analytics dashboard">
+      <div class="card reveal" data-modal="growth-tools" tabindex="0" role="button" aria-label="NextGenix Growth Engine">
+        <img class="thumb" src="images/growth-tools.jpg" alt="NextGenix Growth Engine" loading="lazy" decoding="async">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">NextGenix Growth Engine</div>
+          <div class="card-meta"><span class="match">98% Match</span><span>Growth</span><span>NextGenix</span></div>
+          <div class="card-tagline">Lead-enrichment pipeline, a Maps scraper and a 76-college database.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-modal="game-night" tabindex="0" role="button" aria-label="Induction Week: The Arcade">
+        <img class="thumb" src="images/quiz-live.jpg" alt="Induction Week: The Arcade" loading="lazy" decoding="async">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">Induction Week: The Arcade</div>
+          <div class="card-meta"><span class="match">97% Match</span><span>Build</span><span>IIMK</span></div>
+          <div class="card-tagline">Escape room, murder mystery and a live 100-player quiz — in the browser.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-modal="automation" tabindex="0" role="button" aria-label="The Automation Suite">
+        <img class="thumb" src="images/automation.jpg" alt="The Automation Suite" loading="lazy" decoding="async">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">The Automation Suite</div>
+          <div class="card-meta"><span class="match">96% Match</span><span>Build</span><span>Python · Firebase</span></div>
+          <div class="card-tagline">WhatsApp bots, weather alerts for 200+ cities, a council records app.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-modal="care" tabindex="0" role="button" aria-label="HR Ops — Jarurat Care">
+        <img class="thumb" src="images/care.jpg" alt="HR Ops — Jarurat Care" loading="lazy" decoding="async">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">HR Ops — Jarurat Care</div>
+          <div class="card-meta"><span class="match">95% Match</span><span>People Ops</span><span>Jarurat Care</span></div>
+          <div class="card-tagline">Cancer-care NGO. Interviews scheduled, confirmed — then automated.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-modal="pipeline" tabindex="0" role="button" aria-label="B2B Sponsor Outreach Tracker">
+        <img class="thumb" src="images/stock-dashboard.jpg" alt="B2B Sponsor Outreach Tracker" loading="lazy" decoding="async">
         <span class="card-mark">JJ</span>
         <div class="card-body">
           <div class="card-title">B2B Sponsor Outreach Tracker</div>
           <div class="card-meta"><span class="match">98% Match</span><span>Data</span><span>IIMK Council</span></div>
-          <div class="card-tagline">100+ contacts mapped across a full funnel — cold to converted.</div>
+          <div class="card-tagline">100+ contacts mapped cold to converted — plus a 64-org fest tracker.</div>
         </div>
       </div>
 
-      <div class="card reveal" data-modal="dashboard">
-        <img class="thumb" src="images/stock-analytics.jpg" alt="Laptop with charts">
+      <div class="card reveal" data-modal="dashboard" tabindex="0" role="button" aria-label="Campus Event P&amp;L Dashboard">
+        <img class="thumb" src="images/stock-analytics.jpg" alt="Campus Event P&amp;L Dashboard" loading="lazy" decoding="async">
         <span class="card-mark">JJ</span>
         <div class="card-body">
           <div class="card-title">Campus Event P&amp;L Dashboard</div>
           <div class="card-meta"><span class="match">96% Match</span><span>Analytics</span><span>IIMK Council</span></div>
-          <div class="card-tagline">Turnout, budget vs actual and engagement — reported to leadership.</div>
+          <div class="card-tagline">Budget vs actual, turnout and engagement — reported to leadership.</div>
         </div>
       </div>
 
-      <div class="card reveal" data-modal="shortlist">
-        <img class="thumb" src="images/stock-writing.jpg" alt="Pen writing on paper">
+      <div class="card reveal" data-modal="events" tabindex="0" role="button" aria-label="End-to-End Event Execution">
+        <img class="thumb" src="images/stock-event.jpg" alt="End-to-End Event Execution" loading="lazy" decoding="async">
+        <span class="card-mark">JJ</span>
+        <div class="card-body">
+          <div class="card-title">End-to-End Event Execution</div>
+          <div class="card-meta"><span class="match">94% Match</span><span>Ops</span><span>IIMK</span></div>
+          <div class="card-tagline">A freshers' night for a whole batch, a Swiss-system chess tournament — run, not just planned.</div>
+        </div>
+      </div>
+
+      <div class="card reveal" data-modal="shortlist" tabindex="0" role="button" aria-label="MUN Delegate Shortlisting System">
+        <img class="thumb" src="images/shortlist-panel.jpg" alt="MUN Delegate Shortlisting System" loading="lazy" decoding="async">
         <span class="card-mark">JJ</span>
         <div class="card-body">
           <div class="card-title">MUN Delegate Shortlisting System</div>
@@ -827,38 +904,8 @@
         </div>
       </div>
 
-      <div class="card reveal" data-modal="events">
-        <img class="thumb" src="images/stock-event.jpg" alt="Event confetti crowd">
-        <span class="card-mark">JJ</span>
-        <div class="card-body">
-          <div class="card-title">End-to-End Event Execution</div>
-          <div class="card-meta"><span class="match">94% Match</span><span>Ops</span><span>IIMK Council</span></div>
-          <div class="card-tagline">Vendors, schedules, sponsors and handoffs — one central node.</div>
-        </div>
-      </div>
-
-      <div class="card reveal" data-modal="research">
-        <img class="thumb" src="images/stock-library.jpg" alt="Library shelves">
-        <span class="card-mark">JJ</span>
-        <div class="card-body">
-          <div class="card-title">Transportation Research Project</div>
-          <div class="card-meta"><span class="match">97% Match</span><span>Research</span><span>Balvigyan</span></div>
-          <div class="card-tagline">Best Research &amp; Project — inter-school commerce competition.</div>
-        </div>
-      </div>
-
-      <div class="card reveal" data-modal="policy">
-        <img class="thumb" src="images/stock-mic.jpg" alt="Microphone on stage">
-        <span class="card-mark">JJ</span>
-        <div class="card-body">
-          <div class="card-title">Policy Research &amp; Argumentation</div>
-          <div class="card-meta"><span class="match">96% Match</span><span>Research</span><span>MUN Circuit</span></div>
-          <div class="card-tagline">Position papers, UN resolutions and pressure-tested arguments.</div>
-        </div>
-      </div>
-
-      <div class="card reveal" data-modal="headboy">
-        <img class="thumb" src="images/stock-team.jpg" alt="Team working together">
+      <div class="card reveal" data-modal="headboy" tabindex="0" role="button" aria-label="Leading 1,000+ Students">
+        <img class="thumb" src="images/stock-team.jpg" alt="Leading 1,000+ Students" loading="lazy" decoding="async">
         <span class="card-mark">JJ</span>
         <div class="card-body">
           <div class="card-title">Leading 1,000+ Students</div>
@@ -866,9 +913,76 @@
           <div class="card-tagline">The bridge between students, faculty and administration.</div>
         </div>
       </div>
-
     </div>
     <button class="row-arrow right" aria-label="Scroll right">›</button>
+  </div>
+</section>
+
+<!-- ═════════════ EXPERIENCE (EPISODES) ═════════════ -->
+<section id="experience">
+  <div class="row-head reveal" style="padding:0; margin-bottom:18px; max-width:900px; margin-left:auto; margin-right:auto;">
+    <div class="row-title">Episodes — Experience</div>
+    <div class="row-kicker">Where I've shown up</div>
+  </div>
+  <div class="episodes-box reveal">
+    <div class="episodes-head">
+      <h3>Jeet Jhawar: The Series</h3>
+      <span class="season-badge">3 Seasons · 2024 — Present</span>
+    </div>
+
+    <div class="episode" data-modal="blindbluff" tabindex="0" role="button">
+      <div class="ep-num">1</div>
+      <div class="ep-thumb"><img src="images/game-night.jpg" alt="" loading="lazy" decoding="async"><div class="ep-play"><span>▶</span></div></div>
+      <div class="ep-info">
+        <h4>Founder — Blind Bluff <span class="ep-dur">2026 – Present</span></h4>
+        <p>Runs Blind Bluff (blindbluff.com), a Kochi-based games brand shipped across India — live storefront, 3 card games selling, 6 titles in production including 3 murder mysteries, plus custom mystery nights for private and corporate events.</p>
+      </div>
+    </div>
+
+    <div class="episode" data-modal="growth-tools" tabindex="0" role="button">
+      <div class="ep-num">2</div>
+      <div class="ep-thumb"><img src="images/growth-tools.jpg" alt="" loading="lazy" decoding="async"><div class="ep-play"><span>▶</span></div></div>
+      <div class="ep-info">
+        <h4>Senior Marketing Manager — NextGenix <span class="ep-dur">Jul 2026 – Present</span></h4>
+        <p>Leads a sales team and works directly with the CEO at a website &amp; app development firm — client relationships, social media and campaign execution, backed by self-built tools: a lead-enrichment pipeline, Google Maps scraper and 76-college database.</p>
+      </div>
+    </div>
+
+    <div class="episode" data-modal="care" tabindex="0" role="button">
+      <div class="ep-num">3</div>
+      <div class="ep-thumb"><img src="images/care.jpg" alt="" loading="lazy" decoding="async"><div class="ep-play"><span>▶</span></div></div>
+      <div class="ep-info">
+        <h4>HR Intern — Jarurat Care Foundation <span class="ep-dur">Jul – Oct 2026</span></h4>
+        <p>Supported HR operations at a cancer-care NGO serving patients and caregivers across India — candidate coordination, interview scheduling and confirmations — then built Python/Selenium WhatsApp automation so confirmations send themselves.</p>
+      </div>
+    </div>
+
+    <div class="episode" data-modal="pipeline" tabindex="0" role="button">
+      <div class="ep-num">4</div>
+      <div class="ep-thumb"><img src="images/iimk-front.jpg" alt="" loading="lazy" decoding="async"><div class="ep-play"><span>▶</span></div></div>
+      <div class="ep-info">
+        <h4>Council Member — IIM Kozhikode <span class="ep-dur">2026</span></h4>
+        <p>Spearheads end-to-end logistics for campus events and manages committee budgets — a 100+ contact B2B sponsor pipeline, event P&amp;L documentation for council leadership, and strategic communications that maximise student engagement.</p>
+      </div>
+    </div>
+
+    <div class="episode" data-modal="headboy" tabindex="0" role="button">
+      <div class="ep-num">5</div>
+      <div class="ep-thumb"><img src="images/school.jpg" alt="" loading="lazy" decoding="async"><div class="ep-play"><span>▶</span></div></div>
+      <div class="ep-info">
+        <h4>Head Boy — St. Arnold's School, Indore <span class="ep-dur">2024 – 2025</span></h4>
+        <p>Led the student council of 1,000+ students — event budgets, task delegation and stakeholder communication across faculty and administration; shortlisted 20 MUN delegates from 100+ applicants via rubric-based evaluation.</p>
+      </div>
+    </div>
+
+    <div class="episode" data-modal="iimk" tabindex="0" role="button">
+      <div class="ep-num">6</div>
+      <div class="ep-thumb"><img src="images/iimk-lawn.jpg" alt="" loading="lazy" decoding="async"><div class="ep-play"><span>▶</span></div></div>
+      <div class="ep-info">
+        <h4>BMS (Honours) — IIM Kozhikode <span class="ep-dur">2025 – 2029</span></h4>
+        <p>The academic spine of the series — a Bachelor of Management Studies (Honours) at one of India's premier management institutions, with SQL and the Google Data Analytics certificate in progress alongside everything above.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -885,47 +999,6 @@
   </div>
 </section>
 
-<!-- ═════════════ EXPERIENCE (EPISODES) ═════════════ -->
-<section id="experience">
-  <div class="row-head reveal" style="padding:0; margin-bottom:18px; max-width:900px; margin-left:auto; margin-right:auto;">
-    <div class="row-title">Episodes — Experience</div>
-    <div class="row-kicker">Where I've shown up</div>
-  </div>
-  <div class="episodes-box reveal">
-    <div class="episodes-head">
-      <h3>Jeet Jhawar: The Series</h3>
-      <span class="season-badge">2 Seasons · 2024 — Present</span>
-    </div>
-
-    <div class="episode" data-modal="pipeline">
-      <div class="ep-num">1</div>
-      <div class="ep-thumb"><img src="images/iimk-front.jpg" alt="IIM Kozhikode"><div class="ep-play"><span>▶</span></div></div>
-      <div class="ep-info">
-        <h4>Council Member — IIM Kozhikode <span class="ep-dur">2026 · Present</span></h4>
-        <p>Built and maintained a 100+ contact B2B outreach pipeline; documented event P&amp;L metrics across campus events; ran quality checks and built clean handover documentation for committee transitions.</p>
-      </div>
-    </div>
-
-    <div class="episode" data-modal="headboy">
-      <div class="ep-num">2</div>
-      <div class="ep-thumb"><img src="images/school.jpg" alt="St. Arnold's School" onerror="this.parentElement.classList.add('noimg'); this.remove();"><div class="ep-play"><span>▶</span></div></div>
-      <div class="ep-info">
-        <h4>Head Boy — St. Arnold's School, Indore <span class="ep-dur">2024 · 2025</span></h4>
-        <p>Led a student council serving 1,000+ students — event budgets, task delegation and stakeholder communication. Shortlisted 20 MUN delegates from 100+ applicants with rubric-based evaluation.</p>
-      </div>
-    </div>
-
-    <div class="episode" data-modal="pipeline">
-      <div class="ep-num">3</div>
-      <div class="ep-thumb"><img src="images/iimk-lawn.jpg" alt="IIMK campus"><div class="ep-play"><span>▶</span></div></div>
-      <div class="ep-info">
-        <h4>BMS (Honours) — IIM Kozhikode <span class="ep-dur">2025 · 2029</span></h4>
-        <p>Pursuing a Bachelor of Management Studies (Honours) at one of India's premier management institutions — while actively upskilling in SQL, Python and data analytics.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ═════════════ EDUCATION (LOCATIONS) ═════════════ -->
 <section class="row-section" id="education">
   <div class="row-head reveal">
@@ -935,8 +1008,8 @@
   <div class="row-wrap">
     <div class="row-scroll">
 
-      <div class="card reveal" style="flex-basis: 460px;" data-modal="iimk">
-        <img class="thumb" src="images/iimk-aerial.jpg" alt="IIM Kozhikode campus">
+      <div class="card reveal" style="flex-basis: 460px;" data-modal="iimk" tabindex="0" role="button">
+        <img class="thumb" src="images/iimk-aerial.jpg" alt="IIM Kozhikode campus" loading="lazy" decoding="async">
         <span class="card-mark">JJ</span>
         <div class="card-body">
           <div class="card-title">IIM Kozhikode — God's Own Campus</div>
@@ -945,8 +1018,8 @@
         </div>
       </div>
 
-      <div class="card reveal" style="flex-basis: 460px;" data-modal="school">
-        <img class="thumb" src="images/school.jpg" alt="St. Arnold's School" onerror="this.src='images/stock-library.jpg';">
+      <div class="card reveal" style="flex-basis: 460px;" data-modal="school" tabindex="0" role="button">
+        <img class="thumb" src="images/school.jpg" alt="St. Arnold's School" onerror="this.src='images/stock-library.jpg';" loading="lazy" decoding="async">
         <span class="card-mark">JJ</span>
         <div class="card-body">
           <div class="card-title">St. Arnold's School, Indore</div>
@@ -955,8 +1028,8 @@
         </div>
       </div>
 
-      <div class="card reveal" style="flex-basis: 460px;" data-modal="campuslife">
-        <img class="thumb" src="images/iimk-front.jpg" alt="IIM Kozhikode building">
+      <div class="card reveal" style="flex-basis: 460px;" data-modal="campuslife" tabindex="0" role="button">
+        <img class="thumb" src="images/iimk-front.jpg" alt="IIM Kozhikode building" loading="lazy" decoding="async">
         <span class="card-mark">JJ</span>
         <div class="card-body">
           <div class="card-title">Life on Campus</div>
@@ -977,51 +1050,65 @@
   </div>
   <div class="genre-grid">
     <div class="genre-tile reveal">
+      <h4>Builder</h4>
+      <div class="g-level">Shipped</div>
+      <ul>
+        <li>Python — Selenium, BeautifulSoup, REST APIs</li>
+        <li>Firebase &amp; React, HTML/JS</li>
+        <li>Automation in production across 3 orgs</li>
+      </ul>
+    </div>
+
+    <div class="genre-tile reveal">
       <h4>Data &amp; Analytics</h4>
       <div class="g-level">Advanced</div>
       <ul>
-        <li>Excel / Google Sheets — Pivot Tables, XLOOKUP</li>
-        <li>Data cleaning &amp; quality checks</li>
-        <li>Funnel &amp; trend analysis</li>
+        <li>Excel / Sheets — Pivot Tables, XLOOKUP</li>
+        <li>Data cleaning &amp; funnel analysis</li>
+        <li>SQL &amp; Google Data Analytics — in progress</li>
       </ul>
     </div>
+
     <div class="genre-tile reveal">
       <h4>Operations</h4>
-      <div class="g-level">Strong</div>
+      <div class="g-level">Founder-Grade</div>
       <ul>
-        <li>Event coordination, end-to-end</li>
-        <li>Budget &amp; P&amp;L tracking</li>
-        <li>Documentation &amp; handovers</li>
+        <li>Event management, end-to-end</li>
+        <li>Budgeting &amp; P&amp;L tracking</li>
+        <li>B2B outreach &amp; sales coordination</li>
       </ul>
     </div>
+
     <div class="genre-tile reveal">
       <h4>Communication</h4>
       <div class="g-level">Competition Level</div>
       <ul>
         <li>Public speaking &amp; debate</li>
-        <li>Policy research &amp; position papers</li>
-        <li>Stakeholder management</li>
+        <li>Client &amp; stakeholder management</li>
+        <li>Video editing — DaVinci Resolve</li>
       </ul>
     </div>
+
     <div class="genre-tile reveal">
       <h4>Leadership</h4>
       <div class="g-level">Proven</div>
       <ul>
-        <li>Team leadership — 1,000+ students</li>
-        <li>Multi-criteria decision making</li>
-        <li>Cross-functional coordination</li>
+        <li>Sales team lead — NextGenix</li>
+        <li>1,000+ students as Head Boy</li>
+        <li>Cross-functional collaboration</li>
       </ul>
     </div>
+
     <div class="genre-tile reveal">
       <h4>Strategy</h4>
       <div class="g-level">State Level</div>
       <ul>
         <li>Rapid chess — U-19 state 2nd</li>
-        <li>Probabilistic thinking</li>
-        <li>Performance under time pressure</li>
+        <li>Sponsorship playbooks &amp; trackers</li>
+        <li>Calm decisions under time pressure</li>
       </ul>
     </div>
-  </div>
+    </div>
 </section>
 
 <!-- ═════════════ COMING SOON ═════════════ -->
@@ -1033,35 +1120,37 @@
   <div class="soon-grid">
     <div class="soon-card reveal">
       <div class="soon-label"><span class="live-dot"></span> In Production</div>
+      <h4>Blind Bluff — 6 Titles</h4>
+      <p>Six new games in the pipeline at blindbluff.com — including three murder mysteries. The shelf is about to get longer.</p>
+      <div class="soon-track"><div class="soon-fill" data-width="50"></div></div>
+      <div class="soon-pct">In production · incl. 3 murder mysteries</div>
+    </div>
+
+    <div class="soon-card reveal">
+      <div class="soon-label"><span class="live-dot"></span> In Production</div>
       <h4>Google Data Analytics Certificate</h4>
-      <p>Professional certificate (Coursera) — building formal foundations in the analytics workflow.</p>
-      <div class="soon-track"><div class="soon-fill" data-width="55"></div></div>
+      <p>Professional certificate (Coursera) — formal foundations under an analytics practice already running in the wild.</p>
+      <div class="soon-track"><div class="soon-fill" data-width="60"></div></div>
       <div class="soon-pct">In progress</div>
     </div>
+
     <div class="soon-card reveal">
       <div class="soon-label"><span class="live-dot"></span> In Production</div>
       <h4>SQL</h4>
       <p>Queries, joins and aggregations — the language of every serious data pipeline.</p>
-      <div class="soon-track"><div class="soon-fill" data-width="30"></div></div>
-      <div class="soon-pct">Learning</div>
+      <div class="soon-track"><div class="soon-fill" data-width="40"></div></div>
+      <div class="soon-pct">In progress</div>
     </div>
-    <div class="soon-card reveal">
-      <div class="soon-label"><span class="live-dot"></span> In Production</div>
-      <h4>Python</h4>
-      <p>From spreadsheets to scripts — automating analysis and scaling what Excel started.</p>
-      <div class="soon-track"><div class="soon-fill" data-width="25"></div></div>
-      <div class="soon-pct">Learning</div>
     </div>
-  </div>
 </section>
 
 <!-- ═════════════ CONTACT ═════════════ -->
 <section id="contact">
-  <div class="contact-kicker reveal">Season 3 — casting now</div>
+  <div class="contact-kicker reveal">Season 4 — casting now</div>
   <h2 class="reveal">Let's build something</h2>
   <p class="contact-copy reveal">
-    Open to internship opportunities, conversations and collaborations.
-    Whether you have a role in mind or just want to talk — reach out.
+    Open to internships, collaborations, and wholesale or custom game-night
+    enquiries for Blind Bluff. Whether you have a role in mind or just want to talk — reach out.
   </p>
   <div class="contact-row reveal">
     <a class="contact-chip" href="mailto:jeetjhawar700@gmail.com">
@@ -1071,6 +1160,10 @@
     <a class="contact-chip" href="https://linkedin.com/in/jeetjhawar" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
       LinkedIn
+    </a>
+    <a class="contact-chip" href="https://blindbluff.com" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2m3 3.5A1.5 1.5 0 0 0 6.5 8 1.5 1.5 0 0 0 8 9.5 1.5 1.5 0 0 0 9.5 8 1.5 1.5 0 0 0 8 6.5m8 0A1.5 1.5 0 0 0 14.5 8 1.5 1.5 0 0 0 16 9.5 1.5 1.5 0 0 0 17.5 8 1.5 1.5 0 0 0 16 6.5m-8 8A1.5 1.5 0 0 0 6.5 16 1.5 1.5 0 0 0 8 17.5 1.5 1.5 0 0 0 9.5 16 1.5 1.5 0 0 0 8 14.5m8 0a1.5 1.5 0 0 0-1.5 1.5 1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5 1.5 1.5 0 0 0-1.5-1.5m-4-4A1.5 1.5 0 0 0 10.5 12a1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 0 0 12 10.5z"/></svg>
+      blindbluff.com
     </a>
     <a class="contact-chip social-instagram" href="https://www.instagram.com/jeetjhawar_/" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
@@ -1108,6 +1201,7 @@
     <a href="#education">Education</a>
     <a href="#skills">Skills</a>
     <a href="#soon">Coming Soon</a>
+    <a href="https://blindbluff.com" target="_blank" rel="noopener">Blind Bluff</a>
     <a href="assets/Jeet_Jhawar_Resume.docx" download>Resume (.docx)</a>
     <a href="assets/Jeet_Jhawar_Resume.pdf" download>Resume (PDF)</a>
     <a href="mailto:jeetjhawar700@gmail.com">Email</a>
@@ -1142,62 +1236,16 @@
 <script>
 /* ── Data for modals ── */
 const MODALS = {
-  pipeline: {
-    img: 'images/stock-dashboard.jpg',
-    title: 'B2B Sponsor Outreach Tracker',
-    meta: ['<span class="match">98% Match</span>', 'IIMK Council', 'Data & Analytics', '2026'],
-    desc: 'Built and owned a spreadsheet-based pipeline tracking 100+ marketing managers for campus event sponsorships. Mapped each contact across funnel stages (cold → contacted → responded → converted), response rates and follow-up cadence. Used the data to identify which contact segments had the highest engagement — and reprioritised outreach accordingly, increasing conversion quality within the pipeline.',
-    metrics: [['100+', 'contacts tracked end-to-end'], ['Multi-stage', 'funnel with response-rate analysis'], ['Segmentation', 'used to refine messaging strategy']],
-    pills: ['Excel / Google Sheets', 'Funnel Analysis', 'Data Cleaning', 'Stakeholder Reporting']
-  },
-  dashboard: {
-    img: 'images/stock-analytics.jpg',
-    title: 'Campus Event P&L Dashboard',
-    meta: ['<span class="match">96% Match</span>', 'IIMK Council', 'Analytics', '2026'],
-    desc: 'Documented and analysed event metrics across multiple campus events — tracking turnout vs targets, budget vs actual spend, and post-event engagement scores. Built structured reports for council leadership to make decisions on future event formats, timing and resource allocation. Ran quality checks on all data inputs before presenting findings.',
-    metrics: [['Budget vs Actual', 'tracked per event'], ['Turnout & Engagement', 'reported to leadership'], ['Outcomes', 'informed next-cycle decisions']],
-    pills: ['P&L Tracking', 'Pivot Tables', 'Budget Analysis', 'Quality Checks']
-  },
-  shortlist: {
-    img: 'images/stock-writing.jpg',
-    title: 'MUN Delegate Shortlisting System',
-    meta: ['<span class="match">95% Match</span>', 'Head Boy', 'Operations', '2024–25'],
-    desc: "Designed and ran the shortlisting process for the school's MUN delegation alongside teachers. Evaluated 100+ applicants using multi-criteria rubrics — assessing research quality, communication and prior MUN performance. Applied ranking logic to narrow down to the top 20 delegates, and ran similar selection rounds for cultural and academic events through the year.",
-    metrics: [['100+', 'applicants evaluated'], ['Top 20', 'selected via structured rubric'], ['Co-evaluated', 'alongside faculty']],
-    pills: ['Rubric Design', 'Multi-criteria Ranking', 'Decision Frameworks', 'Stakeholder Alignment']
-  },
-  events: {
-    img: 'images/stock-event.jpg',
-    title: 'End-to-End Campus Event Execution',
-    meta: ['<span class="match">94% Match</span>', 'IIMK Council', 'Operations', '2026'],
-    desc: 'Coordinated full logistics for multiple campus events — vendor communications, scheduling, cross-functional handoffs between student sub-teams and sponsor coordination. Built handover documentation so incoming council members could continue operations without disruption. Acted as the central node between sponsors, faculty and student teams.',
-    metrics: [['Multiple events', 'executed end-to-end'], ['Structured handovers', 'maintained for continuity'], ['3-way coordination', 'sponsors, faculty & students']],
-    pills: ['Project Coordination', 'Vendor Management', 'Documentation', 'Cross-team Handoffs']
-  },
-  research: {
-    img: 'images/stock-library.jpg',
-    title: 'Transportation Research Project',
-    meta: ['<span class="match">97% Match</span>', 'Balvigyan Commerce', 'Research', 'Inter-School'],
-    desc: 'Conducted an independent research project on Transportation for the Balvigyan Inter-School Commerce competition — primary and secondary data collection, identifying patterns in transportation economics and urban mobility, structuring findings into a coherent analytical narrative, and presenting conclusions to a judging panel. Won Best Research & Project across competing schools.',
-    metrics: [['🏆 Best Research', '& Project award winner'], ['Inter-school', 'commerce competition'], ['Economics', 'and urban mobility domain']],
-    pills: ['Data Collection', 'Pattern Analysis', 'Research Design', 'Structured Presentation']
-  },
-  policy: {
-    img: 'images/stock-mic.jpg',
-    title: 'Policy Research & Argumentation',
-    meta: ['<span class="match">96% Match</span>', 'MUN Circuit', 'Research', '2024–25'],
-    desc: "Deep policy research across multiple MUN conferences — UN resolutions, economic policy frameworks, international relations and geopolitical data — built into position papers and pressure-tested arguments. Best Delegate at Masters' Summit twice (₹15,000 prize), 3rd at MU20 Opportunity Summit (International, AIPPM), 2nd at Sahodaya MUN (ECOSOC).",
-    metrics: [['Best Delegate ×2', "Masters' Summit MUN"], ['₹15,000', 'cash prize'], ['International', 'MU20 Opportunity Summit']],
-    pills: ['Policy Research', 'Position Papers', 'Evidence Synthesis', 'Public Speaking']
-  },
-  headboy: {
-    img: 'images/stock-team.jpg',
-    title: 'Leading a 1,000+ Student Community',
-    meta: ['<span class="match">97% Match</span>', "St. Arnold's School", 'Leadership', '2024–25'],
-    desc: 'As Head Boy, operated as the bridge between student body, faculty and school administration. Made data-informed decisions on event planning, budget allocation and engagement strategy. Coordinated the student council, assigned responsibilities, ran regular check-ins and ensured smooth execution of school-wide initiatives across academic and cultural domains.',
-    metrics: [['1,000+', 'students represented'], ['Faculty & admin', 'liaison'], ['Data-informed', 'event & budget decisions']],
-    pills: ['Team Leadership', 'Budget Allocation', 'Stakeholder Communication', 'Decision Making']
-  },
+  'blindbluff': {"img": "images/blindbluff.jpg", "title": "Blind Bluff — Founder", "meta": ["<span class=\"match\">99% Match</span>", "Founder · blindbluff.com", "Kochi → shipped across India", "2026 – Present"], "desc": "Built Blind Bluff from a name into a live business — a Kochi-based brand making murder mystery, card and party games, shipped across India. The storefront at blindbluff.com is live with 3 card games selling and 6 titles in production, including 3 murder mysteries. Beyond the shelf: custom mystery nights designed and run for private and corporate events. Product, pricing, fulfilment and marketing — one founder, every decision. This is the flagship.", "metrics": [["3 games", "selling on the live storefront"], ["6 titles", "in production — incl. 3 murder mysteries"], ["Pan-India", "shipping, plus custom mystery nights"]], "pills": ["Founder", "Product Development", "E-commerce", "Brand Building"]},
+  'growth-tools': {"img": "images/growth-tools.jpg", "title": "Growth Tooling — NextGenix", "meta": ["<span class=\"match\">98% Match</span>", "Senior Marketing Manager", "NextGenix", "Jul 2026 – Present"], "desc": "Senior Marketing Manager at a website & app development firm — leading a sales team and coordinating directly with the CEO on sales strategy, client relationships, social media and campaign execution. Then the builder part: a lead-enrichment pipeline, a Google Maps scraper and a 76-college contact database, built to feed the sales team qualified targets instead of cold lists. Marketing role on paper; growth engineering in practice.", "metrics": [["76 colleges", "in a self-built contact database"], ["Sales team", "led, coordinating with the CEO"], ["3 tools", "pipeline · scraper · database"]], "pills": ["Sales Strategy", "Python", "Web Scraping", "Client Servicing"]},
+  'game-night': {"img": "images/quiz-live.jpg", "title": "Induction-Week Browser Games", "meta": ["<span class=\"match\">97% Match</span>", "Built & shipped", "IIM Kozhikode", "2026"], "desc": "Built browser games for induction week and ran them on real players — an escape room, a murder mystery and a live quiz that held 100 players at once. Writing the puzzles was half the job; the other half was engineering for the worst case: simultaneous players, one shot at a first impression, no restarts. Everything shipped in the browser — HTML/JS up front, and a game night that actually worked.", "metrics": [["100 players", "live in one quiz session"], ["3 games", "escape room · murder mystery · quiz"], ["Zero installs", "everything ran in the browser"]], "pills": ["HTML/JS", "Game Design", "Live Events", "Shipping Under Deadline"]},
+  'automation': {"img": "images/automation.jpg", "title": "Automation, Shipped", "meta": ["<span class=\"match\">96% Match</span>", "Python · Selenium · Firebase · React", "Built solo & in small teams", "2026"], "desc": "A running collection of small tools that remove real work. Python/Selenium WhatsApp automation that sends interview confirmations at Jarurat Care. A weather-alert system monitoring 200+ Indian cities and broadcasting over WhatsApp — built with a team of three. A Firebase/React app that keeps Student Council meeting records searchable instead of scattered. None of it is a demo; each one replaced a manual process someone was doing by hand.", "metrics": [["200+ cities", "monitored by the weather-alert bot"], ["3 tools", "in production, replacing manual work"], ["Team of 3", "on the weather-alert build"]], "pills": ["Python", "Selenium", "Firebase & React", "Process Automation"]},
+  'care': {"img": "images/care.jpg", "title": "HR Intern — Jarurat Care Foundation", "meta": ["<span class=\"match\">95% Match</span>", "HR Intern", "Healthcare NGO — cancer care", "Jul – Oct 2026"], "desc": "HR operations at a healthcare NGO supporting cancer patients and caregivers across India — candidate coordination, interview scheduling and confirmations. The operator's instinct kicked in fast: confirmations were repetitive, so a Python/Selenium WhatsApp automation now sends them. The time saved went back into the human part of the job — keeping candidates informed and interviews running on schedule, for a mission that deserves the polish.", "metrics": [["Pan-India", "NGO for cancer patients & caregivers"], ["End-to-end", "candidate coordination & scheduling"], ["Automated", "confirmations via Python/Selenium"]], "pills": ["HR Operations", "Candidate Experience", "WhatsApp Automation", "Social Impact"]},
+  'pipeline': {"img": "images/stock-dashboard.jpg", "title": "B2B Sponsor Outreach Tracker", "meta": ["<span class=\"match\">98% Match</span>", "IIMK Council", "Data & Analytics", "2026"], "desc": "Built and owned the council's sponsor pipeline — 100+ B2B contacts mapped across funnel stages (cold → contacted → responded → converted) with response rates and follow-up cadence. Scaled the same discipline into fest season: a 64-organisation sponsorship tracker with an outreach playbook, plus automated sponsor outreach for the freshers' event. The data decides who gets the next call — not guesswork — and clean documentation means the system outlives the term.", "metrics": [["100+", "B2B contacts tracked end-to-end"], ["64 orgs", "in the fest sponsorship tracker"], ["Automated", "sponsor outreach for the freshers' event"]], "pills": ["Excel / Google Sheets", "Funnel Analysis", "Outreach Playbooks", "Stakeholder Reporting"]},
+  'dashboard': {"img": "images/stock-analytics.jpg", "title": "Campus Event P&L Dashboard", "meta": ["<span class=\"match\">96% Match</span>", "IIMK Council", "Analytics", "2026"], "desc": "Documented and analysed event metrics across campus events — turnout vs targets, budget vs actual spend, and post-event engagement. Structured reports went to council leadership and drove decisions on formats, timing and resource allocation. Every input was quality-checked before it reached a slide, and strategic communications were tuned to whatever the numbers said maximised student engagement. Small dashboards, real decisions.", "metrics": [["Budget vs Actual", "tracked per event"], ["Turnout & engagement", "reported to leadership"], ["Next-cycle", "decisions informed by the data"]], "pills": ["P&L Tracking", "Pivot Tables", "Budget Analysis", "Quality Checks"]},
+  'events': {"img": "images/stock-event.jpg", "title": "End-to-End Event Execution", "meta": ["<span class=\"match\">94% Match</span>", "IIMK Council & Initiatives", "Operations", "2026"], "desc": "Spearheads end-to-end logistics for campus events — vendors, schedules, budgets and cross-team handoffs, with clean documentation so successors inherit a working system. Organised and ran the freshers' event for the second BMS batch: naming, run-of-show, automated sponsor outreach. Also designed and ran a 12-player Swiss-system chess tournament — pairings, tiebreaks and all. One central node between sponsors, faculty and student teams.", "metrics": [["Freshers' event", "run for the second BMS batch"], ["12 players", "Swiss-system chess tournament"], ["3-way node", "sponsors · faculty · students"]], "pills": ["Event Management", "Run-of-Show", "Vendor Coordination", "Documentation"]},
+  'shortlist': {"img": "images/shortlist-panel.jpg", "title": "MUN Delegate Shortlisting System", "meta": ["<span class=\"match\">95% Match</span>", "Head Boy", "Operations", "2024–25"], "desc": "Designed and ran the shortlisting process for the school's MUN delegation alongside teachers. Evaluated 100+ applicants using multi-criteria rubrics — assessing research quality, communication and prior MUN performance. Applied ranking logic to narrow down to the top 20 delegates, and ran similar selection rounds for cultural and academic events through the year. The same rubric thinking now powers hiring coordination and sponsor prioritisation.", "metrics": [["100+", "applicants evaluated"], ["Top 20", "selected via structured rubric"], ["Co-evaluated", "alongside faculty"]], "pills": ["Rubric Design", "Multi-criteria Ranking", "Decision Frameworks", "Stakeholder Alignment"]},
+  'headboy': {"img": "images/stock-team.jpg", "title": "Leading a 1,000+ Student Community", "meta": ["<span class=\"match\">97% Match</span>", "St. Arnold's School", "Leadership", "2024–25"], "desc": "As Head Boy, operated as the bridge between student body, faculty and school administration. Made data-informed decisions on event planning, budget allocation and engagement strategy. Coordinated the student council, assigned responsibilities, ran regular check-ins and ensured smooth execution of school-wide initiatives across academic and cultural domains. The first proof that he could hold a large system together — everything since has scaled it.", "metrics": [["1,000+", "students represented"], ["Faculty & admin", "liaison"], ["Data-informed", "event & budget decisions"]], "pills": ["Team Leadership", "Budget Allocation", "Stakeholder Communication", "Decision Making"]},
   iimk: {
     img: 'images/iimk-aerial.jpg',
     title: 'IIM Kozhikode',
@@ -1205,6 +1253,14 @@ const MODALS = {
     desc: "Enrolled in the BMS (Honours) programme at the Indian Institute of Management Kozhikode — one of India's premier management institutions, set in the hills of Kerala. Active as a Council Member managing sponsor outreach and event analytics, silver medallist at the Inter-IPM College Badminton Tournament, and steadily building a data toolkit: Excel, Sheets, and now SQL and Python.",
     metrics: [['BMS (Honours)', 'Class of 2029'], ['Council Member', 'sponsorships & analytics'], ['🏸 Silver', 'Inter-IPM Badminton']],
     pills: ['Management', 'Analytics', 'Council', 'Campus Life']
+  },
+  school: {
+    img: 'images/school.jpg',
+    title: "St. Arnold's School, Indore",
+    meta: ['<span class="match">Head Boy 2024–25</span>', 'Class XII: 95.6%', 'Class X: 95.0%'],
+    desc: "Where the story began. CBSE schooling with 95.6% in Class XII and 95.0% in Class X — alongside the Head Boy office, MUN delegation building, competition wins in debate, elocution, quiz and research, and state-level chess. A schooling defined by showing up for both the scoreboard and the community.",
+    metrics: [['95.6%', 'Class XII (CBSE) 2025'], ['95.0%', 'Class X (CBSE) 2023'], ['Head Boy', '2024–25']],
+    pills: ['CBSE', 'Head Boy', 'MUN', 'Chess', 'Debate']
   },
   campuslife: {
     img: 'images/iimk-garden.jpg',
@@ -1214,14 +1270,6 @@ const MODALS = {
     metrics: [['🏸 Silver', 'Inter-IPM College Badminton'], ['Council ops', 'sponsorships, budgets, events'], ['Kerala hills', "God's Own Campus life"]],
     pills: ['Campus Life', 'Badminton', 'Council Ops', 'Community']
   },
-  school: {
-    img: 'images/school.jpg',
-    title: "St. Arnold's School, Indore",
-    meta: ['<span class="match">Head Boy 2024–25</span>', 'Class XII: 95.6%', 'Class X: 95.0%'],
-    desc: "Where the story began. CBSE schooling with 95.6% in Class XII and 95.0% in Class X — alongside the Head Boy office, MUN delegation building, competition wins in debate, elocution, quiz and research, and state-level chess. A schooling defined by showing up for both the scoreboard and the community.",
-    metrics: [['95.6%', 'Class XII (CBSE) 2025'], ['95.0%', 'Class X (CBSE) 2023'], ['Head Boy', '2024–25']],
-    pills: ['CBSE', 'Head Boy', 'MUN', 'Chess', 'Debate']
-  }
 };
 
 /* ── Nav solid on scroll ── */
@@ -1255,6 +1303,8 @@ document.querySelectorAll('.row-wrap').forEach(wrap => {
   originals.forEach(card => {
     const clone = card.cloneNode(true);
     clone.classList.remove('reveal');
+    clone.setAttribute('aria-hidden', 'true');
+    clone.setAttribute('tabindex', '-1');
     scroller.appendChild(clone);
   });
   const period = () => scroller.children[originals.length].offsetLeft - scroller.children[0].offsetLeft;
@@ -1316,14 +1366,23 @@ function openModal(key) {
   backdrop.classList.add('open');
   requestAnimationFrame(() => backdrop.classList.add('show'));
   document.body.style.overflow = 'hidden';
+  modalReturnFocus = document.activeElement;
+  document.getElementById('mClose').focus();
 }
+let modalReturnFocus = null;
 function closeModal() {
   backdrop.classList.remove('show');
   setTimeout(() => { backdrop.classList.remove('open'); document.body.style.overflow = ''; }, 300);
+  if (modalReturnFocus && modalReturnFocus.focus) { modalReturnFocus.focus(); modalReturnFocus = null; }
 }
 document.addEventListener('click', e => {
   const el = e.target.closest('[data-modal]');
   if (el) openModal(el.dataset.modal);
+});
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const el = e.target.closest && e.target.closest('[data-modal]');
+  if (el) { e.preventDefault(); openModal(el.dataset.modal); }
 });
 document.getElementById('mClose').addEventListener('click', closeModal);
 backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
@@ -1358,10 +1417,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.c
       });
 
       // Floating hero boxes
+      const hs = document.getElementById('heroStats');
+      if (hs) hs.innerHTML = (data.heroCards || []).slice(0, 6).map(c =>
+        '<div class="hstat" data-modal="' + esc(c.modal) + '" tabindex="0" role="button"><b>' + esc(c.num) + '</b><span>' + esc(c.label) + '</span></div>'
+      ).join('');
       const fc = document.getElementById('floatCards');
       if (fc) fc.innerHTML = (data.heroCards || []).slice(0, 6).map((c, i) => {
         const p = FPOS[i % FPOS.length];
-        return '<div class="fcard" data-modal="' + esc(c.modal) + '" style="--r:' + p.r + ';--t:' + p.t +
+        return '<div class="fcard" data-modal="' + esc(c.modal) + '" tabindex="0" role="button" style="--r:' + p.r + ';--t:' + p.t +
                ';--spd:' + p.spd + ';--fd:' + p.fd + ';">' +
                '<div class="fc-num">' + esc(c.num) + '</div>' +
                '<div class="fc-label">' + esc(c.label) + '</div></div>';
@@ -1372,8 +1435,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.c
       if (row) row.innerHTML = (data.achievements || []).map((a, i) =>
         '<div class="card-ranked reveal visible">' +
         '<div class="rank-num">' + (i + 1) + '</div>' +
-        '<div class="rank-poster" data-modal="ach-' + i + '">' +
-        '<img src="' + esc(a.img) + '" alt="">' +
+        '<div class="rank-poster" data-modal="ach-' + i + '" tabindex="0" role="button">' +
+        '<img src="' + esc(a.img) + '" alt="" loading="lazy" decoding="async">' +
         '<div class="poster-grad"></div>' +
         '<div class="poster-body">' +
         '<span class="poster-tag">' + esc(a.tag) + '</span>' +

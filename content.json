@@ -45,15 +45,15 @@
           "Masters' Summit MUN",
           "2024 & 2025"
         ],
-        "desc": "Back-to-back Best Delegate at Masters' Summit MUN in 2024 and 2025 — the circuit's proof of consistency. Two different agendas, the same method: deep committee research, evidence-first argumentation and coalition-building that holds up over long sessions. Came with a ₹15,000 cash prize.",
+        "desc": "Back-to-back Best Delegate at Masters' Summit MUN — first in UNCSW representing Brazil (June 2024), then again in August 2025. Two different agendas, the same method: deep committee research, evidence-first argumentation and coalition-building that holds up over long sessions. Came with a ₹15,000 cash prize.",
         "metrics": [
           [
             "Best Delegate",
-            "Masters' Summit 2024"
+            "UNCSW · June 2024"
           ],
           [
             "Best Delegate",
-            "Masters' Summit 2025"
+            "Masters' Summit · Aug 2025"
           ],
           [
             "₹15,000",
@@ -69,37 +69,37 @@
       }
     },
     {
-      "tag": "International",
-      "title": "3rd — MU20 Opportunity Summit",
-      "sub": "AIPPM · 2024 · International",
+      "tag": "Special Mention",
+      "title": "MU20 Opportunity Summit 2024",
+      "sub": "AIPPM · Oct 2024 · 3rd-highest award",
       "img": "images/space-satellite.jpg",
       "modal": {
-        "title": "3rd — MU20 Opportunity Summit",
+        "title": "Special Mention — MU20 Opportunity Summit 2024",
         "meta": [
-          "International",
+          "Special Mention",
           "AIPPM",
-          "2024"
+          "Oct 2024"
         ],
-        "desc": "Placed 3rd in the AIPPM committee at the MU20 Opportunity Summit 2024 — an international summit. Contemporary Indian policy and economics, high-pressure committee dynamics, and arguments that had to survive scrutiny from a national field. Also took 2nd at Sahodaya MUN (ECOSOC).",
+        "desc": "Special Mention — the third-highest delegate award — in the AIPPM committee at the MU20 Opportunity Summit 2024 (19–21 October, Indore), billed as Asia's biggest high-school career conference. Contemporary Indian policy and economics, high-pressure committee dynamics, and arguments that had to survive scrutiny. Two months earlier: High Commendation — the second-highest award — representing Sweden in ECOSOC at the Sahodaya Model United Nations 2024.",
         "metrics": [
           [
-            "3rd",
-            "MU20 AIPPM · International"
+            "Special Mention",
+            "AIPPM · MU20 2024"
           ],
           [
-            "2nd",
-            "Sahodaya MUN · ECOSOC"
+            "High Commendation",
+            "ECOSOC · Sahodaya MUN 2024"
           ],
           [
-            "International",
-            "MU20 Opportunity Summit 2024"
+            "Asia's biggest",
+            "high-school career conference"
           ]
         ],
         "pills": [
           "AIPPM",
           "Policy",
           "Economics",
-          "International Summit"
+          "Committee Diplomacy"
         ]
       }
     },
@@ -115,7 +115,7 @@
           "Strategy",
           "2025"
         ],
-        "desc": "2nd place at the U-19 State Level Rapid Chess championship (2025) and 10th in Under-18 Boys at the UICC Trophy (2024). Chess is where the analytical habit was built — probabilistic thinking, pattern recognition and calm decisions under time pressure.",
+        "desc": "2nd place at the U-19 State Level Rapid Chess championship (2025) and 10th in Under-18 Boys at the UICC Trophy rapid tournament (December 2024). Chess is where the analytical habit was built — probabilistic thinking, pattern recognition and calm decisions under time pressure.",
         "metrics": [
           [
             "2nd",
@@ -123,7 +123,7 @@
           ],
           [
             "10th",
-            "Under-18 Boys · UICC Trophy 2024"
+            "Under-18 Boys · UICC Trophy, Dec 2024"
           ],
           [
             "Pattern recognition",
@@ -141,16 +141,16 @@
     {
       "tag": "Best Research",
       "title": "Best Research & Project — Balvigyan",
-      "sub": "Inter-school commerce competition",
+      "sub": "Sahodaya Senior Balvigyan · Jan 2024",
       "img": "images/stock-library.jpg",
       "modal": {
         "title": "Transportation Research Project",
         "meta": [
           "Best Research",
-          "Balvigyan Commerce",
-          "Inter-School"
+          "Sahodaya Senior Balvigyan",
+          "Jan 2024"
         ],
-        "desc": "Conducted an independent research project on Transportation for the Balvigyan Inter-School Commerce competition — primary and secondary data collection, identifying patterns in transportation economics and urban mobility, structuring findings into a coherent analytical narrative, and presenting conclusions to a judging panel. Won Best Research & Project across competing schools.",
+        "desc": "Conducted an independent research project on Transportation for the Sahodaya Senior Balvigyan (Commerce) inter-school competition (Indore Sahodaya Schools Complex, January 2024) — primary and secondary data collection, identifying patterns in transportation economics and urban mobility, structuring findings into a coherent analytical narrative, and presenting conclusions to a judging panel. Won Best Research & Project across competing schools.",
         "metrics": [
           [
             "🏆 Best Research",
@@ -183,7 +183,7 @@
         "meta": [
           "1st Place",
           "School Level",
-          "Communication"
+          "2023–25"
         ],
         "desc": "First place across the school's spoken-word circuit — English Debate, English Elocution and Young TV Reporter. Three different formats, one core skill: structure an argument fast, hold a room, and land the point before the clock runs out.",
         "metrics": [
@@ -210,17 +210,17 @@
     },
     {
       "tag": "₹3,100 Prize",
-      "title": "Spandan GK / Quiz / Debate",
-      "sub": "Breadth, speed and structure",
+      "title": "Spandan 2024 — 2nd Position",
+      "sub": "QA / GK / Debate · Aug 2024",
       "img": "images/stock-event.jpg",
       "modal": {
-        "title": "Spandan — GK / Quiz / Debate",
+        "title": "Spandan 2024 — 2nd Position",
         "meta": [
-          "Winner",
-          "Spandan",
+          "2nd Position",
+          "Spandan 2024",
           "₹3,100 prize"
         ],
-        "desc": "Won Spandan's combined GK / Quiz / Debate competition — a three-discipline gauntlet that tests breadth of general knowledge, buzzer-speed recall and structured argumentation under pressure, all in one sitting. Also represented the school at the Inter-School NCC / Military Training (2023).",
+        "desc": "Second position in Spandan 2024's combined QA / GK / Debate category (Toprankers Indore, August 2024), with a ₹3,100 cash prize — a three-discipline gauntlet that tests breadth of general knowledge, buzzer-speed recall and structured argumentation under pressure, all in one sitting.",
         "metrics": [
           [
             "₹3,100",
@@ -228,11 +228,11 @@
           ],
           [
             "3 disciplines",
-            "GK · Quiz · Debate"
+            "QA · GK · Debate"
           ],
           [
-            "NCC",
-            "Inter-School Training 2023"
+            "Aug 2024",
+            "Toprankers Indore"
           ]
         ],
         "pills": [
@@ -253,6 +253,15 @@
       "status": "Completed",
       "topics": "Formulas and functions, formatting, working with data, and charts.",
       "link": "https://www.coursera.org/account/accomplishments/verify/3AI0VFH1W57O"
+    },
+    {
+      "name": "NCC 'A' Certificate — A Grade",
+      "org": "National Cadet Corps · Ministry of Defence",
+      "when": "Aug 2023",
+      "type": "Certificate",
+      "status": "Completed",
+      "topics": "Passed the Certificate 'A' examination with an A grade as a cadet of 9 MP Battalion NCC, Indore, after the CATC-II annual training camp (Aug 2022).",
+      "link": ""
     },
     {
       "name": "Computation and Artificial Intelligence",

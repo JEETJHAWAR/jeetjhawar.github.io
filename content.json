@@ -311,6 +311,24 @@
       "status": "Completed",
       "topics": "Mathematical reasoning: sets and countability, limits and linear algebra.",
       "link": ""
+    },
+    {
+      "name": "Organisational Behaviour",
+      "org": "IIM Kozhikode",
+      "when": "Semester III, 2026",
+      "type": "Coursework",
+      "status": "In progress",
+      "topics": "Leadership, culture, power and politics, conflict and change, and diversity and inclusion, through cases such as Southwest Airlines and Yelp.",
+      "link": ""
+    },
+    {
+      "name": "Algorithmic Thinking and the Art of Programming",
+      "org": "IIM Kozhikode",
+      "when": "Semester III, 2026",
+      "type": "Coursework",
+      "status": "In progress",
+      "topics": "Algorithmic problem-solving and programming, starting from sets, countability and the limits of what can be computed.",
+      "link": ""
     }
   ]
 }

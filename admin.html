@@ -144,6 +144,14 @@
     <button class="btn ghost small" id="addAch">+ Add achievement</button>
   </section>
 
+  <!-- COURSES -->
+  <section class="panel">
+    <h2><span class="dot"></span>Courses &amp; certifications</h2>
+    <p class="hint">The "Training Montage" grid under Education. Order here = order on the site. List only courses you have completed or are currently taking, and paste the credential link when there is one (Coursera, Google Skillshop, HubSpot…).</p>
+    <div id="courseList"></div>
+    <button class="btn ghost small" id="addCourse">+ Add course</button>
+  </section>
+
   <!-- HERO BACKGROUND -->
   <section class="panel">
     <h2><span class="dot"></span>Hero background</h2>
@@ -381,6 +389,49 @@ function fixHeroRefs(i, j) {
   });
 }
 
+function optionList(values, current) {
+  const all = !current || values.includes(current) ? values : values.concat([current]);
+  return all.map(v => '<option' + (v === current ? ' selected' : '') + '>' + esc(v) + '</option>').join('');
+}
+function renderCourses() {
+  $('courseList').innerHTML = (state.courses || []).map((c, i) => `
+    <div class="item" id="courseItem${i}">
+      <div class="item-head" onclick="document.getElementById('courseItem${i}').classList.toggle('open')" style="cursor:pointer;">
+        <div class="rank-chip">${i + 1}</div>
+        <div class="title">${esc(c.name)}</div>
+        <button class="btn ghost small" onclick="event.stopPropagation();courseMove(${i},-1)">↑</button>
+        <button class="btn ghost small" onclick="event.stopPropagation();courseMove(${i},1)">↓</button>
+        <button class="btn danger small" onclick="event.stopPropagation();courseRemove(${i})">Remove</button>
+      </div>
+      <div class="item-body">
+        <div class="grid2">
+          <div><label>Course name</label><input type="text" value="${esc(c.name)}" oninput="state.courses[${i}].name=this.value;markDirty()"></div>
+          <div><label>Provider · course code</label><input type="text" value="${esc(c.org)}" oninput="state.courses[${i}].org=this.value;markDirty()"></div>
+        </div>
+        <div class="grid3">
+          <div><label>When</label><input type="text" value="${esc(c.when)}" oninput="state.courses[${i}].when=this.value;markDirty()"></div>
+          <div><label>Type</label><select onchange="state.courses[${i}].type=this.value;markDirty()">${optionList(['Certificate', 'Coursework'], c.type)}</select></div>
+          <div><label>Status</label><select onchange="state.courses[${i}].status=this.value;markDirty()">${optionList(['Completed', 'In progress'], c.status)}</select></div>
+        </div>
+        <label>What it covers (one line)</label>
+        <input type="text" value="${esc(c.topics)}" oninput="state.courses[${i}].topics=this.value;markDirty()">
+        <label>Credential link (optional, starts with https://)</label>
+        <input type="text" value="${esc(c.link)}" placeholder="https://" oninput="state.courses[${i}].link=this.value.trim();markDirty()">
+      </div>
+    </div>`).join('');
+}
+function courseMove(i, d) {
+  const arr = state.courses, j = i + d;
+  if (j < 0 || j >= arr.length) return;
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+  markDirty(); renderCourses();
+}
+function courseRemove(i) {
+  if (!confirm('Remove "' + state.courses[i].name + '" from the site?')) return;
+  state.courses.splice(i, 1);
+  markDirty(); renderCourses();
+}
+
 function renderBg() {
   $('heroBgSelect').innerHTML = images.map(p => '<option value="' + esc(p) + '"' + (p === state.heroBackground ? ' selected' : '') + '>' + esc(p.replace('images/', '')) + '</option>').join('');
   $('heroBgPreview').src = state.heroBackground;
@@ -389,7 +440,7 @@ function renderBg() {
 function renderGallery() {
   $('gallery').innerHTML = images.map(p => '<figure><img src="' + esc(p) + '" loading="lazy" alt=""><figcaption>' + esc(p.replace('images/', '')) + '</figcaption></figure>').join('');
 }
-function renderAll() { renderHero(); renderAch(); renderBg(); renderGallery(); }
+function renderAll() { renderHero(); renderAch(); renderCourses(); renderBg(); renderGallery(); }
 
 /* ── Add buttons ── */
 $('addHero').onclick = () => {
@@ -405,6 +456,12 @@ $('addAch').onclick = () => {
     modal: { title: 'New achievement', meta: ['New'], desc: 'Describe what you did and why it mattered.', metrics: [['', ''], ['', ''], ['', '']], pills: [] }
   });
   markDirty(); renderAch(); renderHero();
+};
+$('addCourse').onclick = () => {
+  state.courses = state.courses || [];
+  state.courses.push({ name: 'New course', org: 'Provider', when: 'Month Year', type: 'Certificate', status: 'Completed', topics: 'What it covers, in one line.', link: '' });
+  markDirty(); renderCourses();
+  $('courseItem' + (state.courses.length - 1)).classList.add('open');
 };
 
 /* ── Upload ── */

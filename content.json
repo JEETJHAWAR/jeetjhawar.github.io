@@ -238,5 +238,79 @@
         ]
       }
     }
+  ],
+  "courses": [
+    {
+      "name": "Excel Skills for Business: Essentials",
+      "org": "Macquarie University · Coursera",
+      "when": "Jul 2026",
+      "type": "Certificate",
+      "status": "Completed",
+      "topics": "Formulas and functions, formatting, working with data, and charts.",
+      "link": "https://www.coursera.org/account/accomplishments/verify/3AI0VFH1W57O"
+    },
+    {
+      "name": "Computation and Artificial Intelligence",
+      "org": "IIM Kozhikode · BMS 204",
+      "when": "Semester II, 2026",
+      "type": "Coursework",
+      "status": "Completed",
+      "topics": "Python with NumPy, pandas and matplotlib for business data, plus the machine-learning workflow and responsible AI.",
+      "link": ""
+    },
+    {
+      "name": "Creating and Managing Customers",
+      "org": "IIM Kozhikode · BMS 201",
+      "when": "Semester II, 2026",
+      "type": "Coursework",
+      "status": "Completed",
+      "topics": "Segmentation, targeting and positioning, consumer behaviour, marketing cases and a capstone project.",
+      "link": ""
+    },
+    {
+      "name": "Introduction to Accounting and Finance",
+      "org": "IIM Kozhikode · BMS 105",
+      "when": "Semester I, 2025–26",
+      "type": "Coursework",
+      "status": "Completed",
+      "topics": "From journal entries to financial statements, with ratio, horizontal and vertical analysis of listed companies.",
+      "link": ""
+    },
+    {
+      "name": "Management Accounting",
+      "org": "IIM Kozhikode · BMS 205",
+      "when": "Semester II, 2026",
+      "type": "Coursework",
+      "status": "Completed",
+      "topics": "Cost concepts and classification, and cost control versus cost reduction: accounting for internal decisions.",
+      "link": ""
+    },
+    {
+      "name": "Fundamentals of Economic Analysis",
+      "org": "IIM Kozhikode · BMS 103",
+      "when": "Semester I, 2025–26",
+      "type": "Coursework",
+      "status": "Completed",
+      "topics": "Economic reasoning for managers: how markets work, market failures and inflation.",
+      "link": ""
+    },
+    {
+      "name": "Business and Management",
+      "org": "IIM Kozhikode · BMS 101",
+      "when": "Semester I, 2025–26",
+      "type": "Coursework",
+      "status": "Completed",
+      "topics": "How managers create value: strategy, the core business functions, entrepreneurship and governance, taught through cases and a factory visit.",
+      "link": ""
+    },
+    {
+      "name": "The Art of Mathematics",
+      "org": "IIM Kozhikode · BMS 202",
+      "when": "Semester II, 2026",
+      "type": "Coursework",
+      "status": "Completed",
+      "topics": "Mathematical reasoning: sets and countability, limits and linear algebra.",
+      "link": ""
+    }
   ]
 }

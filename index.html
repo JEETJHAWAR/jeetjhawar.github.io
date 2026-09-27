@@ -557,6 +557,56 @@
   .soon-fill { height: 100%; width: 0; background: var(--aurora); border-radius: 2px; transition: width 1.4s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 0 8px rgba(56,189,248,0.7); }
   .soon-pct { font-size: 0.68rem; color: var(--grey-3); margin-top: 8px; }
 
+  /* Courses & certifications */
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px; padding: 0 4%;
+  }
+  .course-grid .course-card {
+    display: flex; flex-direction: column;
+    background: linear-gradient(160deg, rgba(56,189,248,0.08), rgba(10,10,10,0) 55%), var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 18px 18px 16px;
+    transition: opacity 0.6s ease, transform 0.35s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .course-grid .course-card:hover { border-color: rgba(56,189,248,0.5); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(56,189,248,0.12); }
+  .course-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+  .course-icon {
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.35);
+    color: var(--c-magenta);
+  }
+  .course-icon svg { width: 17px; height: 17px; }
+  .course-status {
+    font-size: 0.6rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--grey-3); display: inline-flex; align-items: center; gap: 6px;
+  }
+  .course-status.done { color: var(--c-green); }
+  .course-status .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-cyan); box-shadow: 0 0 10px rgba(34,211,238,0.8); animation: pulse 2s infinite; }
+  .course-kind { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--grey-3); margin-bottom: 6px; }
+  .course-card h4 { font-size: 0.98rem; font-weight: 700; color: var(--white); line-height: 1.3; margin-bottom: 6px; }
+  .course-org { font-size: 0.72rem; font-weight: 600; color: var(--c-magenta); line-height: 1.45; margin-bottom: 10px; }
+  .course-org .sep { color: var(--grey-3); margin: 0 5px; }
+  .course-card p { font-size: 0.76rem; color: var(--grey-2); line-height: 1.5; }
+  .course-link {
+    margin-top: auto; padding-top: 14px; align-self: flex-start;
+    font-size: 0.72rem; font-weight: 700; color: var(--c-cyan); text-decoration: none;
+  }
+  .course-link:hover { text-decoration: underline; }
+  @media (max-width: 1199px) { .course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 639px) {
+    .course-grid {
+      display: flex; gap: 10px;
+      overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 4%;
+      padding: 4px 4% 16px; scrollbar-width: none;
+    }
+    .course-grid::-webkit-scrollbar { display: none; }
+    .course-grid .course-card { flex: 0 0 84%; scroll-snap-align: start; }
+  }
+
   /* ─────────────────── CONTACT / BILLBOARD ─────────────────── */
   #contact {
     position: relative;
@@ -727,7 +777,7 @@
       max-height: 0; overflow: hidden;
       transition: max-height 0.35s ease;
     }
-    nav.links.open { max-height: 340px; }
+    nav.links.open { max-height: 400px; }
     nav.links a { padding: 15px 5%; border-top: 1px solid var(--line); font-size: 0.9rem; }
     .hamburger { display: block; }
     .episode { grid-template-columns: 26px 110px 1fr; gap: 12px; padding: 14px 16px; }
@@ -756,6 +806,7 @@
     <a href="#experience">Experience</a>
     <a href="#achievements">Achievements</a>
     <a href="#education">Education</a>
+    <a href="#courses">Courses</a>
     <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -1042,6 +1093,15 @@
   </div>
 </section>
 
+<!-- ═════════════ COURSES (TRAINING MONTAGE) — rendered from content.json ═════════════ -->
+<section class="row-section" id="courses">
+  <div class="row-head reveal">
+    <div class="row-title">Training Montage — Courses &amp; Certifications</div>
+    <div class="row-kicker">What recruiters screen for</div>
+  </div>
+  <div class="course-grid" id="courseGrid"></div>
+</section>
+
 <!-- ═════════════ SKILLS (GENRES) ═════════════ -->
 <section class="row-section" id="skills">
   <div class="row-head reveal">
@@ -1199,6 +1259,7 @@
     <a href="#experience">Experience</a>
     <a href="#achievements">Achievements</a>
     <a href="#education">Education</a>
+    <a href="#courses">Courses</a>
     <a href="#skills">Skills</a>
     <a href="#soon">Coming Soon</a>
     <a href="https://blindbluff.com" target="_blank" rel="noopener">Blind Bluff</a>
@@ -1448,6 +1509,41 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.c
       // Row title follows the count
       const title = document.querySelector('#achievements .row-title');
       if (title && data.achievements) title.textContent = 'Top ' + data.achievements.length + ' Achievements — All Time';
+
+      // Courses & certifications grid
+      const courses = data.courses || [];
+      const cg = document.getElementById('courseGrid');
+      if (cg) {
+        const ICON_CERT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14.2 7 22l5-3 5 3-1.5-7.8"/></svg>';
+        const ICON_CAP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>';
+        cg.innerHTML = courses.map(c => {
+          const cert = /cert/i.test(c.type || '');
+          const done = !/progress/i.test(c.status || '');
+          const link = /^https?:\/\//i.test(c.link || '') ? c.link : '';
+          return '<article class="course-card reveal">' +
+            '<div class="course-top"><span class="course-icon">' + (cert ? ICON_CERT : ICON_CAP) + '</span>' +
+            (done ? '<span class="course-status done">✓ Completed</span>'
+                  : '<span class="course-status"><span class="live-dot"></span>In progress</span>') +
+            '</div>' +
+            '<div class="course-kind">' + esc(c.type || 'Course') + '</div>' +
+            '<h4>' + esc(c.name || '') + '</h4>' +
+            '<div class="course-org">' + esc(c.org || '') + (c.when ? '<span class="sep">·</span>' + esc(c.when) : '') + '</div>' +
+            (c.topics ? '<p>' + esc(c.topics) + '</p>' : '') +
+            (link ? '<a class="course-link" href="' + esc(link) + '" target="_blank" rel="noopener">' + (cert ? 'Verify credential' : 'Course details') + ' ↗</a>' : '') +
+            '</article>';
+        }).join('');
+        // Staggered in JS: a CSS transition-delay would also delay every hover effect
+        const cards = cg.querySelectorAll('.course-card');
+        const cobs = new IntersectionObserver(entries => {
+          if (!entries.some(e => e.isIntersecting)) return;
+          cobs.disconnect();
+          cards.forEach((card, i) => setTimeout(() => card.classList.add('visible'), i * 70));
+        }, { threshold: 0.1 });
+        cobs.observe(cg);
+      }
+      const coursesSection = document.getElementById('courses');
+      if (coursesSection) coursesSection.hidden = !courses.length;
+      document.querySelectorAll('a[href="#courses"]').forEach(a => { a.hidden = !courses.length; });
 
       // Hero background
       if (data.heroBackground) {

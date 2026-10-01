@@ -28,7 +28,7 @@
     },
     {
       "num": "♟ 2nd",
-      "label": "U-19 State Rapid Chess",
+      "label": "U-19 Rapid Chess · 2025",
       "modal": "ach-2"
     }
   ],
@@ -66,7 +66,10 @@
           "Negotiation",
           "Consistency"
         ]
-      }
+      },
+      "proof": [
+        "masters-summit-2024-best-delegate"
+      ]
     },
     {
       "tag": "Special Mention",
@@ -80,7 +83,7 @@
           "AIPPM",
           "Oct 2024"
         ],
-        "desc": "Special Mention — the third-highest delegate award — in the AIPPM committee at the MU20 Opportunity Summit 2024 (19–21 October, Indore), billed as Asia's biggest high-school career conference. Contemporary Indian policy and economics, high-pressure committee dynamics, and arguments that had to survive scrutiny. Two months earlier: High Commendation — the second-highest award — representing Sweden in ECOSOC at the Sahodaya Model United Nations 2024.",
+        "desc": "Special Mention — the third-highest delegate award — in the AIPPM committee at the MU20 Opportunity Summit 2024 (19–21 October, Indore), billed as Asia's biggest high-school career conference. Contemporary Indian policy and economics, high-pressure committee dynamics, and arguments that had to survive scrutiny. Two months earlier: High Commendation — the second-highest award — representing Sweden in ECOSOC at the Sahodaya Model United Nations 2024. The MUN run began at the Delhi Public School Rau Model United Nations 2024 (5–7 April), representing Iceland in UNHCR.",
         "metrics": [
           [
             "Special Mention",
@@ -101,33 +104,38 @@
           "Economics",
           "Committee Diplomacy"
         ]
-      }
+      },
+      "proof": [
+        "mu20-2024-special-mention",
+        "sahodaya-mun-2024-high-commendation",
+        "dps-rau-mun-2024"
+      ]
     },
     {
-      "tag": "State Level",
-      "title": "2nd — U-19 State Rapid Chess",
-      "sub": "2025 · strategy under the clock",
+      "tag": "2nd · Under-19",
+      "title": "2nd — International Chess Day Trophy",
+      "sub": "Rapid · Under-19 · Jul 2025",
       "img": "images/stock-chess.jpg",
       "modal": {
         "title": "Rapid Chess — Strategy Under the Clock",
         "meta": [
-          "State Level",
-          "Strategy",
-          "2025"
+          "2nd · Under-19",
+          "Rapid chess",
+          "2024–25"
         ],
-        "desc": "2nd place at the U-19 State Level Rapid Chess championship (2025) and 10th in Under-18 Boys at the UICC Trophy rapid tournament (December 2024). Chess is where the analytical habit was built — probabilistic thinking, pattern recognition and calm decisions under time pressure.",
+        "desc": "2nd place in the Under-19 category at the International Chess Day Trophy Rapid Chess Tournament 2025 (Unite Indore Chess Club with Shri Vaishnav Sports Academy, 20 July 2025), scoring 5 points from 6 rounds. Seven months earlier: 10th in Under-18 Boys (13th overall) at the UICC Trophy one-day rapid tournament at Delhi Public School Nipaniya, Indore (8 December 2024), approved by the MP Chess Ad-hoc Committee. Chess is where the analytical habit was built — probabilistic thinking, pattern recognition and calm decisions under time pressure.",
         "metrics": [
           [
             "2nd",
-            "U-19 State Rapid 2025"
+            "Under-19 · Chess Day Trophy, Jul 2025"
+          ],
+          [
+            "5 / 6",
+            "points across six rapid rounds"
           ],
           [
             "10th",
             "Under-18 Boys · UICC Trophy, Dec 2024"
-          ],
-          [
-            "Pattern recognition",
-            "trained daily"
           ]
         ],
         "pills": [
@@ -136,25 +144,29 @@
           "Time Pressure",
           "Probabilistic Thinking"
         ]
-      }
+      },
+      "proof": [
+        "chess-day-trophy-2025-second",
+        "uicc-trophy-2024-tenth-u18"
+      ]
     },
     {
-      "tag": "Best Research",
-      "title": "Best Research & Project — Balvigyan",
+      "tag": "Best Performance",
+      "title": "Best Performance — Balvigyan",
       "sub": "Sahodaya Senior Balvigyan · Jan 2024",
       "img": "images/stock-library.jpg",
       "modal": {
         "title": "Transportation Research Project",
         "meta": [
-          "Best Research",
-          "Sahodaya Senior Balvigyan",
+          "Best Performance",
+          "Sahodaya Senior Balvigyan (Commerce)",
           "Jan 2024"
         ],
-        "desc": "Conducted an independent research project on Transportation for the Sahodaya Senior Balvigyan (Commerce) inter-school competition (Indore Sahodaya Schools Complex, January 2024) — primary and secondary data collection, identifying patterns in transportation economics and urban mobility, structuring findings into a coherent analytical narrative, and presenting conclusions to a judging panel. Won Best Research & Project across competing schools.",
+        "desc": "Conducted an independent research project on Transportation for the Sahodaya Senior Balvigyan (Commerce) inter-school competition (Indore Sahodaya Schools Complex, held at Advanced Academy, Indore, on 6 January 2024) — primary and secondary data collection, identifying patterns in transportation economics and urban mobility, structuring findings into a coherent analytical narrative, and presenting conclusions to a judging panel. Awarded the Best Performance certificate.",
         "metrics": [
           [
-            "🏆 Best Research",
-            "& Project award winner"
+            "🏆 Best Performance",
+            "Senior Balvigyan (Commerce)"
           ],
           [
             "Inter-school",
@@ -171,7 +183,10 @@
           "Research Design",
           "Structured Presentation"
         ]
-      }
+      },
+      "proof": [
+        "sahodaya-balvigyan-2024"
+      ]
     },
     {
       "tag": "1st Place",
@@ -206,7 +221,12 @@
           "Quick Thinking",
           "General Knowledge"
         ]
-      }
+      },
+      "proof": [
+        "english-elocution-2023-24-first",
+        "english-debate-2024-25",
+        "young-tv-reporter-2024-25"
+      ]
     },
     {
       "tag": "₹3,100 Prize",
@@ -241,7 +261,50 @@
           "Debate",
           "Competition Nerve"
         ]
-      }
+      },
+      "proof": [
+        "spandan-2024-second-position"
+      ]
+    },
+    {
+      "tag": "A Grade",
+      "title": "NCC 'A' Certificate + Track",
+      "sub": "9 MP Bn NCC · CATC-II · relay 2nd",
+      "img": "images/certificates/ncc-a-certificate-2023.jpg",
+      "modal": {
+        "title": "Discipline in Uniform — NCC & Track",
+        "meta": [
+          "A Grade",
+          "NCC · 9 MP Battalion, Indore",
+          "2022–24"
+        ],
+        "desc": "Cadet with 9 MP Battalion NCC, Indore. Completed the Combined Annual Training Camp (CATC-II) at LNCT Indore from 16 to 23 August 2022, then passed the NCC Certificate 'A' examination with an A grade — issued 10 August 2023 under the authority of the Ministry of Defence. On the track: 2nd position in the 4×100 m relay at St. Arnold's School (2023–24).",
+        "metrics": [
+          [
+            "A Grade",
+            "NCC Certificate 'A' · Aug 2023"
+          ],
+          [
+            "CATC-II",
+            "8-day annual training camp · Aug 2022"
+          ],
+          [
+            "2nd",
+            "4×100 m relay · 2023–24"
+          ]
+        ],
+        "pills": [
+          "Discipline",
+          "Teamwork",
+          "Leadership",
+          "Fitness"
+        ]
+      },
+      "proof": [
+        "ncc-a-certificate-2023",
+        "ncc-catc-ii-camp-2022",
+        "relay-4x100m-2023-24-second"
+      ]
     }
   ],
   "courses": [
@@ -261,7 +324,7 @@
       "type": "Certificate",
       "status": "Completed",
       "topics": "Passed the Certificate 'A' examination with an A grade as a cadet of 9 MP Battalion NCC, Indore, after the CATC-II annual training camp (Aug 2022).",
-      "link": ""
+      "link": "https://jeetjhawar.github.io/images/certificates/ncc-a-certificate-2023.jpg"
     },
     {
       "name": "Computation and Artificial Intelligence",
@@ -343,6 +406,136 @@
       "status": "In progress",
       "topics": "Algorithmic problem-solving and programming, starting from sets, countability and the limits of what can be computed.",
       "link": ""
+    }
+  ],
+  "certificates": [
+    {
+      "id": "masters-summit-2024-best-delegate",
+      "title": "Best Delegate — UNCSW (Brazil)",
+      "issuer": "Masters' Summit 2024–25 · Acropolis Institute, Indore",
+      "date": "27–29 Jun 2024",
+      "img": "images/certificates/masters-summit-2024-best-delegate.jpg",
+      "thumb": "images/certificates/thumbs/masters-summit-2024-best-delegate.jpg"
+    },
+    {
+      "id": "mu20-2024-special-mention",
+      "title": "Special Mention — AIPPM",
+      "issuer": "MU20 Opportunity Summit 2024 · Indore",
+      "date": "19–21 Oct 2024",
+      "img": "images/certificates/mu20-2024-special-mention.jpg",
+      "thumb": "images/certificates/thumbs/mu20-2024-special-mention.jpg"
+    },
+    {
+      "id": "sahodaya-mun-2024-high-commendation",
+      "title": "High Commendation — ECOSOC (Sweden)",
+      "issuer": "Sahodaya Model United Nations 2024 · Symbiosis University of Applied Sciences",
+      "date": "17–18 Aug 2024",
+      "img": "images/certificates/sahodaya-mun-2024-high-commendation.jpg",
+      "thumb": "images/certificates/thumbs/sahodaya-mun-2024-high-commendation.jpg"
+    },
+    {
+      "id": "spandan-2024-second-position",
+      "title": "Second position — QA / GK / Debate",
+      "issuer": "Spandan 2024 · Toprankers Indore",
+      "date": "24–25 Aug 2024",
+      "img": "images/certificates/spandan-2024-second-position.jpg",
+      "thumb": "images/certificates/thumbs/spandan-2024-second-position.jpg"
+    },
+    {
+      "id": "chess-day-trophy-2025-second",
+      "title": "2nd place, Under-19 · 5 of 6 points",
+      "issuer": "International Chess Day Trophy Rapid Chess Tournament 2025 · Unite Indore Chess Club",
+      "date": "20 Jul 2025",
+      "img": "images/certificates/chess-day-trophy-2025-second.jpg",
+      "thumb": "images/certificates/thumbs/chess-day-trophy-2025-second.jpg"
+    },
+    {
+      "id": "uicc-trophy-2024-tenth-u18",
+      "title": "10th, Under-18 Boys (13th overall)",
+      "issuer": "UICC Trophy One Day Rapid Chess Tournament 2024 · DPS Nipaniya, Indore",
+      "date": "8 Dec 2024",
+      "img": "images/certificates/uicc-trophy-2024-tenth-u18.jpg",
+      "thumb": "images/certificates/thumbs/uicc-trophy-2024-tenth-u18.jpg"
+    },
+    {
+      "id": "sahodaya-balvigyan-2024",
+      "title": "Senior Balvigyan (Commerce)",
+      "issuer": "Indore Sahodaya Schools Complex · Samagam 23–24",
+      "date": "6 Jan 2024",
+      "img": "images/certificates/sahodaya-balvigyan-2024.jpg",
+      "thumb": "images/certificates/thumbs/sahodaya-balvigyan-2024.jpg"
+    },
+    {
+      "id": "ncc-a-certificate-2023",
+      "title": "NCC Certificate 'A' — A Grade",
+      "issuer": "National Cadet Corps · 9 MP Battalion NCC",
+      "date": "10 Aug 2023",
+      "img": "images/certificates/ncc-a-certificate-2023.jpg",
+      "thumb": "images/certificates/thumbs/ncc-a-certificate-2023.jpg"
+    },
+    {
+      "id": "ncc-catc-ii-camp-2022",
+      "title": "Combined Annual Training Camp (CATC-II)",
+      "issuer": "9 MP Battalion NCC, Indore · at LNCT Indore",
+      "date": "16–23 Aug 2022",
+      "img": "images/certificates/ncc-catc-ii-camp-2022.jpg",
+      "thumb": "images/certificates/thumbs/ncc-catc-ii-camp-2022.jpg"
+    },
+    {
+      "id": "head-boy-students-council-2024-25",
+      "title": "School Head Boy — Students' Council",
+      "issuer": "St. Arnold's School, Indore",
+      "date": "2024–25",
+      "img": "images/certificates/head-boy-students-council-2024-25.jpg",
+      "thumb": "images/certificates/thumbs/head-boy-students-council-2024-25.jpg"
+    },
+    {
+      "id": "english-elocution-2023-24-first",
+      "title": "1st position — English Elocution",
+      "issuer": "St. Arnold's School, Indore",
+      "date": "2023–24",
+      "img": "images/certificates/english-elocution-2023-24-first.jpg",
+      "thumb": "images/certificates/thumbs/english-elocution-2023-24-first.jpg"
+    },
+    {
+      "id": "english-debate-2024-25",
+      "title": "English Debate — Certificate of Achievement",
+      "issuer": "St. Arnold's School, Indore",
+      "date": "2024–25",
+      "img": "images/certificates/english-debate-2024-25.jpg",
+      "thumb": "images/certificates/thumbs/english-debate-2024-25.jpg"
+    },
+    {
+      "id": "young-tv-reporter-2024-25",
+      "title": "Young TV Reporter — Certificate of Achievement",
+      "issuer": "St. Arnold's School, Indore",
+      "date": "2024–25",
+      "img": "images/certificates/young-tv-reporter-2024-25.jpg",
+      "thumb": "images/certificates/thumbs/young-tv-reporter-2024-25.jpg"
+    },
+    {
+      "id": "relay-4x100m-2023-24-second",
+      "title": "2nd position — 4×100 m Relay",
+      "issuer": "St. Arnold's School, Indore",
+      "date": "2023–24",
+      "img": "images/certificates/relay-4x100m-2023-24-second.jpg",
+      "thumb": "images/certificates/thumbs/relay-4x100m-2023-24-second.jpg"
+    },
+    {
+      "id": "dps-rau-mun-2024",
+      "title": "Delegate — UNHCR (Iceland)",
+      "issuer": "Delhi Public School Rau Model United Nations 2024",
+      "date": "5–7 Apr 2024",
+      "img": "images/certificates/dps-rau-mun-2024.jpg",
+      "thumb": "images/certificates/thumbs/dps-rau-mun-2024.jpg"
+    },
+    {
+      "id": "siy-career-fair-2024",
+      "title": "Participation — SIY Career Fair & Career Counselling",
+      "issuer": "SIY · Success in You, at St. Arnold's School",
+      "date": "30 Aug 2024",
+      "img": "images/certificates/siy-career-fair-2024.jpg",
+      "thumb": "images/certificates/thumbs/siy-career-fair-2024.jpg"
     }
   ]
 }

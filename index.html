@@ -35,7 +35,7 @@
     --aurora:    linear-gradient(100deg, #ffffff, #7dd3fc 45%, #38bdf8 90%);
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 
   body {
     font-family: 'Inter', -apple-system, sans-serif;
@@ -812,6 +812,43 @@
     padding: 5px 13px;
   }
 
+  /* Certificate proof inside a modal */
+  .modal-proof { margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .modal-proof[hidden] { display: none; }
+  .proof-head {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--grey-2); margin-bottom: 12px;
+  }
+  .proof-head a { color: var(--c-cyan); text-decoration: none; letter-spacing: 0.06em; }
+  .proof-list { display: flex; flex-wrap: wrap; gap: 12px; }
+  .proof-item {
+    display: block; width: 172px; text-decoration: none; color: inherit;
+    background: var(--card); border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .proof-item:hover, .proof-item:focus-visible { border-color: rgba(56,189,248,0.6); transform: translateY(-2px); }
+  .proof-item img { display: block; width: 100%; height: 118px; object-fit: contain; background: #0b0b0d; }
+  .proof-item span { display: block; padding: 8px 10px; font-size: 0.7rem; line-height: 1.35; color: var(--grey-1); }
+  .proof-item em { font-style: normal; color: var(--grey-2); }
+
+  /* Certificates row */
+  .cert-card {
+    flex: 0 0 280px; display: block; text-decoration: none; color: inherit;
+    background: var(--card); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.2,0.9,0.3,1), border-color 0.3s, box-shadow 0.3s;
+  }
+  .cert-card:hover, .cert-card:focus-visible {
+    transform: translateY(-4px); border-color: rgba(56,189,248,0.55);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.7);
+  }
+  .cert-card img { display: block; width: 100%; height: 196px; object-fit: contain; background: #0b0b0d; }
+  .cert-body { padding: 11px 13px 13px; }
+  .cert-title { font-size: 0.84rem; font-weight: 600; color: var(--white); line-height: 1.3; }
+  .cert-sub { margin-top: 4px; font-size: 0.72rem; color: var(--grey-2); line-height: 1.4; }
+  .row-kicker a { color: var(--c-cyan); text-decoration: none; }
+  .row-kicker a:hover { text-decoration: underline; }
+
   /* Reveal on scroll */
   .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -1128,12 +1165,25 @@
 <!-- ═════════════ TOP ACHIEVEMENTS ═════════════ -->
 <section class="row-section" id="achievements">
   <div class="row-head reveal">
-    <div class="row-title">Top 6 Achievements — All Time</div>
-    <div class="row-kicker">Moments that proved it</div>
+    <div class="row-title">Top 7 Achievements — All Time</div>
+    <div class="row-kicker">Moments that proved it · <a href="#certificates">See the certificates</a></div>
   </div>
   <div class="row-wrap">
     <button class="row-arrow left" aria-label="Scroll left">‹</button>
     <div class="row-scroll" id="achScroll"></div>
+    <button class="row-arrow right" aria-label="Scroll right">›</button>
+  </div>
+</section>
+
+<!-- ═════════════ CERTIFICATES (rendered from content.json) ═════════════ -->
+<section class="row-section" id="certificates" hidden>
+  <div class="row-head reveal">
+    <div class="row-title">The Receipts — Certificates</div>
+    <div class="row-kicker">Scanned originals · personal details masked · <a href="assets/Jeet_Jhawar_Certificates.pdf" target="_blank" rel="noopener">All in one PDF</a></div>
+  </div>
+  <div class="row-wrap">
+    <button class="row-arrow left" aria-label="Scroll left">‹</button>
+    <div class="row-scroll" id="certScroll"></div>
     <button class="row-arrow right" aria-label="Scroll right">›</button>
   </div>
 </section>
@@ -1249,9 +1299,9 @@
 
     <div class="genre-tile reveal">
       <h4>Strategy</h4>
-      <div class="g-level">State Level</div>
+      <div class="g-level">Podium</div>
       <ul>
-        <li>Rapid chess — U-19 state 2nd</li>
+        <li>Rapid chess — 2nd, Under-19 (2025)</li>
         <li>Sponsorship playbooks &amp; trackers</li>
         <li>Calm decisions under time pressure</li>
       </ul>
@@ -1346,10 +1396,12 @@
     <a href="#work">Work Samples</a>
     <a href="#experience">Experience</a>
     <a href="#achievements">Achievements</a>
+    <a href="#certificates">Certificates</a>
     <a href="#education">Education</a>
     <a href="#courses">Courses</a>
     <a href="#skills">Skills</a>
     <a href="#soon">Coming Soon</a>
+    <a href="assets/Jeet_Jhawar_Certificates.pdf" target="_blank" rel="noopener">Certificates (PDF)</a>
     <a href="https://blindbluff.com" target="_blank" rel="noopener">Blind Bluff</a>
     <a href="assets/Jeet_Jhawar_Resume.docx" download>Resume (.docx)</a>
     <a href="assets/Jeet_Jhawar_Resume.pdf" download>Resume (PDF)</a>
@@ -1378,6 +1430,7 @@
       <p class="modal-desc" id="mDesc"></p>
       <div class="modal-metrics" id="mMetrics"></div>
       <div class="modal-pills" id="mPills"></div>
+      <div class="modal-proof" id="mProof" hidden></div>
     </div>
   </div>
 </div>
@@ -1395,8 +1448,8 @@ const MODALS = {
   'pipeline': {"img": "images/stock-dashboard.jpg", "title": "B2B Sponsor Outreach Tracker", "meta": ["<span class=\"match\">98% Match</span>", "IIMK Council", "Data & Analytics", "2026"], "desc": "Built and owned the council's sponsor pipeline — 100+ B2B contacts mapped across funnel stages (cold → contacted → responded → converted) with response rates and follow-up cadence. Scaled the same discipline into fest season: a 64-organisation sponsorship tracker with an outreach playbook, plus automated sponsor outreach for the freshers' event. The data decides who gets the next call — not guesswork — and clean documentation means the system outlives the term.", "metrics": [["100+", "B2B contacts tracked end-to-end"], ["64 orgs", "in the fest sponsorship tracker"], ["Automated", "sponsor outreach for the freshers' event"]], "pills": ["Excel / Google Sheets", "Funnel Analysis", "Outreach Playbooks", "Stakeholder Reporting"]},
   'dashboard': {"img": "images/stock-analytics.jpg", "title": "Campus Event P&L Dashboard", "meta": ["<span class=\"match\">96% Match</span>", "IIMK Council", "Analytics", "2026"], "desc": "Documented and analysed event metrics across campus events — turnout vs targets, budget vs actual spend, and post-event engagement. Structured reports went to council leadership and drove decisions on formats, timing and resource allocation. Every input was quality-checked before it reached a slide, and strategic communications were tuned to whatever the numbers said maximised student engagement. Small dashboards, real decisions.", "metrics": [["Budget vs Actual", "tracked per event"], ["Turnout & engagement", "reported to leadership"], ["Next-cycle", "decisions informed by the data"]], "pills": ["P&L Tracking", "Pivot Tables", "Budget Analysis", "Quality Checks"]},
   'events': {"img": "images/film/ev-1.jpg", "title": "End-to-End Event Execution", "meta": ["<span class=\"match\">94% Match</span>", "IIMK Council & Initiatives", "Operations", "2026"], "desc": "Spearheads end-to-end logistics for campus events — vendors, schedules, budgets and cross-team handoffs, with clean documentation so successors inherit a working system. Led SEQUEL 26, the freshers' night for the second BMS batch: 150+ passes and ₹1.67 lakh in ticket sales, plus naming, run-of-show and automated sponsor outreach. Also designed and ran a 12-player Swiss-system chess tournament — pairings, tiebreaks and all. One central node between sponsors, faculty and student teams.", "metrics": [["150+ passes", "SEQUEL 26 freshers' night"], ["12 players", "Swiss-system chess tournament"], ["3-way node", "sponsors · faculty · students"]], "pills": ["Event Management", "Run-of-Show", "Vendor Coordination", "Documentation"]},
-  'shortlist': {"img": "images/shortlist-panel.jpg", "title": "MUN Delegate Shortlisting System", "meta": ["<span class=\"match\">95% Match</span>", "Head Boy", "Operations", "2024–25"], "desc": "Designed and ran the shortlisting process for the school's MUN delegation alongside teachers. Evaluated 100+ applicants using multi-criteria rubrics — assessing research quality, communication and prior MUN performance. Applied ranking logic to narrow down to the top 20 delegates, and ran similar selection rounds for cultural and academic events through the year. The same rubric thinking now powers hiring coordination and sponsor prioritisation.", "metrics": [["100+", "applicants evaluated"], ["Top 20", "selected via structured rubric"], ["Co-evaluated", "alongside faculty"]], "pills": ["Rubric Design", "Multi-criteria Ranking", "Decision Frameworks", "Stakeholder Alignment"]},
-  'headboy': {"img": "images/stock-team.jpg", "title": "Leading a 1,000+ Student Community", "meta": ["<span class=\"match\">97% Match</span>", "St. Arnold's School", "Leadership", "2024–25"], "desc": "As Head Boy, operated as the bridge between student body, faculty and school administration. Made data-informed decisions on event planning, budget allocation and engagement strategy. Coordinated the student council, assigned responsibilities, ran regular check-ins and ensured smooth execution of school-wide initiatives across academic and cultural domains. The first proof that he could hold a large system together — everything since has scaled it.", "metrics": [["1,000+", "students represented"], ["Faculty & admin", "liaison"], ["Data-informed", "event & budget decisions"]], "pills": ["Team Leadership", "Budget Allocation", "Stakeholder Communication", "Decision Making"]},
+  'shortlist': {"img": "images/shortlist-panel.jpg", "title": "MUN Delegate Shortlisting System", "meta": ["<span class=\"match\">95% Match</span>", "Head Boy", "Operations", "2024–25"], "desc": "Designed and ran the shortlisting process for the school's MUN delegation alongside teachers. Evaluated 100+ applicants using multi-criteria rubrics — assessing research quality, communication and prior MUN performance. Applied ranking logic to narrow down to the top 20 delegates, and ran similar selection rounds for cultural and academic events through the year. The same rubric thinking now powers hiring coordination and sponsor prioritisation.", "metrics": [["100+", "applicants evaluated"], ["Top 20", "selected via structured rubric"], ["Co-evaluated", "alongside faculty"]], "pills": ["Rubric Design", "Multi-criteria Ranking", "Decision Frameworks", "Stakeholder Alignment"], "proof": ["head-boy-students-council-2024-25"]},
+  'headboy': {"img": "images/stock-team.jpg", "title": "Leading a 1,000+ Student Community", "meta": ["<span class=\"match\">97% Match</span>", "St. Arnold's School", "Leadership", "2024–25"], "desc": "As Head Boy, operated as the bridge between student body, faculty and school administration. Made data-informed decisions on event planning, budget allocation and engagement strategy. Coordinated the student council, assigned responsibilities, ran regular check-ins and ensured smooth execution of school-wide initiatives across academic and cultural domains. The first proof that he could hold a large system together — everything since has scaled it.", "metrics": [["1,000+", "students represented"], ["Faculty & admin", "liaison"], ["Data-informed", "event & budget decisions"]], "pills": ["Team Leadership", "Budget Allocation", "Stakeholder Communication", "Decision Making"], "proof": ["head-boy-students-council-2024-25"]},
   iimk: {
     img: 'images/iimk-aerial.jpg',
     title: 'IIM Kozhikode',
@@ -1409,9 +1462,10 @@ const MODALS = {
     img: 'images/school.jpg',
     title: "St. Arnold's School, Indore",
     meta: ['<span class="match">Head Boy 2024–25</span>', 'Class XII: 95.6%', 'Class X: 95.0%'],
-    desc: "Where the story began. CBSE schooling with 95.6% in Class XII and 95.0% in Class X — alongside the Head Boy office, MUN delegation building, competition wins in debate, elocution, quiz and research, state-level chess, and an NCC 'A' Certificate passed with an A grade. A schooling defined by showing up for both the scoreboard and the community.",
+    desc: "Where the story began. CBSE schooling with 95.6% in Class XII and 95.0% in Class X — alongside the Head Boy office, MUN delegation building, competition wins in debate, elocution, quiz and research, 2nd place in Under-19 rapid chess, 2nd in the 4×100 m relay, and NCC: the Combined Annual Training Camp and a Certificate 'A' passed with an A grade. A schooling defined by showing up for both the scoreboard and the community.",
     metrics: [['95.6%', 'Class XII (CBSE) 2025'], ['95.0%', 'Class X (CBSE) 2023'], ['Head Boy', '2024–25']],
-    pills: ['CBSE', 'Head Boy', 'MUN', 'Chess', 'Debate', 'NCC']
+    pills: ['CBSE', 'Head Boy', 'MUN', 'Chess', 'Debate', 'NCC'],
+    proof: ['head-boy-students-council-2024-25', 'english-elocution-2023-24-first', 'relay-4x100m-2023-24-second', 'ncc-a-certificate-2023', 'siy-career-fair-2024']
   },
   campuslife: {
     img: 'images/iimk-garden.jpg',
@@ -1516,8 +1570,24 @@ const mMeta = document.getElementById('mMeta');
 const mDesc = document.getElementById('mDesc');
 const mMetrics = document.getElementById('mMetrics');
 const mPills = document.getElementById('mPills');
+const mProof = document.getElementById('mProof');
 
 const ALLMODALS = Object.assign({}, MODALS);
+const CERTS = {};   // certificate id → {title, issuer, date, img, thumb}, filled from content.json
+const escHTML = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+function renderProof(ids) {
+  const list = (ids || []).map(id => CERTS[id]).filter(Boolean);
+  mProof.hidden = !list.length;
+  mProof.innerHTML = !list.length ? '' :
+    '<div class="proof-head"><span>Certificate proof</span><a href="#certificates" data-close-modal>All certificates →</a></div>' +
+    '<div class="proof-list">' + list.map(c =>
+      '<a class="proof-item" href="' + escHTML(c.img) + '" target="_blank" rel="noopener">' +
+      '<img src="' + escHTML(c.thumb) + '" alt="' + escHTML(c.title) + ' — certificate" loading="lazy" decoding="async">' +
+      '<span>' + escHTML(c.title) + '<br><em>' + escHTML(c.date) + '</em></span></a>'
+    ).join('') + '</div>';
+}
+mProof.addEventListener('click', e => { if (e.target.closest('[data-close-modal]')) closeModal(); });
 
 function openModal(key) {
   const d = ALLMODALS[key];
@@ -1529,6 +1599,7 @@ function openModal(key) {
   mDesc.textContent = d.desc;
   mMetrics.innerHTML = d.metrics.map(([a, b]) => `<div class="m-metric"><strong>${a}</strong>${b}</div>`).join('');
   mPills.innerHTML = d.pills.map(p => `<span class="pill">${p}</span>`).join('');
+  renderProof(d.proof);
   backdrop.classList.add('open');
   requestAnimationFrame(() => backdrop.classList.add('show'));
   document.body.style.overflow = 'hidden';
@@ -1569,6 +1640,21 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.c
   fetch('content.json?ts=' + Date.now())
     .then(r => r.json())
     .then(data => {
+      // Certificates: lookup for modal proof + the Receipts row
+      const certs = data.certificates || [];
+      certs.forEach(c => { CERTS[c.id] = c; });
+      const cs = document.getElementById('certScroll');
+      if (cs && certs.length) {
+        cs.innerHTML = certs.map(c =>
+          '<a class="cert-card" href="' + esc(c.img) + '" target="_blank" rel="noopener">' +
+          '<img src="' + esc(c.thumb) + '" alt="' + esc(c.title) + ' — certificate" loading="lazy" decoding="async">' +
+          '<div class="cert-body"><div class="cert-title">' + esc(c.title) + '</div>' +
+          '<div class="cert-sub">' + esc(c.issuer) + ' · ' + esc(c.date) + '</div></div></a>'
+        ).join('');
+        document.getElementById('certificates').hidden = false;
+      }
+      document.querySelectorAll('a[href="#certificates"]').forEach(a => { a.hidden = !certs.length; });
+
       // Achievement modals become ach-0, ach-1, ...
       (data.achievements || []).forEach((a, i) => {
         const m = a.modal || {};
@@ -1578,7 +1664,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.c
           meta: (m.meta || []).map((t, j) => j === 0 ? '<span class="match">' + esc(t) + '</span>' : esc(t)),
           desc: m.desc || '',
           metrics: m.metrics || [],
-          pills: m.pills || []
+          pills: m.pills || [],
+          proof: a.proof || []
         };
       });
 

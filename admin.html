@@ -364,6 +364,9 @@ function renderAch() {
         ${metricRow(i, 0)}${metricRow(i, 1)}${metricRow(i, 2)}
         <label>Skill pills (comma separated)</label>
         <input type="text" value="${esc((a.modal.pills || []).join(', '))}" oninput="state.achievements[${i}].modal.pills=this.value.split(',').map(s=>s.trim()).filter(Boolean);markDirty()">
+        <label>Certificate proof (certificate IDs, comma separated)</label>
+        <input type="text" value="${esc((a.proof || []).join(', '))}" oninput="state.achievements[${i}].proof=this.value.split(',').map(s=>s.trim()).filter(Boolean);markDirty()">
+        <div style="font-size:0.75rem;color:var(--grey-2,#8a8f98);margin-top:4px;line-height:1.5">Available: ${esc((state.certificates || []).map(c => c.id).join(', ') || 'none yet')}</div>
       </div>
     </div>`).join('');
 }

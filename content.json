@@ -37,7 +37,7 @@
       "tag": "2× Winner",
       "title": "Best Delegate — Masters' Summit MUN",
       "sub": "2024 & 2025 · ₹15,000 cash prize",
-      "img": "images/stock-mic.jpg",
+      "img": "images/real/masters-summit-trophy.jpg",
       "modal": {
         "title": "Best Delegate ×2 — Masters' Summit MUN",
         "meta": [
@@ -68,14 +68,15 @@
         ]
       },
       "proof": [
-        "masters-summit-2024-best-delegate"
+        "masters-summit-2024-best-delegate",
+        "masters-summit-2024-participation"
       ]
     },
     {
       "tag": "Special Mention",
       "title": "MU20 Opportunity Summit 2024",
       "sub": "AIPPM · Oct 2024 · 3rd-highest award",
-      "img": "images/space-satellite.jpg",
+      "img": "images/real/mu20-special-mention-memento.jpg",
       "modal": {
         "title": "Special Mention — MU20 Opportunity Summit 2024",
         "meta": [
@@ -107,7 +108,9 @@
       },
       "proof": [
         "mu20-2024-special-mention",
+        "mu20-2024-participation",
         "sahodaya-mun-2024-high-commendation",
+        "sahodaya-mun-2024-participation",
         "dps-rau-mun-2024"
       ]
     },
@@ -115,7 +118,7 @@
       "tag": "2nd · Under-19",
       "title": "2nd — International Chess Day Trophy",
       "sub": "Rapid · Under-19 · Jul 2025",
-      "img": "images/stock-chess.jpg",
+      "img": "images/real/uicc-chess-medal.jpg",
       "modal": {
         "title": "Rapid Chess — Strategy Under the Clock",
         "meta": [
@@ -154,7 +157,7 @@
       "tag": "Best Performance",
       "title": "Best Performance — Balvigyan",
       "sub": "Sahodaya Senior Balvigyan · Jan 2024",
-      "img": "images/stock-library.jpg",
+      "img": "images/real/balvigyan-team.jpg",
       "modal": {
         "title": "Transportation Research Project",
         "meta": [
@@ -192,7 +195,7 @@
       "tag": "1st Place",
       "title": "English Debate & Elocution",
       "sub": "Plus Young TV Reporter — school level",
-      "img": "images/debate-stage.jpg",
+      "img": "images/certificates/english-elocution-2023-24-first.jpg",
       "modal": {
         "title": "Debate, Elocution & Quiz",
         "meta": [
@@ -232,7 +235,7 @@
       "tag": "₹3,100 Prize",
       "title": "Spandan 2024 — 2nd Position",
       "sub": "QA / GK / Debate · Aug 2024",
-      "img": "images/stock-event.jpg",
+      "img": "images/real/spandan-prize.jpg",
       "modal": {
         "title": "Spandan 2024 — 2nd Position",
         "meta": [
@@ -418,6 +421,14 @@
       "thumb": "images/certificates/thumbs/masters-summit-2024-best-delegate.jpg"
     },
     {
+      "id": "masters-summit-2024-participation",
+      "title": "Delegate of Brazil — UNCSW (participation)",
+      "issuer": "Masters' Summit 2024–25 · Acropolis Institute, Indore",
+      "date": "27–29 Jun 2024",
+      "img": "images/certificates/masters-summit-2024-participation.jpg",
+      "thumb": "images/certificates/thumbs/masters-summit-2024-participation.jpg"
+    },
+    {
       "id": "mu20-2024-special-mention",
       "title": "Special Mention — AIPPM",
       "issuer": "MU20 Opportunity Summit 2024 · Indore",
@@ -426,12 +437,28 @@
       "thumb": "images/certificates/thumbs/mu20-2024-special-mention.jpg"
     },
     {
+      "id": "mu20-2024-participation",
+      "title": "Delegate (Supriya Sule) — AIPPM (participation)",
+      "issuer": "MU20 Opportunity Summit 2024 · Indore",
+      "date": "19–21 Oct 2024",
+      "img": "images/certificates/mu20-2024-participation.jpg",
+      "thumb": "images/certificates/thumbs/mu20-2024-participation.jpg"
+    },
+    {
       "id": "sahodaya-mun-2024-high-commendation",
       "title": "High Commendation — ECOSOC (Sweden)",
       "issuer": "Sahodaya Model United Nations 2024 · Symbiosis University of Applied Sciences",
       "date": "17–18 Aug 2024",
       "img": "images/certificates/sahodaya-mun-2024-high-commendation.jpg",
       "thumb": "images/certificates/thumbs/sahodaya-mun-2024-high-commendation.jpg"
+    },
+    {
+      "id": "sahodaya-mun-2024-participation",
+      "title": "Delegate of Sweden — ECOSOC (participation)",
+      "issuer": "Sahodaya Model United Nations 2024 · Symbiosis University of Applied Sciences",
+      "date": "17–18 Aug 2024",
+      "img": "images/certificates/sahodaya-mun-2024-participation.jpg",
+      "thumb": "images/certificates/thumbs/sahodaya-mun-2024-participation.jpg"
     },
     {
       "id": "spandan-2024-second-position",
@@ -464,6 +491,14 @@
       "date": "6 Jan 2024",
       "img": "images/certificates/sahodaya-balvigyan-2024.jpg",
       "thumb": "images/certificates/thumbs/sahodaya-balvigyan-2024.jpg"
+    },
+    {
+      "id": "dps-rau-mun-2024",
+      "title": "Delegate — UNHCR (Iceland)",
+      "issuer": "Delhi Public School Rau Model United Nations 2024",
+      "date": "5–7 Apr 2024",
+      "img": "images/certificates/dps-rau-mun-2024.jpg",
+      "thumb": "images/certificates/thumbs/dps-rau-mun-2024.jpg"
     },
     {
       "id": "ncc-a-certificate-2023",
@@ -522,20 +557,36 @@
       "thumb": "images/certificates/thumbs/relay-4x100m-2023-24-second.jpg"
     },
     {
-      "id": "dps-rau-mun-2024",
-      "title": "Delegate — UNHCR (Iceland)",
-      "issuer": "Delhi Public School Rau Model United Nations 2024",
-      "date": "5–7 Apr 2024",
-      "img": "images/certificates/dps-rau-mun-2024.jpg",
-      "thumb": "images/certificates/thumbs/dps-rau-mun-2024.jpg"
-    },
-    {
       "id": "siy-career-fair-2024",
       "title": "Participation — SIY Career Fair & Career Counselling",
       "issuer": "SIY · Success in You, at St. Arnold's School",
       "date": "30 Aug 2024",
       "img": "images/certificates/siy-career-fair-2024.jpg",
       "thumb": "images/certificates/thumbs/siy-career-fair-2024.jpg"
+    },
+    {
+      "id": "cbse-class-xii-marksheet-2025",
+      "title": "Class XII (CBSE) marks statement — 95.6%",
+      "issuer": "Central Board of Secondary Education · St. Arnold's School, Indore",
+      "date": "May 2025",
+      "img": "images/certificates/cbse-class-xii-marksheet-2025.jpg",
+      "thumb": "images/certificates/thumbs/cbse-class-xii-marksheet-2025.jpg"
+    },
+    {
+      "id": "class-xi-report-card-2023-24",
+      "title": "Class XI report card (Commerce) — 92.66%",
+      "issuer": "St. Arnold's School, Indore",
+      "date": "2023–24",
+      "img": "images/certificates/class-xi-report-card-2023-24.jpg",
+      "thumb": "images/certificates/thumbs/class-xi-report-card-2023-24.jpg"
+    },
+    {
+      "id": "cbse-class-x-marksheet-2023",
+      "title": "Class X (CBSE) marks statement",
+      "issuer": "Central Board of Secondary Education · St. Arnold's School, Indore",
+      "date": "May 2023",
+      "img": "images/certificates/cbse-class-x-marksheet-2023.jpg",
+      "thumb": "images/certificates/thumbs/cbse-class-x-marksheet-2023.jpg"
     }
   ]
 }

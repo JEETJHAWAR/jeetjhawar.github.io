@@ -2,9 +2,9 @@
   "heroBackground": "images/hero-starfield-v2.jpg",
   "heroCards": [
     {
-      "num": "🎲 Founder",
-      "label": "Blind Bluff — live storefront",
-      "modal": "blindbluff"
+      "num": "₹1.67L",
+      "label": "SEQUEL 26 ticket sales",
+      "modal": "sequel"
     },
     {
       "num": "100+",
@@ -12,9 +12,9 @@
       "modal": "pipeline"
     },
     {
-      "num": "₹1.67L",
-      "label": "SEQUEL 26 ticket sales",
-      "modal": "sequel"
+      "num": "🎲 3 games",
+      "label": "Blind Bluff — live storefront",
+      "modal": "blindbluff"
     },
     {
       "num": "1,000+",
@@ -27,8 +27,8 @@
       "modal": "ach-0"
     },
     {
-      "num": "♟ 2nd",
-      "label": "U-19 Rapid Chess · 2025",
+      "num": "♟ 1st",
+      "label": "U-20 Rapid Chess · 2026",
       "modal": "ach-2"
     }
   ],
@@ -115,30 +115,30 @@
       ]
     },
     {
-      "tag": "2nd · Under-19",
-      "title": "2nd — International Chess Day Trophy",
-      "sub": "Rapid · Under-19 · Jul 2025",
+      "tag": "1st · Under-20",
+      "title": "1st — International Chess Day Trophy 2026",
+      "sub": "Rapid · Under-20 · 6/6 · Jul 2026",
       "img": "images/real/uicc-chess-medal.jpg",
       "modal": {
         "title": "Rapid Chess — Strategy Under the Clock",
         "meta": [
-          "2nd · Under-19",
+          "1st · Under-20",
           "Rapid chess",
-          "2024–25"
+          "2024–26"
         ],
-        "desc": "2nd place in the Under-19 category at the International Chess Day Trophy Rapid Chess Tournament 2025 (Unite Indore Chess Club with Shri Vaishnav Sports Academy, 20 July 2025), scoring 5 points from 6 rounds. Seven months earlier: 10th in Under-18 Boys (13th overall) at the UICC Trophy one-day rapid tournament at Delhi Public School Nipaniya, Indore (8 December 2024), approved by the MP Chess Ad-hoc Committee. Chess is where the analytical habit was built — probabilistic thinking, pattern recognition and calm decisions under time pressure.",
+        "desc": "1st place in the Under-20 category at the 2nd International Chess Day Trophy Rapid Chess Tournament 2026 (Unite Indore Chess Club with Shri Vaishnav Sports Academy, 19 July 2026), with a perfect 6 points from 6 rounds. A year earlier, at the 2025 edition (20 July 2025): 2nd in Under-19 with 5 from 6. Before that: 10th in Under-18 Boys (13th overall) at the UICC Trophy one-day rapid tournament at Delhi Public School Nipaniya, Indore (8 December 2024), approved by the MP Chess Ad-hoc Committee. Chess is where the analytical habit was built — probabilistic thinking, pattern recognition and calm decisions under time pressure.",
         "metrics": [
+          [
+            "1st",
+            "Under-20 · Chess Day Trophy, Jul 2026"
+          ],
+          [
+            "6 / 6",
+            "a perfect score across six rapid rounds"
+          ],
           [
             "2nd",
             "Under-19 · Chess Day Trophy, Jul 2025"
-          ],
-          [
-            "5 / 6",
-            "points across six rapid rounds"
-          ],
-          [
-            "10th",
-            "Under-18 Boys · UICC Trophy, Dec 2024"
           ]
         ],
         "pills": [
@@ -149,6 +149,7 @@
         ]
       },
       "proof": [
+        "chess-day-trophy-2026-first",
         "chess-day-trophy-2025-second",
         "uicc-trophy-2024-tenth-u18"
       ]
@@ -412,6 +413,14 @@
     }
   ],
   "certificates": [
+    {
+      "id": "chess-day-trophy-2026-first",
+      "title": "1st place, Under-20 · 6 of 6 points",
+      "issuer": "2nd International Chess Day Trophy Rapid Chess Tournament 2026 · Unite Indore Chess Club",
+      "date": "19 Jul 2026",
+      "img": "images/certificates/chess-day-trophy-2026-first.jpg",
+      "thumb": "images/certificates/thumbs/chess-day-trophy-2026-first.jpg"
+    },
     {
       "id": "masters-summit-2024-best-delegate",
       "title": "Best Delegate — UNCSW (Brazil)",

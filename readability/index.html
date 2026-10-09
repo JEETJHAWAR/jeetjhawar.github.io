@@ -4,199 +4,452 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Readable — free readability checker</title>
-<meta name="description" content="Paste any text, get its readability score and see the five hardest sentences highlighted. Free, instant, nothing leaves your browser.">
+<meta name="description" content="Paste any text, get its readability score and see the five hardest sentences highlighted, explained and fixed. Free, instant, nothing leaves your browser.">
+<meta name="theme-color" content="#E8E5E0">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jeetjhawar.github.io/readability/">
 <meta property="og:title" content="Readable — free readability checker">
-<meta property="og:description" content="Paste text → readability score + the five hardest sentences highlighted. Free, no sign-up.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1220'/%3E%3Ctext x='32' y='45' font-family='Arial' font-weight='700' font-size='34' fill='%237dd3fc' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
-<style>
-  :root {
-    --bg: #f6f8fb; --panel: #ffffff; --ink: #0f172a; --muted: #5b6474; --line: #e2e8f0;
-    --accent: #0284c7; --accent-ink: #ffffff; --hl: #fde68a; --hl-ink: #78350f; --tag: #b45309;
-    --good: #15803d; --ok: #a16207; --bad: #b91c1c; --shadow: 0 1px 2px rgba(15,23,42,.06), 0 8px 24px rgba(15,23,42,.06);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #070b14; --panel: #0e1626; --ink: #e5edf7; --muted: #94a3b8; --line: #1e2a3d;
-      --accent: #38bdf8; --accent-ink: #04111d; --hl: rgba(250, 204, 21, .28); --hl-ink: #fde68a; --tag: #fbbf24;
-      --good: #4ade80; --ok: #facc15; --bad: #f87171; --shadow: none;
-    }
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  .wrap { max-width: 980px; margin: 0 auto; padding: 28px 16px 48px; }
-  header h1 { margin: 0; font-size: 1.7rem; letter-spacing: -.01em; }
-  header p { margin: 6px 0 0; color: var(--muted); }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 18px; margin-top: 18px; }
-  textarea { width: 100%; min-height: 190px; resize: vertical; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
-             font: inherit; color: var(--ink); background: transparent; }
-  textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 12px; }
-  button { font: inherit; font-weight: 600; border-radius: 10px; padding: 9px 16px; cursor: pointer; border: 1px solid var(--line); background: transparent; color: var(--ink); }
-  button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-  .hint { color: var(--muted); font-size: .88rem; margin-left: auto; }
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
-  .stat { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
-  .stat b { display: block; font-size: 1.6rem; line-height: 1.15; font-variant-numeric: tabular-nums; }
-  .stat span { color: var(--muted); font-size: .85rem; }
-  .verdict { font-weight: 600; margin: 14px 0 0; }
-  h2 { font-size: 1.05rem; margin: 0 0 10px; }
-  .text { white-space: pre-wrap; line-height: 1.75; }
-  mark { background: var(--hl); color: var(--hl-ink); border-radius: 4px; padding: 1px 2px; }
-  mark sup { font-weight: 700; color: var(--tag); margin-right: 2px; font-size: .7em; }
-  ol.hard { margin: 0; padding-left: 22px; }
-  ol.hard li { margin: 0 0 10px; }
-  ol.hard .why { display: block; color: var(--muted); font-size: .86rem; }
-  .empty { color: var(--muted); }
-  footer { color: var(--muted); font-size: .85rem; margin-top: 22px; }
-  footer a { color: var(--accent); }
-  [hidden] { display: none !important; }
-</style>
+<meta property="og:description" content="Paste text → readability score + the five hardest sentences, highlighted, explained and fixed. Free, no sign-up, nothing leaves your browser.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Readable — free readability checker">
+<meta name="twitter:description" content="Paste text → readability score + the five hardest sentences, highlighted, explained and fixed.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='20' fill='%23061A1E'/%3E%3Cpath d='M22 46V18h11a8.5 8.5 0 0 1 0 17H22m11 0l10 11' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='48' cy='17' r='6' fill='%23FFBD00'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>
+  document.documentElement.classList.add('js');
+  if (/[?&]static\b/.test(location.search)) document.documentElement.classList.add('static');
+</script>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>Readable</h1>
-    <p>Paste any text — an email, a blog post, a policy page. Get its readability score and the five hardest sentences, highlighted. Free, instant, and nothing leaves your browser.</p>
-  </header>
+<a class="skip-link" href="#editor">Skip to the checker</a>
 
-  <section class="card">
-    <label for="input" class="hint" style="margin:0 0 8px;display:block">Your text</label>
-    <textarea id="input" placeholder="Paste your text here…"></textarea>
-    <div class="row">
-      <button class="primary" id="go">Check readability</button>
-      <button id="sample">Try a sample</button>
-      <button id="clear">Clear</button>
-      <span class="hint" id="live"></span>
-    </div>
-  </section>
+<header class="site-header" id="siteHeader">
+  <a class="brand" href="#top" aria-label="Readable, back to top">
+    <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+      <rect width="64" height="64" rx="20" fill="#061A1E"/>
+      <path d="M22 46V18h11a8.5 8.5 0 0 1 0 17H22m11 0l10 11" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="48" cy="17" r="6" fill="#FFBD00"/>
+    </svg>
+    <span class="brand-name">Readable</span>
+  </a>
+  <nav class="site-nav" aria-label="Main">
+    <a class="btn btn-teal btn-sm" href="#editor">Check text</a>
+    <a class="btn btn-teal btn-sm" href="#how">How it works</a>
+  </nav>
+</header>
 
-  <section class="card" id="results" hidden>
-    <div class="stats">
-      <div class="stat"><b id="sScore">–</b><span>Flesch reading ease (0–100, higher = easier)</span></div>
-      <div class="stat"><b id="sGrade">–</b><span>School grade level (Flesch–Kincaid)</span></div>
-      <div class="stat"><b id="sWords">–</b><span>words · <i id="sSent">–</i> sentences</span></div>
-      <div class="stat"><b id="sAvg">–</b><span>words per sentence (aim for ≤ 20)</span></div>
-      <div class="stat"><b id="sTime">–</b><span>reading time</span></div>
-    </div>
-    <p class="verdict" id="verdict"></p>
-  </section>
-
-  <section class="card" id="hardBox" hidden>
-    <h2>The five hardest sentences</h2>
-    <ol class="hard" id="hardList"></ol>
-  </section>
-
-  <section class="card" id="textBox" hidden>
-    <h2>Your text, with the hardest sentences highlighted</h2>
-    <div class="text" id="marked"></div>
-  </section>
-
-  <footer>
-    Scores use the standard Flesch reading-ease and Flesch–Kincaid grade formulas with an English syllable estimate, so treat them as a guide, not a verdict.
-    Made by <a href="https://jeetjhawar.github.io/">Jeet Jhawar</a>.
-  </footer>
+<div class="share-banner" id="shareBanner" hidden>
+  <div class="share-banner-inner">
+    <span class="share-score" id="shareScore">62</span>
+    <p><strong>Someone scored <span id="shareScoreText">62</span>/100 on Readable.</strong> <span id="shareScoreLabel"></span> Paste your own text and see how yours compares.</p>
+    <a class="btn btn-yellow btn-sm" href="#editor" id="shareCta">Check mine</a>
+    <button class="icon-btn" type="button" id="shareClose" aria-label="Dismiss">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
 </div>
 
-<script>
-const $ = id => document.getElementById(id);
-const SAMPLE = "Our refund policy is simple. If you are not happy, write to us within 30 days. Notwithstanding the foregoing, any reimbursement determination shall be contingent upon the verification of eligibility criteria established by the organisation in accordance with applicable regulatory requirements. We usually reply within a day. The aforementioned procedural considerations notwithstanding, customers who have previously availed themselves of promotional discounts may experience proportionally adjusted reimbursement calculations. Keep your receipt. Returns are free for orders above ₹999. Comprehensive documentation substantiating the circumstances necessitating the return, including photographic evidence where practicable, must accompany each individual application. Most returns take five to seven days. You will get an email when your money is on its way. If something is unclear, just reply to that email and a real person will help. Thank you for shopping with us!";
+<main id="top">
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-bg" aria-hidden="true">
+      <span class="shape cap cap-1" data-parallax="0.12"></span>
+      <span class="shape cap cap-2" data-parallax="0.06"></span>
+      <span class="shape cap cap-3" data-parallax="0.18"></span>
+      <span class="shape circ circ-1" data-parallax="0.22"></span>
+      <span class="shape ring ring-1" data-parallax="0.3"></span>
+      <span class="shape dot-y" data-parallax="0.4"></span>
+    </div>
+    <div class="container hero-grid">
+      <div class="hero-intro reveal">
+        <p class="tag"><span class="tag-dot" aria-hidden="true"></span>Free readability checker</p>
+        <p class="hero-pitch">Paste any text. Get a readability score and the five hardest sentences — <span class="hl-y">highlighted</span>, <span class="hl-u">explained</span>, fixed.</p>
+        <div class="hero-cta">
+          <a class="btn btn-teal btn-lg" href="#editor">Check your text
+            <svg class="btn-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn-white btn-lg" href="#how">How it works</a>
+        </div>
+        <ul class="hero-points" aria-label="Highlights">
+          <li>No sign-up</li><li>Works offline</li><li>Nothing leaves your browser</li>
+        </ul>
+      </div>
+      <h1 class="wordmark reveal" id="heroTitle" aria-label="Readable">
+        <span class="wm-line" aria-hidden="true">READ</span>
+        <span class="wm-line wm-line-2" aria-hidden="true"><span class="wm-dot"></span>ABLE</span>
+      </h1>
+      <div class="hero-art reveal" aria-hidden="true">
+        <svg viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" focusable="false">
+<polygon points="63.9,253.6 66.7,260.7 72.2,267.3 80.0,273.0 260.2,377.0 270.0,381.5 281.4,384.7 293.7,386.3 306.3,386.3 318.6,384.7 330.0,381.5 339.8,377.0 520.0,273.0 527.8,267.3 533.3,260.7 536.1,253.6 536.1,246.4 536.1,274.4 536.1,281.6 533.3,288.7 527.8,295.3 520.0,301.0 339.8,405.0 330.0,409.5 318.6,412.7 306.3,414.3 293.7,414.3 281.4,412.7 270.0,409.5 260.2,405.0 80.0,301.0 72.2,295.3 66.7,288.7 63.9,281.6" fill="#DBD7CA" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/><polygon points="339.8,377.0 330.0,381.5 318.6,384.7 306.3,386.3 293.7,386.3 281.4,384.7 270.0,381.5 260.2,377.0 80.0,273.0 72.2,267.3 66.7,260.7 63.9,253.6 63.9,246.4 66.7,239.3 72.2,232.7 80.0,227.0 260.2,123.0 270.0,118.5 281.4,115.3 293.7,113.7 306.3,113.7 318.6,115.3 330.0,118.5 339.8,123.0 520.0,227.0 527.8,232.7 533.3,239.3 536.1,246.4 536.1,253.6 533.3,260.7 527.8,267.3 520.0,273.0" fill="#FFFFFF" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="325.1,376.0 320.2,378.3 314.5,379.9 308.4,380.7 302.0,380.7 295.9,379.9 290.2,378.3 285.3,376.0 285.3,376.0 281.3,373.2 278.6,369.9 277.2,366.3 277.2,362.7 278.6,359.1 281.3,355.8 285.3,353.0 479.3,241.0 484.2,238.7 489.9,237.1 496.0,236.3 502.3,236.3 508.5,237.1 514.2,238.7 519.1,241.0 519.1,241.0 523.0,243.8 525.8,247.1 527.2,250.7 527.2,254.3 525.8,257.9 523.0,261.2 519.1,264.0" fill="#E8E5E0" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="111.0,252.5 111.4,254.3 112.5,256.1 114.3,257.7 116.6,259.1 255.6,321.8 258.4,322.7 261.5,323.4 264.8,323.5 268.1,323.3 271.1,322.7 273.9,321.6 276.2,320.3 427.0,208.8 428.8,207.2 429.8,205.4 430.1,203.5 430.1,210.5 429.8,212.4 428.8,214.2 427.0,215.8 276.2,327.3 273.9,328.6 271.1,329.7 268.1,330.3 264.8,330.5 261.5,330.4 258.4,329.7 255.6,328.8 116.6,266.1 114.3,264.7 112.5,263.1 111.4,261.3 111.0,259.5" fill="#E8E5E0" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/><polygon points="276.2,320.3 273.9,321.6 271.1,322.7 268.1,323.3 264.8,323.5 261.5,323.4 258.4,322.7 255.6,321.8 116.6,259.1 114.3,257.7 112.5,256.1 111.4,254.3 111.0,252.5 111.3,250.6 112.4,248.8 114.1,247.2 264.9,135.7 267.2,134.4 270.0,133.3 273.1,132.7 276.3,132.5 279.6,132.6 282.7,133.3 285.5,134.2 424.5,196.9 426.8,198.3 428.6,199.9 429.7,201.7 430.1,203.5 429.8,205.4 428.8,207.2 427.0,208.8" fill="#FFFFFF" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="105.4,223.7 105.8,225.5 107.0,227.3 108.8,228.9 222.2,306.9 224.5,308.2 227.4,309.2 230.5,309.8 233.8,309.9 237.0,309.7 240.1,309.0 242.9,308.0 430.5,217.0 432.8,215.7 434.5,214.0 435.5,212.2 435.8,210.3 435.8,217.3 435.5,219.2 434.5,221.0 432.8,222.7 430.5,224.0 242.9,315.0 240.1,316.0 237.0,316.7 233.8,316.9 230.5,316.8 227.4,316.2 224.5,315.2 222.2,313.9 108.8,235.9 107.0,234.3 105.8,232.5 105.4,230.7" fill="#E8E5E0" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/><polygon points="242.9,308.0 240.1,309.0 237.0,309.7 233.8,309.9 230.5,309.8 227.4,309.2 224.5,308.2 222.2,306.9 108.8,228.9 107.0,227.3 105.8,225.5 105.4,223.7 105.6,221.8 106.7,220.0 108.3,218.3 110.6,217.0 298.2,126.0 301.0,125.0 304.1,124.3 307.3,124.1 310.6,124.2 313.7,124.8 316.6,125.8 319.0,127.1 432.3,205.1 434.1,206.7 435.3,208.5 435.8,210.3 435.5,212.2 434.5,214.0 432.8,215.7 430.5,217.0" fill="#FFFFFF" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="108.1,223.2 108.3,225.1 109.2,226.9 110.7,228.6 112.9,230.0 242.9,298.8 245.6,299.9 248.6,300.7 251.8,301.0 255.1,300.9 258.3,300.4 261.2,299.5 263.7,298.3 429.1,194.0 431.1,192.5 432.4,190.7 433.0,188.8 433.0,195.8 432.4,197.7 431.1,199.5 429.1,201.0 263.7,305.3 261.2,306.5 258.3,307.4 255.1,307.9 251.8,308.0 248.6,307.7 245.6,306.9 242.9,305.8 112.9,237.0 110.7,235.6 109.2,233.9 108.3,232.1 108.1,230.2" fill="#E8E5E0" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/><polygon points="263.7,298.3 261.2,299.5 258.3,300.4 255.1,300.9 251.8,301.0 248.6,300.7 245.6,299.9 242.9,298.8 112.9,230.0 110.7,228.6 109.2,226.9 108.3,225.1 108.1,223.2 108.7,221.3 110.0,219.5 112.0,218.0 277.4,113.7 279.9,112.5 282.8,111.6 286.0,111.1 289.3,111.0 292.5,111.3 295.6,112.1 298.2,113.2 428.2,182.0 430.4,183.4 432.0,185.1 432.8,186.9 433.0,188.8 432.4,190.7 431.1,192.5 429.1,194.0" fill="#FFFFFF" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="107.0,210.0 107.7,211.8 109.2,213.5 111.2,215.0 235.9,287.0 238.5,288.2 241.5,289.0 244.7,289.4 248.0,289.4 251.2,289.0 254.1,288.2 256.7,287.0 429.9,187.0 432.0,185.5 433.4,183.8 434.1,182.0 434.1,180.0 434.1,187.0 434.1,189.0 433.4,190.8 432.0,192.5 429.9,194.0 256.7,294.0 254.1,295.2 251.2,296.0 248.0,296.4 244.7,296.4 241.5,296.0 238.5,295.2 235.9,294.0 111.2,222.0 109.2,220.5 107.7,218.8 107.0,217.0" fill="#E8E5E0" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/><polygon points="256.7,287.0 254.1,288.2 251.2,289.0 248.0,289.4 244.7,289.4 241.5,289.0 238.5,288.2 235.9,287.0 111.2,215.0 109.2,213.5 107.7,211.8 107.0,210.0 107.0,208.0 107.7,206.2 109.2,204.5 111.2,203.0 284.4,103.0 287.0,101.8 289.9,101.0 293.2,100.6 296.4,100.6 299.7,101.0 302.6,101.8 305.2,103.0 429.9,175.0 432.0,176.5 433.4,178.2 434.1,180.0 434.1,182.0 433.4,183.8 432.0,185.5 429.9,187.0" fill="#FFFFFF" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="398.7,180.8 398.2,181.0 397.7,181.2 397.1,181.3 396.5,181.3 395.9,181.2 395.3,181.0 394.8,180.8 291.3,121.0 291.0,120.8 290.7,120.5 290.5,120.1 290.5,119.7 290.7,119.4 291.0,119.1 291.3,118.8 291.3,118.8 291.8,118.6 292.4,118.4 293.0,118.3 293.6,118.3 294.2,118.4 294.8,118.6 295.2,118.8 398.7,178.6 399.1,178.8 399.4,179.1 399.5,179.5 399.5,179.9 399.4,180.2 399.1,180.5 398.7,180.8" fill="#061A1E" opacity="0.28"/>
+<polygon points="363.2,181.3 362.7,181.5 362.2,181.7 361.6,181.8 361.0,181.8 360.4,181.7 359.8,181.5 359.3,181.3 273.2,131.6 272.8,131.3 272.5,131.0 272.4,130.6 272.4,130.2 272.5,129.9 272.8,129.6 273.2,129.3 273.2,129.3 273.6,129.1 274.2,128.9 274.8,128.8 275.4,128.8 276.0,128.9 276.6,129.1 277.1,129.3 363.2,179.1 363.6,179.3 363.9,179.6 364.0,180.0 364.0,180.4 363.9,180.7 363.6,181.0 363.2,181.3" fill="#061A1E" opacity="0.28"/>
+<polygon points="374.5,209.0 372.9,209.7 371.0,210.3 369.0,210.5 367.0,210.5 364.9,210.3 363.1,209.7 361.5,209.0 248.0,143.5 246.8,142.6 245.9,141.5 245.4,140.3 245.4,139.2 245.9,138.0 246.8,136.9 248.0,136.0 248.0,136.0 249.6,135.3 251.5,134.7 253.5,134.5 255.6,134.5 257.6,134.7 259.4,135.3 261.0,136.0 374.5,201.5 375.8,202.4 376.7,203.5 377.1,204.7 377.1,205.8 376.7,207.0 375.8,208.1 374.5,209.0" fill="#FFBD00" stroke="#061A1E" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="367.5,204.8 367.1,205.0 366.5,205.2 365.9,205.3 365.3,205.3 364.7,205.2 364.1,205.0 363.7,204.8 255.0,142.1 254.6,141.8 254.3,141.5 254.2,141.1 254.2,140.7 254.3,140.4 254.6,140.1 255.0,139.8 255.0,139.8 255.4,139.6 256.0,139.4 256.6,139.3 257.2,139.3 257.8,139.4 258.4,139.6 258.9,139.8 367.5,202.6 367.9,202.8 368.2,203.1 368.3,203.5 368.3,203.9 368.2,204.2 367.9,204.5 367.5,204.8" fill="#061A1E" opacity="0.78"/>
+<polygon points="307.8,191.5 306.2,192.2 304.3,192.8 302.3,193.0 300.3,193.0 298.3,192.8 296.4,192.2 294.8,191.5 229.9,154.0 228.6,153.1 227.7,152.0 227.2,150.8 227.2,149.7 227.7,148.5 228.6,147.4 229.9,146.5 229.9,146.5 231.5,145.8 233.3,145.2 235.3,145.0 237.4,145.0 239.4,145.2 241.2,145.8 242.8,146.5 307.8,184.0 309.1,184.9 310.0,186.0 310.4,187.2 310.4,188.3 310.0,189.5 309.1,190.6 307.8,191.5" fill="#FFBD00" stroke="#061A1E" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="300.9,187.3 300.4,187.5 299.8,187.7 299.2,187.8 298.6,187.8 298.0,187.7 297.5,187.5 297.0,187.3 236.8,152.6 236.4,152.3 236.1,152.0 236.0,151.6 236.0,151.2 236.1,150.9 236.4,150.6 236.8,150.3 236.8,150.3 237.3,150.1 237.8,149.9 238.4,149.8 239.0,149.8 239.6,149.9 240.2,150.1 240.7,150.3 300.9,185.1 301.3,185.3 301.5,185.6 301.7,186.0 301.7,186.4 301.5,186.7 301.3,187.0 300.9,187.3" fill="#061A1E" opacity="0.78"/>
+<polygon points="324.2,221.8 323.8,222.0 323.2,222.2 322.6,222.3 322.0,222.3 321.4,222.2 320.8,222.0 320.4,221.8 218.6,163.1 218.2,162.8 217.9,162.5 217.8,162.1 217.8,161.7 217.9,161.4 218.2,161.1 218.6,160.8 218.6,160.8 219.1,160.6 219.6,160.4 220.2,160.3 220.9,160.3 221.5,160.4 222.0,160.6 222.5,160.8 324.2,219.6 324.6,219.8 324.9,220.1 325.0,220.5 325.0,220.9 324.9,221.2 324.6,221.5 324.2,221.8" fill="#061A1E" opacity="0.28"/>
+<polygon points="295.7,226.3 295.2,226.5 294.6,226.7 294.0,226.8 293.4,226.8 292.8,226.7 292.3,226.5 291.8,226.3 200.4,173.6 200.0,173.3 199.8,173.0 199.6,172.6 199.6,172.2 199.8,171.9 200.0,171.6 200.4,171.3 200.4,171.3 200.9,171.1 201.4,170.9 202.0,170.8 202.7,170.8 203.3,170.9 203.8,171.1 204.3,171.3 295.7,224.1 296.1,224.3 296.3,224.6 296.5,225.0 296.5,225.4 296.3,225.7 296.1,226.0 295.7,226.3" fill="#061A1E" opacity="0.28"/>
+<polygon points="289.6,244.0 288.0,244.7 286.1,245.3 284.1,245.5 282.1,245.5 280.1,245.3 278.2,244.7 276.6,244.0 175.3,185.5 174.0,184.6 173.1,183.5 172.7,182.3 172.7,181.2 173.1,180.0 174.0,178.9 175.3,178.0 175.3,178.0 176.9,177.3 178.8,176.7 180.8,176.5 182.8,176.5 184.8,176.7 186.7,177.3 188.3,178.0 289.6,236.5 290.9,237.4 291.8,238.5 292.2,239.7 292.2,240.8 291.8,242.0 290.9,243.1 289.6,244.0" fill="#EF6156" stroke="#061A1E" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="282.7,239.8 282.2,240.0 281.6,240.2 281.0,240.3 280.4,240.3 279.8,240.2 279.3,240.0 278.8,239.8 182.2,184.1 181.8,183.8 181.6,183.5 181.4,183.1 181.4,182.7 181.6,182.4 181.8,182.1 182.2,181.8 182.2,181.8 182.7,181.6 183.3,181.4 183.9,181.3 184.5,181.3 185.1,181.4 185.6,181.6 186.1,181.8 282.7,237.6 283.1,237.8 283.3,238.1 283.5,238.5 283.5,238.9 283.3,239.2 283.1,239.5 282.7,239.8" fill="#061A1E" opacity="0.78"/>
+<polygon points="245.4,239.3 245.0,239.5 244.4,239.7 243.8,239.8 243.2,239.8 242.6,239.7 242.0,239.5 241.5,239.3 164.0,194.6 163.6,194.3 163.4,194.0 163.2,193.6 163.2,193.2 163.4,192.9 163.6,192.6 164.0,192.3 164.0,192.3 164.5,192.1 165.1,191.9 165.7,191.8 166.3,191.8 166.9,191.9 167.4,192.1 167.9,192.3 245.4,237.1 245.8,237.3 246.1,237.6 246.2,238.0 246.2,238.4 246.1,238.7 245.8,239.0 245.4,239.3" fill="#061A1E" opacity="0.28"/>
+<polygon points="255.0,265.8 254.5,266.0 253.9,266.2 253.3,266.3 252.7,266.3 252.1,266.2 251.6,266.0 251.1,265.8 145.8,205.1 145.5,204.8 145.2,204.5 145.1,204.1 145.1,203.7 145.2,203.4 145.5,203.1 145.8,202.8 145.8,202.8 146.3,202.6 146.9,202.4 147.5,202.3 148.1,202.3 148.7,202.4 149.3,202.6 149.7,202.8 255.0,263.6 255.4,263.8 255.6,264.1 255.8,264.5 255.8,264.9 255.6,265.2 255.4,265.5 255.0,265.8" fill="#061A1E" opacity="0.28"/>
+<circle cx="239.4" cy="131.0" r="11" fill="#061A1E"/><text x="239.4" y="135.6" text-anchor="middle" font-family="Fredoka, Outfit, sans-serif" font-weight="700" font-size="13" fill="#fff">1</text>
+<circle cx="166.6" cy="173.0" r="11" fill="#061A1E"/><text x="166.6" y="177.6" text-anchor="middle" font-family="Fredoka, Outfit, sans-serif" font-weight="700" font-size="13" fill="#fff">2</text>
+<g class="hero-pill hp1"><polygon points="452.5,252.3 453.6,255.0 455.6,257.4 458.5,259.5 458.5,259.5 462.1,261.2 466.3,262.3 470.9,262.9 475.5,262.9 480.1,262.3 484.3,261.2 487.9,259.5 512.2,245.5 515.1,243.4 517.1,241.0 518.1,238.3 518.1,235.7 518.1,251.7 518.1,254.3 517.1,257.0 515.1,259.4 512.2,261.5 487.9,275.5 484.3,277.2 480.1,278.3 475.5,278.9 470.9,278.9 466.3,278.3 462.1,277.2 458.5,275.5 458.5,275.5 455.6,273.4 453.6,271.0 452.5,268.3" fill="#1D6B6D" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/><polygon points="487.9,259.5 484.3,261.2 480.1,262.3 475.5,262.9 470.9,262.9 466.3,262.3 462.1,261.2 458.5,259.5 458.5,259.5 455.6,257.4 453.6,255.0 452.5,252.3 452.5,249.7 453.6,247.0 455.6,244.6 458.5,242.5 482.7,228.5 486.4,226.8 490.6,225.7 495.1,225.1 499.8,225.1 504.3,225.7 508.5,226.8 512.2,228.5 512.2,228.5 515.1,230.6 517.1,233.0 518.1,235.7 518.1,238.3 517.1,241.0 515.1,243.4 512.2,245.5" fill="#299093" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/></g>
+<g class="hero-pill hp2"><polygon points="381.5,293.3 382.5,296.0 384.6,298.4 387.5,300.5 387.5,300.5 391.1,302.2 395.3,303.3 399.9,303.9 404.5,303.9 409.1,303.3 413.3,302.2 416.9,300.5 441.2,286.5 444.1,284.4 446.1,282.0 447.1,279.3 447.1,276.7 447.1,292.7 447.1,295.3 446.1,298.0 444.1,300.4 441.2,302.5 416.9,316.5 413.3,318.2 409.1,319.3 404.5,319.9 399.9,319.9 395.3,319.3 391.1,318.2 387.5,316.5 387.5,316.5 384.6,314.4 382.5,312.0 381.5,309.3" fill="#D69E00" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/><polygon points="416.9,300.5 413.3,302.2 409.1,303.3 404.5,303.9 399.9,303.9 395.3,303.3 391.1,302.2 387.5,300.5 387.5,300.5 384.6,298.4 382.5,296.0 381.5,293.3 381.5,290.7 382.5,288.0 384.6,285.6 387.5,283.5 411.7,269.5 415.4,267.8 419.6,266.7 424.1,266.1 428.8,266.1 433.3,266.7 437.5,267.8 441.2,269.5 441.2,269.5 444.1,271.6 446.1,274.0 447.1,276.7 447.1,279.3 446.1,282.0 444.1,284.4 441.2,286.5" fill="#FFBD00" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/></g>
+<g class="hero-pill hp3"><polygon points="308.8,335.3 309.8,338.0 311.8,340.4 314.7,342.5 314.7,342.5 318.4,344.2 322.6,345.3 327.1,345.9 331.8,345.9 336.3,345.3 340.5,344.2 344.2,342.5 368.4,328.5 371.3,326.4 373.3,324.0 374.4,321.3 374.4,318.7 374.4,334.7 374.4,337.3 373.3,340.0 371.3,342.4 368.4,344.5 344.2,358.5 340.5,360.2 336.3,361.3 331.8,361.9 327.1,361.9 322.6,361.3 318.4,360.2 314.7,358.5 314.7,358.5 311.8,356.4 309.8,354.0 308.8,351.3" fill="#C5463C" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/><polygon points="344.2,342.5 340.5,344.2 336.3,345.3 331.8,345.9 327.1,345.9 322.6,345.3 318.4,344.2 314.7,342.5 314.7,342.5 311.8,340.4 309.8,338.0 308.8,335.3 308.8,332.7 309.8,330.0 311.8,327.6 314.7,325.5 339.0,311.5 342.6,309.8 346.8,308.7 351.4,308.1 356.0,308.1 360.6,308.7 364.8,309.8 368.4,311.5 368.4,311.5 371.3,313.6 373.3,316.0 374.4,318.7 374.4,321.3 373.3,324.0 371.3,326.4 368.4,328.5" fill="#EF6156" stroke="#061A1E" stroke-width="2" stroke-linejoin="round"/></g>
+<g class="hero-mag">
+<ellipse cx="352" cy="214" rx="52" ry="22" fill="#061A1E" opacity="0.08"/>
+<g transform="translate(362 150)">
+<rect x="58" y="-15" width="92" height="30" rx="15" transform="rotate(-38)" fill="#299093" stroke="#061A1E" stroke-width="2"/>
+<rect x="56" y="-19" width="20" height="38" rx="8" transform="rotate(-38)" fill="#FFBD00" stroke="#061A1E" stroke-width="2"/>
+<circle r="66" fill="#FFFFFF" stroke="#061A1E" stroke-width="2"/>
+<circle r="52" fill="#E9F4F3" stroke="#061A1E" stroke-width="2"/>
+<rect x="-36" y="-22" width="72" height="18" rx="9" fill="#FFBD00" stroke="#061A1E" stroke-width="1.5"/>
+<rect x="-28" y="-15" width="50" height="5" rx="2.5" fill="#061A1E" opacity="0.8"/>
+<rect x="-30" y="8" width="60" height="5" rx="2.5" fill="#061A1E" opacity="0.3"/>
+<path d="M-30 24 q5 -6 10 0 t10 0 t10 0 t10 0 t10 0 t10 0" fill="none" stroke="#EF6156" stroke-width="3" stroke-linecap="round"/>
+<path d="M-22 -40 a46 46 0 0 1 30 -8" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.9"/>
+</g>
+</g>
+<g class="hero-badge">
+<rect x="22" y="40" width="196" height="64" rx="32" fill="#FFFFFF" stroke="#061A1E" stroke-width="2"/>
+<circle cx="54" cy="72" r="22" fill="#299093" stroke="#061A1E" stroke-width="2"/>
+<text x="54" y="80" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="22" fill="#fff">A</text>
+<text x="88" y="68" font-family="Outfit, sans-serif" font-weight="700" font-size="22" fill="#061A1E">72</text>
+<text x="88" y="88" font-family="Outfit, sans-serif" font-weight="500" font-size="13" fill="#8F8C83">Fairly easy</text>
+<rect x="168" y="62" width="34" height="8" rx="4" fill="#E8E5E0"/><rect x="168" y="62" width="25" height="8" rx="4" fill="#299093"/>
+<rect x="168" y="76" width="34" height="8" rx="4" fill="#E8E5E0"/><rect x="168" y="76" width="14" height="8" rx="4" fill="#FFBD00"/>
+</g>
+<circle cx="560" cy="70" r="12" fill="#FFBD00" stroke="#061A1E" stroke-width="2"/>
+<circle cx="250" cy="470" r="8" fill="#EF6156" stroke="#061A1E" stroke-width="2"/>
+<circle cx="520" cy="440" r="22" fill="none" stroke="#299093" stroke-width="3"/>
+        </svg>
+      </div>
+    </div>
+  </section>
 
-function syllables(word) {
-  let w = word.toLowerCase().replace(/[^a-z]/g, "");
-  if (!w) return 0;
-  if (w.length <= 3) return 1;
-  w = w.replace(/(?:[^laeiouy]es|[^laeiouy]ed|[^laeiouy]e)$/, "").replace(/^y/, "");
-  const groups = w.match(/[aeiouy]{1,2}/g);
-  return Math.max(1, groups ? groups.length : 1);
-}
+  <!-- ============ EDITOR ============ -->
+  <section class="section editor-section" id="editor" aria-labelledby="editorTitle">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="pill-heading" id="editorTitle">
+          <span class="ph-row"><span class="ph ph-ink">Paste it.</span></span>
+          <span class="ph-row ph-indent"><span class="ph-dot" aria-hidden="true"></span><span class="ph ph-coral">See what’s hard.</span></span>
+        </h2>
+        <p class="section-lede">Results update as you type. Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> (or <kbd>⌘</kbd> + <kbd>Enter</kbd>) to check right away.</p>
+      </div>
 
-function splitSentences(text) {
-  const out = [];
-  const re = /[^.!?\n]+(?:[.!?]+["')\]]*|\n|$)/g;
-  let m;
-  while ((m = re.exec(text)) !== null) {
-    if (!m[0]) { re.lastIndex++; continue; }
-    const raw = m[0];
-    const lead = raw.length - raw.trimStart().length;
-    const body = raw.trim();
-    if (/[A-Za-z]/.test(body)) out.push({ start: m.index + lead, end: m.index + lead + body.length, text: body });
-  }
-  return out;
-}
+      <div class="editor-card reveal" id="editorCard">
+        <div class="editor-top">
+          <label class="editor-label" for="input"><span class="label-dot" aria-hidden="true"></span>Your text</label>
+          <span class="counter" id="counter" aria-live="off">0 words · 0 characters</span>
+        </div>
+        <div class="textarea-wrap">
+          <textarea id="input" rows="8" spellcheck="true" placeholder="Paste an essay, an email, a policy or a landing page here…&#10;&#10;Tip: separate paragraphs with a blank line." aria-describedby="editorHint"></textarea>
+          <div class="drop-overlay" aria-hidden="true"><span>Drop your .txt or .md file</span></div>
+        </div>
+        <p class="sr-only" id="editorHint">Analysis runs automatically as you type. Press Control or Command plus Enter to check immediately.</p>
+        <div class="editor-actions">
+          <button class="btn btn-teal" type="button" id="runBtn">Check readability</button>
+          <div class="menu-wrap">
+            <button class="btn btn-white" type="button" id="sampleBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="sampleMenu">
+              Try a sample
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="menu" id="sampleMenu" role="menu" aria-labelledby="sampleBtn" hidden>
+              <li role="none"><button type="button" role="menuitem" data-sample="legal"><span class="mi-dot mi-coral" aria-hidden="true"></span>Legal policy<small>Dense</small></button></li>
+              <li role="none"><button type="button" role="menuitem" data-sample="startup"><span class="mi-dot mi-teal" aria-hidden="true"></span>Startup landing page<small>Punchy</small></button></li>
+              <li role="none"><button type="button" role="menuitem" data-sample="essay"><span class="mi-dot mi-yellow" aria-hidden="true"></span>School essay<small>Mixed</small></button></li>
+              <li role="none"><button type="button" role="menuitem" data-sample="email"><span class="mi-dot mi-ink" aria-hidden="true"></span>Cold email<small>Short</small></button></li>
+            </ul>
+          </div>
+          <button class="btn btn-white" type="button" id="uploadBtn">
+            <svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Upload .txt/.md
+          </button>
+          <input type="file" id="fileInput" accept=".txt,.md,.markdown,text/plain,text/markdown" hidden>
+          <button class="btn btn-ghost" type="button" id="clearBtn">Clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-const wordsOf = s => s.match(/[A-Za-z]+(?:['’][A-Za-z]+)*/g) || [];
+  <!-- ============ RESULTS ============ -->
+  <section class="section results-section" id="results" aria-labelledby="resultsTitle">
+    <div class="container">
+      <h2 class="sr-only" id="resultsTitle">Your results</h2>
+      <div class="sr-only" aria-live="polite" aria-atomic="true" id="liveRegion"></div>
 
-function analyse(text) {
-  const sents = splitSentences(text).map(s => {
-    const w = wordsOf(s.text);
-    const syl = w.map(syllables);
-    const total = syl.reduce((a, b) => a + b, 0);
-    const complex = w.filter((x, i) => syl[i] >= 3).length;
-    const grade = w.length ? 0.39 * w.length + 11.8 * (total / w.length) - 15.59 : 0;
-    return { ...s, words: w.length, syl: total, complex, grade };
-  }).filter(s => s.words > 0);
-  const W = sents.reduce((a, s) => a + s.words, 0);
-  const S = sents.length;
-  const Y = sents.reduce((a, s) => a + s.syl, 0);
-  if (!W || !S) return null;
-  const ease = 206.835 - 1.015 * (W / S) - 84.6 * (Y / W);
-  const grade = 0.39 * (W / S) + 11.8 * (Y / W) - 15.59;
-  const hardest = [...sents].filter(s => s.words >= 4).sort((a, b) => b.grade - a.grade).slice(0, 5);
-  return { sents, W, S, ease, grade, hardest };
-}
+      <div class="empty-state reveal" id="emptyState">
+        <svg class="empty-art" viewBox="0 0 220 160" aria-hidden="true" focusable="false">
+          <rect x="30" y="18" width="120" height="132" rx="18" fill="#fff" stroke="#061A1E" stroke-width="2"/>
+          <rect x="48" y="42" width="70" height="7" rx="3.5" fill="#061A1E" opacity=".25"/>
+          <rect x="44" y="60" width="92" height="15" rx="7.5" fill="#FFBD00" stroke="#061A1E" stroke-width="1.5"/>
+          <rect x="50" y="65" width="70" height="5" rx="2.5" fill="#061A1E" opacity=".75"/>
+          <rect x="48" y="86" width="84" height="7" rx="3.5" fill="#061A1E" opacity=".25"/>
+          <rect x="48" y="104" width="60" height="7" rx="3.5" fill="#061A1E" opacity=".25"/>
+          <rect x="48" y="122" width="76" height="7" rx="3.5" fill="#061A1E" opacity=".25"/>
+          <circle cx="44" cy="68" r="10" fill="#061A1E"/><text x="44" y="72.5" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="12" fill="#fff">1</text>
+          <g class="empty-mag">
+            <rect x="178" y="98" width="46" height="18" rx="9" transform="rotate(48 178 98)" fill="#299093" stroke="#061A1E" stroke-width="2"/>
+            <circle cx="160" cy="78" r="34" fill="#fff" stroke="#061A1E" stroke-width="2"/>
+            <circle cx="160" cy="78" r="25" fill="#E9F4F3" stroke="#061A1E" stroke-width="2"/>
+            <path d="M144 86q4-5 8 0t8 0t8 0t8 0" fill="none" stroke="#EF6156" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="145" y="68" width="30" height="5" rx="2.5" fill="#061A1E" opacity=".7"/>
+          </g>
+          <circle cx="196" cy="26" r="7" fill="#FFBD00" stroke="#061A1E" stroke-width="2"/>
+        </svg>
+        <div class="empty-copy">
+          <h3>Your score lands here.</h3>
+          <p>Paste at least a few sentences above — or load a sample — and Readable will grade it, find the five hardest sentences and show you how to fix them.</p>
+          <button class="btn btn-ink" type="button" id="emptySample">Load the legal policy sample</button>
+        </div>
+      </div>
 
-function label(ease) {
-  if (ease >= 80) return ["Easy — most readers will get this on the first read.", "var(--good)"];
-  if (ease >= 60) return ["Plain English — clear for most adult readers.", "var(--good)"];
-  if (ease >= 50) return ["Fairly difficult — shorten the highlighted sentences.", "var(--ok)"];
-  if (ease >= 30) return ["Difficult — reads like a textbook. Split long sentences and swap long words.", "var(--bad)"];
-  return ["Very difficult — reads like a legal document. Rewrite the highlighted sentences first.", "var(--bad)"];
-}
+      <div class="results-body" id="resultsBody" hidden>
+        <p class="notice" id="shortNotice" hidden>
+          <span class="notice-dot" aria-hidden="true"></span>
+          Short text: scores get steadier past about 100 words.
+        </p>
 
-function esc(s) { return s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+        <div class="score-grid">
+          <article class="score-card" aria-labelledby="scoreLabel">
+            <div class="gauge-wrap">
+              <svg class="gauge" viewBox="0 0 260 166" aria-hidden="true" focusable="false">
+                <path class="g-track" d="M 30 130 A 100 100 0 0 1 230 130" />
+                <path class="g-zone z-1" id="gz1" />
+                <path class="g-zone z-2" id="gz2" />
+                <path class="g-zone z-3" id="gz3" />
+                <path class="g-zone z-4" id="gz4" />
+                <g class="g-ticks" id="gTicks"></g>
+                <g class="g-needle" id="gNeedle">
+                  <line x1="130" y1="130" x2="52" y2="130" />
+                  <circle class="g-tip" cx="52" cy="130" r="6"/>
+                </g>
+                <circle class="g-hub" cx="130" cy="130" r="13"/>
+                <circle class="g-hub-in" cx="130" cy="130" r="5"/>
+              </svg>
+              <div class="gauge-readout">
+                <span class="gauge-num" id="easeNum">0</span><span class="gauge-of">/100</span>
+              </div>
+              <p class="gauge-cap">Flesch reading ease · higher is easier</p>
+            </div>
+            <div class="score-info">
+              <div class="letter-row">
+                <div class="letter" id="letter" data-letter="C" role="img" aria-label="Letter grade C">C</div>
+                <div>
+                  <p class="eyebrow">Readability</p>
+                  <h3 class="score-label" id="scoreLabel">—</h3>
+                </div>
+              </div>
+              <p class="audience" id="audience"></p>
+              <div class="score-chips">
+                <span class="chip chip-ink">Consensus <b id="consensusChip">—</b></span>
+                <span class="chip chip-white"><b id="readChip">—</b> to read</span>
+                <span class="chip chip-white"><b id="hardCountChip">0</b> hard sentences</span>
+              </div>
+            </div>
+          </article>
 
-function why(s) {
-  const bits = [];
-  if (s.words > 20) bits.push(s.words + " words (long)"); else bits.push(s.words + " words");
-  if (s.complex) bits.push(s.complex + " word" + (s.complex > 1 ? "s" : "") + " with 3+ syllables");
-  bits.push("grade " + Math.max(0, s.grade).toFixed(1));
-  return bits.join(" · ");
-}
+          <div class="metrics" id="metrics"></div>
+        </div>
 
-function run() {
-  const text = $("input").value;
-  const r = analyse(text);
-  const show = !!r;
-  ["results", "hardBox", "textBox"].forEach(id => $(id).hidden = !show);
-  if (!r) { $("live").textContent = text.trim() ? "Add a full sentence or two." : ""; return; }
-  $("sScore").textContent = Math.round(Math.max(0, Math.min(100, r.ease)));
-  $("sGrade").textContent = Math.max(0, r.grade).toFixed(1);
-  $("sWords").textContent = r.W.toLocaleString();
-  $("sSent").textContent = r.S;
-  $("sAvg").textContent = (r.W / r.S).toFixed(1);
-  const mins = r.W / 230;
-  $("sTime").textContent = mins < 1 ? Math.max(1, Math.round(mins * 60)) + " s" : Math.round(mins) + " min";
-  const [msg, col] = label(r.ease);
-  $("verdict").textContent = msg; $("verdict").style.color = col;
+        <!-- Five hardest -->
+        <section class="block hardest-block" aria-labelledby="hardTitle">
+          <div class="block-head">
+            <h2 class="pill-heading pill-heading-md reveal" id="hardTitle">
+              <span class="ph-row"><span class="ph ph-ink">The five</span></span>
+              <span class="ph-row ph-indent"><span class="ph-dot" aria-hidden="true"></span><span class="ph ph-teal">hardest sentences.</span></span>
+            </h2>
+            <p class="block-lede">Ranked by difficulty. Each one comes with why it’s hard and what to try instead.</p>
+          </div>
+          <div class="carousel" id="carousel" role="region" aria-roledescription="carousel" aria-label="The hardest sentences">
+            <div class="slides" id="slides" aria-live="polite"></div>
+            <div class="stepper">
+              <button class="round-btn" type="button" id="prevBtn" aria-label="Previous sentence">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="progress-dots" id="progressDots" role="group" aria-label="Choose a sentence"></div>
+              <button class="round-btn" type="button" id="nextBtn" aria-label="Next sentence">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </section>
 
-  const rank = new Map(r.hardest.map((s, i) => [s.start, i + 1]));
-  $("hardList").innerHTML = r.hardest.length
-    ? r.hardest.map(s => "<li>" + esc(s.text) + '<span class="why">' + why(s) + "</span></li>").join("")
-    : '<li class="empty">No sentence is long enough to flag.</li>';
-  let html = "", pos = 0;
-  [...r.hardest].sort((a, b) => a.start - b.start).forEach(s => {
-    html += esc(text.slice(pos, s.start)) + "<mark><sup>" + rank.get(s.start) + "</sup>" + esc(text.slice(s.start, s.end)) + "</mark>";
-    pos = s.end;
-  });
-  $("marked").innerHTML = html + esc(text.slice(pos));
-  $("live").textContent = "";
-}
+        <!-- Highlighted text -->
+        <section class="block" aria-labelledby="hlTitle">
+          <div class="block-head">
+            <h2 class="pill-heading pill-heading-md reveal" id="hlTitle">
+              <span class="ph-row"><span class="ph ph-white">Your text,</span></span>
+              <span class="ph-row ph-indent"><span class="ph-dot ph-dot-ink" aria-hidden="true"></span><span class="ph ph-yellow">highlighted.</span></span>
+            </h2>
+            <p class="block-lede">Hover, tap or tab to any underline for an explanation and a fix.</p>
+          </div>
+          <div class="hl-card">
+            <div class="filters" role="group" aria-label="Show in your text">
+              <button class="filter" type="button" aria-pressed="true" data-filter="hardest"><span class="f-sw sw-rank" aria-hidden="true">1</span>Hardest 5</button>
+              <button class="filter" type="button" aria-pressed="true" data-filter="levels"><span class="f-sw sw-levels" aria-hidden="true"></span>All sentence levels</button>
+              <button class="filter" type="button" aria-pressed="true" data-filter="passive"><span class="f-sw sw-passive" aria-hidden="true"></span>Passive<span class="f-count" id="countPassive">0</span></button>
+              <button class="filter" type="button" aria-pressed="true" data-filter="complex"><span class="f-sw sw-complex" aria-hidden="true"></span>Complex words<span class="f-count" id="countComplex">0</span></button>
+              <button class="filter" type="button" aria-pressed="true" data-filter="style"><span class="f-sw sw-style" aria-hidden="true"></span>Adverbs &amp; fillers<span class="f-count" id="countStyle">0</span></button>
+            </div>
+            <div class="legend" aria-hidden="true">
+              <span><i class="lg lg-ok"></i>OK</span>
+              <span><i class="lg lg-hard"></i>Hard</span>
+              <span><i class="lg lg-vhard"></i>Very hard</span>
+            </div>
+            <div class="hl-view" id="hlView" aria-label="Your text with highlights" role="region" tabindex="-1"></div>
+          </div>
+        </section>
 
-let t;
-$("input").addEventListener("input", () => { clearTimeout(t); t = setTimeout(run, 350); });
-$("go").addEventListener("click", run);
-$("sample").addEventListener("click", () => { $("input").value = SAMPLE; run(); });
-$("clear").addEventListener("click", () => { $("input").value = ""; run(); $("input").focus(); });
-</script>
+        <!-- Paragraphs + words -->
+        <div class="duo">
+          <section class="mini-card" aria-labelledby="heatTitle">
+            <h3 id="heatTitle">Paragraph heat</h3>
+            <p class="mini-lede">One bar per paragraph, width by length, colour by reading ease. Tap one to jump to it.</p>
+            <div class="heat" id="heat"></div>
+            <div class="heat-scale" aria-hidden="true"><span><i class="lg lg-vhard"></i>Hard</span><span><i class="lg lg-mid"></i>Fair</span><span><i class="lg lg-easy"></i>Easy</span></div>
+          </section>
+          <section class="mini-card" aria-labelledby="wordsTitle">
+            <h3 id="wordsTitle">Words you use most</h3>
+            <p class="mini-lede">Common filler like “the” and “and” is left out.</p>
+            <ul class="word-chips" id="words"></ul>
+          </section>
+        </div>
+
+        <!-- Actions -->
+        <section class="take-away" aria-labelledby="takeTitle">
+          <div class="take-copy">
+            <h3 id="takeTitle">Take it with you.</h3>
+            <p>Reports are made on your device. Sharing sends only the score — never your text.</p>
+          </div>
+          <div class="take-actions">
+            <button class="btn btn-teal" type="button" id="copyBtn">
+              <svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>
+              Copy report</button>
+            <button class="btn btn-white" type="button" id="downloadBtn">
+              <svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Download report (.txt)</button>
+            <button class="btn btn-yellow" type="button" id="shareBtn">
+              <svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+              Share score</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section band-sand how-section" id="how" aria-labelledby="howTitle">
+    <span class="shape cap cap-how" aria-hidden="true"></span>
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="pill-heading" id="howTitle">
+          <span class="ph-row"><span class="ph ph-teal">How it</span></span>
+          <span class="ph-row ph-indent"><span class="ph-dot ph-dot-white" aria-hidden="true"></span><span class="ph ph-ink">works.</span></span>
+        </h2>
+        <p class="section-lede">Classic readability formulas, run in plain JavaScript on your own device. Here is what each part of the report means.</p>
+      </div>
+      <div class="how-grid">
+        <article class="how-card reveal">
+          <svg class="how-ico" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
+            <path d="M10 50a26 26 0 0 1 52 0" fill="none" stroke="#E8E5E0" stroke-width="12" stroke-linecap="round"/>
+            <path d="M10 50a26 26 0 0 1 9-19.6" fill="none" stroke="#EF6156" stroke-width="8"/>
+            <path d="M21.5 28.4a26 26 0 0 1 23-4.2" fill="none" stroke="#FFBD00" stroke-width="8"/>
+            <path d="M47.5 25.3a26 26 0 0 1 14.5 24.7" fill="none" stroke="#299093" stroke-width="8"/>
+            <path d="M36 50L52 34" stroke="#061A1E" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="36" cy="50" r="6" fill="#fff" stroke="#061A1E" stroke-width="2.5"/>
+          </svg>
+          <h3>Reading ease, 0–100</h3>
+          <p>The Flesch score looks at two things: how many words your sentences have, and how many syllables your words have. Higher is easier. Most web writing should land between 60 and 70; plain-English guidance often aims higher.</p>
+        </article>
+        <article class="how-card reveal">
+          <svg class="how-ico" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
+            <rect x="8" y="12" width="40" height="13" rx="6.5" fill="#061A1E"/>
+            <rect x="18" y="29" width="46" height="13" rx="6.5" fill="#299093" stroke="#061A1E" stroke-width="2"/>
+            <rect x="12" y="46" width="34" height="13" rx="6.5" fill="#fff" stroke="#061A1E" stroke-width="2"/>
+            <circle cx="56" cy="18" r="6" fill="#FFBD00" stroke="#061A1E" stroke-width="2"/>
+          </svg>
+          <h3>Five grade formulas, one answer</h3>
+          <p>Flesch–Kincaid, Gunning Fog, SMOG, Coleman–Liau and ARI each estimate the school grade a reader needs. They disagree a little, so Readable takes the middle one as the consensus grade.</p>
+        </article>
+        <article class="how-card reveal">
+          <svg class="how-ico" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
+            <circle cx="16" cy="18" r="8" fill="#061A1E"/><text x="16" y="21.5" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="10" fill="#fff">1</text>
+            <rect x="28" y="12" width="36" height="12" rx="6" fill="#EF6156" stroke="#061A1E" stroke-width="2"/>
+            <circle cx="16" cy="38" r="8" fill="#061A1E"/><text x="16" y="41.5" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="10" fill="#fff">2</text>
+            <rect x="28" y="32" width="28" height="12" rx="6" fill="#FFBD00" stroke="#061A1E" stroke-width="2"/>
+            <circle cx="16" cy="58" r="8" fill="#fff" stroke="#061A1E" stroke-width="2"/>
+            <rect x="28" y="52" width="20" height="12" rx="6" fill="#fff" stroke="#061A1E" stroke-width="2"/>
+          </svg>
+          <h3>How the hardest are picked</h3>
+          <p>Every sentence gets its own difficulty from its length, its long and complex words, and patterns such as passive voice. The top five are ranked, explained, and paired with concrete fixes.</p>
+        </article>
+        <article class="how-card reveal">
+          <svg class="how-ico" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
+            <rect x="6" y="14" width="60" height="14" rx="7" fill="#FFBD00" opacity=".5"/>
+            <rect x="6" y="36" width="60" height="14" rx="7" fill="#EF6156" opacity=".4"/>
+            <path d="M10 60q3-4 6 0t6 0t6 0t6 0" fill="none" stroke="#EF6156" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M42 60h24" stroke="#299093" stroke-width="3" stroke-linecap="round" stroke-dasharray="0.1 6"/>
+          </svg>
+          <h3>What the colours mean</h3>
+          <ul class="legend-list">
+            <li><span class="demo demo-ok">Faint yellow</span> an OK sentence</li>
+            <li><span class="demo demo-hard">Yellow</span> a hard one</li>
+            <li><span class="demo demo-vhard">Coral</span> very hard</li>
+            <li><span class="demo demo-passive">teal dots</span> passive voice</li>
+            <li><span class="demo demo-complex">coral wave</span> complex word</li>
+            <li><span class="demo demo-style">grey dashes</span> adverb or filler</li>
+          </ul>
+        </article>
+        <article class="how-card privacy-card reveal">
+          <svg class="privacy-ico" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+            <rect x="22" y="50" width="76" height="58" rx="20" fill="#299093" stroke="#F6F4F0" stroke-width="2.5"/>
+            <path d="M40 50V38a20 20 0 0 1 40 0v12" fill="none" stroke="#F6F4F0" stroke-width="9" stroke-linecap="round"/>
+            <circle cx="60" cy="76" r="8" fill="#FFBD00" stroke="#061A1E" stroke-width="2"/>
+            <rect x="57" y="80" width="6" height="14" rx="3" fill="#061A1E"/>
+          </svg>
+          <div>
+            <h3>Nothing leaves your browser.</h3>
+            <p>There is no server, no account and no tracking of what you paste. Your text is analysed on this device and forgotten when you close the tab. Shared links carry only a score.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" rx="20" fill="#E8E5E0"/>
+        <path d="M22 46V18h11a8.5 8.5 0 0 1 0 17H22m11 0l10 11" fill="none" stroke="#061A1E" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="48" cy="17" r="6" fill="#FFBD00"/>
+      </svg>
+      <p>Made by <a href="https://jeetjhawar.github.io/">Jeet Jhawar</a></p>
+    </div>
+    <p class="footer-note">Scores are estimates from standard readability formulas. Use them as a guide for clearer writing, not a verdict on it.</p>
+    <a class="btn btn-teal btn-sm footer-top" href="#top">Back to top</a>
+  </div>
+  <div class="footer-mark" aria-hidden="true">READABLE</div>
+</footer>
+
+<div class="popover" id="popover" role="tooltip" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="engine.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

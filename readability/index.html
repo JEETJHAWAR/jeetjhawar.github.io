@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Readable — free readability checker</title>
+<meta name="description" content="Paste any text, get its readability score and see the five hardest sentences highlighted. Free, instant, nothing leaves your browser.">
+<meta property="og:title" content="Readable — free readability checker">
+<meta property="og:description" content="Paste text → readability score + the five hardest sentences highlighted. Free, no sign-up.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1220'/%3E%3Ctext x='32' y='45' font-family='Arial' font-weight='700' font-size='34' fill='%237dd3fc' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f6f8fb; --panel: #ffffff; --ink: #0f172a; --muted: #5b6474; --line: #e2e8f0;
+    --accent: #0284c7; --accent-ink: #ffffff; --hl: #fde68a; --hl-ink: #78350f; --tag: #b45309;
+    --good: #15803d; --ok: #a16207; --bad: #b91c1c; --shadow: 0 1px 2px rgba(15,23,42,.06), 0 8px 24px rgba(15,23,42,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #070b14; --panel: #0e1626; --ink: #e5edf7; --muted: #94a3b8; --line: #1e2a3d;
+      --accent: #38bdf8; --accent-ink: #04111d; --hl: rgba(250, 204, 21, .28); --hl-ink: #fde68a; --tag: #fbbf24;
+      --good: #4ade80; --ok: #facc15; --bad: #f87171; --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 28px 16px 48px; }
+  header h1 { margin: 0; font-size: 1.7rem; letter-spacing: -.01em; }
+  header p { margin: 6px 0 0; color: var(--muted); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 18px; margin-top: 18px; }
+  textarea { width: 100%; min-height: 190px; resize: vertical; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+             font: inherit; color: var(--ink); background: transparent; }
+  textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 12px; }
+  button { font: inherit; font-weight: 600; border-radius: 10px; padding: 9px 16px; cursor: pointer; border: 1px solid var(--line); background: transparent; color: var(--ink); }
+  button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .hint { color: var(--muted); font-size: .88rem; margin-left: auto; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .stat { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  .stat b { display: block; font-size: 1.6rem; line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .stat span { color: var(--muted); font-size: .85rem; }
+  .verdict { font-weight: 600; margin: 14px 0 0; }
+  h2 { font-size: 1.05rem; margin: 0 0 10px; }
+  .text { white-space: pre-wrap; line-height: 1.75; }
+  mark { background: var(--hl); color: var(--hl-ink); border-radius: 4px; padding: 1px 2px; }
+  mark sup { font-weight: 700; color: var(--tag); margin-right: 2px; font-size: .7em; }
+  ol.hard { margin: 0; padding-left: 22px; }
+  ol.hard li { margin: 0 0 10px; }
+  ol.hard .why { display: block; color: var(--muted); font-size: .86rem; }
+  .empty { color: var(--muted); }
+  footer { color: var(--muted); font-size: .85rem; margin-top: 22px; }
+  footer a { color: var(--accent); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Readable</h1>
+    <p>Paste any text — an email, a blog post, a policy page. Get its readability score and the five hardest sentences, highlighted. Free, instant, and nothing leaves your browser.</p>
+  </header>
+
+  <section class="card">
+    <label for="input" class="hint" style="margin:0 0 8px;display:block">Your text</label>
+    <textarea id="input" placeholder="Paste your text here…"></textarea>
+    <div class="row">
+      <button class="primary" id="go">Check readability</button>
+      <button id="sample">Try a sample</button>
+      <button id="clear">Clear</button>
+      <span class="hint" id="live"></span>
+    </div>
+  </section>
+
+  <section class="card" id="results" hidden>
+    <div class="stats">
+      <div class="stat"><b id="sScore">–</b><span>Flesch reading ease (0–100, higher = easier)</span></div>
+      <div class="stat"><b id="sGrade">–</b><span>School grade level (Flesch–Kincaid)</span></div>
+      <div class="stat"><b id="sWords">–</b><span>words · <i id="sSent">–</i> sentences</span></div>
+      <div class="stat"><b id="sAvg">–</b><span>words per sentence (aim for ≤ 20)</span></div>
+      <div class="stat"><b id="sTime">–</b><span>reading time</span></div>
+    </div>
+    <p class="verdict" id="verdict"></p>
+  </section>
+
+  <section class="card" id="hardBox" hidden>
+    <h2>The five hardest sentences</h2>
+    <ol class="hard" id="hardList"></ol>
+  </section>
+
+  <section class="card" id="textBox" hidden>
+    <h2>Your text, with the hardest sentences highlighted</h2>
+    <div class="text" id="marked"></div>
+  </section>
+
+  <footer>
+    Scores use the standard Flesch reading-ease and Flesch–Kincaid grade formulas with an English syllable estimate, so treat them as a guide, not a verdict.
+    Made by <a href="https://jeetjhawar.github.io/">Jeet Jhawar</a>.
+  </footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const SAMPLE = "Our refund policy is simple. If you are not happy, write to us within 30 days. Notwithstanding the foregoing, any reimbursement determination shall be contingent upon the verification of eligibility criteria established by the organisation in accordance with applicable regulatory requirements. We usually reply within a day. The aforementioned procedural considerations notwithstanding, customers who have previously availed themselves of promotional discounts may experience proportionally adjusted reimbursement calculations. Keep your receipt. Returns are free for orders above ₹999. Comprehensive documentation substantiating the circumstances necessitating the return, including photographic evidence where practicable, must accompany each individual application. Most returns take five to seven days. You will get an email when your money is on its way. If something is unclear, just reply to that email and a real person will help. Thank you for shopping with us!";
+
+function syllables(word) {
+  let w = word.toLowerCase().replace(/[^a-z]/g, "");
+  if (!w) return 0;
+  if (w.length <= 3) return 1;
+  w = w.replace(/(?:[^laeiouy]es|[^laeiouy]ed|[^laeiouy]e)$/, "").replace(/^y/, "");
+  const groups = w.match(/[aeiouy]{1,2}/g);
+  return Math.max(1, groups ? groups.length : 1);
+}
+
+function splitSentences(text) {
+  const out = [];
+  const re = /[^.!?\n]+(?:[.!?]+["')\]]*|\n|$)/g;
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    if (!m[0]) { re.lastIndex++; continue; }
+    const raw = m[0];
+    const lead = raw.length - raw.trimStart().length;
+    const body = raw.trim();
+    if (/[A-Za-z]/.test(body)) out.push({ start: m.index + lead, end: m.index + lead + body.length, text: body });
+  }
+  return out;
+}
+
+const wordsOf = s => s.match(/[A-Za-z]+(?:['’][A-Za-z]+)*/g) || [];
+
+function analyse(text) {
+  const sents = splitSentences(text).map(s => {
+    const w = wordsOf(s.text);
+    const syl = w.map(syllables);
+    const total = syl.reduce((a, b) => a + b, 0);
+    const complex = w.filter((x, i) => syl[i] >= 3).length;
+    const grade = w.length ? 0.39 * w.length + 11.8 * (total / w.length) - 15.59 : 0;
+    return { ...s, words: w.length, syl: total, complex, grade };
+  }).filter(s => s.words > 0);
+  const W = sents.reduce((a, s) => a + s.words, 0);
+  const S = sents.length;
+  const Y = sents.reduce((a, s) => a + s.syl, 0);
+  if (!W || !S) return null;
+  const ease = 206.835 - 1.015 * (W / S) - 84.6 * (Y / W);
+  const grade = 0.39 * (W / S) + 11.8 * (Y / W) - 15.59;
+  const hardest = [...sents].filter(s => s.words >= 4).sort((a, b) => b.grade - a.grade).slice(0, 5);
+  return { sents, W, S, ease, grade, hardest };
+}
+
+function label(ease) {
+  if (ease >= 80) return ["Easy — most readers will get this on the first read.", "var(--good)"];
+  if (ease >= 60) return ["Plain English — clear for most adult readers.", "var(--good)"];
+  if (ease >= 50) return ["Fairly difficult — shorten the highlighted sentences.", "var(--ok)"];
+  if (ease >= 30) return ["Difficult — reads like a textbook. Split long sentences and swap long words.", "var(--bad)"];
+  return ["Very difficult — reads like a legal document. Rewrite the highlighted sentences first.", "var(--bad)"];
+}
+
+function esc(s) { return s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+function why(s) {
+  const bits = [];
+  if (s.words > 20) bits.push(s.words + " words (long)"); else bits.push(s.words + " words");
+  if (s.complex) bits.push(s.complex + " word" + (s.complex > 1 ? "s" : "") + " with 3+ syllables");
+  bits.push("grade " + Math.max(0, s.grade).toFixed(1));
+  return bits.join(" · ");
+}
+
+function run() {
+  const text = $("input").value;
+  const r = analyse(text);
+  const show = !!r;
+  ["results", "hardBox", "textBox"].forEach(id => $(id).hidden = !show);
+  if (!r) { $("live").textContent = text.trim() ? "Add a full sentence or two." : ""; return; }
+  $("sScore").textContent = Math.round(Math.max(0, Math.min(100, r.ease)));
+  $("sGrade").textContent = Math.max(0, r.grade).toFixed(1);
+  $("sWords").textContent = r.W.toLocaleString();
+  $("sSent").textContent = r.S;
+  $("sAvg").textContent = (r.W / r.S).toFixed(1);
+  const mins = r.W / 230;
+  $("sTime").textContent = mins < 1 ? Math.max(1, Math.round(mins * 60)) + " s" : Math.round(mins) + " min";
+  const [msg, col] = label(r.ease);
+  $("verdict").textContent = msg; $("verdict").style.color = col;
+
+  const rank = new Map(r.hardest.map((s, i) => [s.start, i + 1]));
+  $("hardList").innerHTML = r.hardest.length
+    ? r.hardest.map(s => "<li>" + esc(s.text) + '<span class="why">' + why(s) + "</span></li>").join("")
+    : '<li class="empty">No sentence is long enough to flag.</li>';
+  let html = "", pos = 0;
+  [...r.hardest].sort((a, b) => a.start - b.start).forEach(s => {
+    html += esc(text.slice(pos, s.start)) + "<mark><sup>" + rank.get(s.start) + "</sup>" + esc(text.slice(s.start, s.end)) + "</mark>";
+    pos = s.end;
+  });
+  $("marked").innerHTML = html + esc(text.slice(pos));
+  $("live").textContent = "";
+}
+
+let t;
+$("input").addEventListener("input", () => { clearTimeout(t); t = setTimeout(run, 350); });
+$("go").addEventListener("click", run);
+$("sample").addEventListener("click", () => { $("input").value = SAMPLE; run(); });
+$("clear").addEventListener("click", () => { $("input").value = ""; run(); $("input").focus(); });
+</script>
+</body>
+</html>

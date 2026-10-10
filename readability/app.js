@@ -201,6 +201,7 @@ if (!window.Readable) {
   var params = new URLSearchParams(location.search);
   var STATIC = params.has('static');
   var REDUCED = STATIC || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var MOTION = !REDUCED;
 
   var el = {
     header: $('#siteHeader'), input: $('#input'), counter: $('#counter'), editorCard: $('#editorCard'),
@@ -212,7 +213,9 @@ if (!window.Readable) {
     metrics: $('#metrics'), slides: $('#slides'), dots: $('#progressDots'), prev: $('#prevBtn'), next: $('#nextBtn'),
     carousel: $('#carousel'), hl: $('#hlView'), pop: $('#popover'), heat: $('#heat'), words: $('#words'),
     copy: $('#copyBtn'), download: $('#downloadBtn'), share: $('#shareBtn'), toast: $('#toast'),
-    banner: $('#shareBanner'), bannerClose: $('#shareClose'), bannerCta: $('#shareCta')
+    banner: $('#shareBanner'), bannerClose: $('#shareClose'), bannerCta: $('#shareCta'),
+    summary: $('#summary'), confPill: $('#confPill'), confText: $('#confText'), typeChip: $('#typeChip'), typeText: $('#typeText'),
+    scoreCard: $('#scoreCard'), hlCard: $('#hlCard'), sChip: $('#sChip')
   };
 
   /* ---------------- sample texts (original) ---------------- */
@@ -444,28 +447,38 @@ if (!window.Readable) {
     renderHighlight(r, text);
     renderHeat(r);
     renderWords(r);
-    var ease = Math.round(clamp(num(sc.fleschReadingEase), 0, 100));
+    var ease = Math.round(clamp(num(easeOf(sc)), 0, 100));
     var msg = 'Reading ease ' + ease + ' out of 100, ' + (sc.label || '') + '. Letter grade ' + (sc.letter || '') + '.';
     if (msg !== state.lastAnnounce) { state.lastAnnounce = msg; el.live.textContent = msg; }
+    markDirty();
   }
 
+  /* Gauge uses the engine's consensus score (v3) so it agrees with the letter; older engines fall back to Flesch. */
+  function easeOf(sc) { return typeof sc.consensusEase === 'number' ? sc.consensusEase : sc.fleschReadingEase; }
+
   /* score card */
-  var countRaf = 0;
-  function countTo(node, from, to) {
-    cancelAnimationFrame(countRaf);
-    if (REDUCED || from === to || document.hidden) { node.textContent = to; return; }
-    var t0 = performance.now(), dur = 900;
-    (function step(now) {
-      var p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
-      node.textContent = Math.round(from + (to - from) * e);
-      if (p < 1) countRaf = requestAnimationFrame(step);
-    })(t0);
+  function countTo(node, from, to, dur) {
+    countUp(node, from, to, 0, '', dur || 900);
+  }
+  /* The gauge holds at 0 until the score card is on screen, then sweeps. */
+  var gauge = { seen: false, shown: 0 };
+  function showGauge(ease, from) {
+    el.needle.classList.remove('no-anim');
+    el.needle.style.transform = 'rotate(' + (ease * 1.8).toFixed(1) + 'deg)';
+    countTo(el.easeNum, from, ease, 1100);
+    gauge.shown = ease;
+  }
+  function resetGauge() {
+    el.needle.classList.add('no-anim');
+    el.needle.style.transform = 'rotate(0deg)';
+    el.easeNum.textContent = '0';
+    gauge.shown = 0;
   }
   function renderScore(sc, st, r) {
-    var ease = Math.round(clamp(num(sc.fleschReadingEase), 0, 100));
-    countTo(el.easeNum, state.ease, ease);
+    var ease = Math.round(clamp(num(easeOf(sc)), 0, 100));
     state.ease = ease;
-    el.needle.style.transform = 'rotate(' + (ease * 1.8).toFixed(1) + 'deg)';
+    if (!MOTION || gauge.seen) showGauge(ease, gauge.shown);
+    else resetGauge();
     var L = String(sc.letter || '?').toUpperCase().charAt(0);
     if (el.letter.dataset.letter !== L) {
       el.letter.classList.remove('pop'); void el.letter.offsetWidth; el.letter.classList.add('pop');
@@ -475,6 +488,20 @@ if (!window.Readable) {
     el.letter.setAttribute('aria-label', 'Letter grade ' + L);
     el.label.textContent = sc.label || '—';
     el.audience.textContent = sc.audience ? String(sc.audience).replace(/\.?$/, '.') : '';
+    // Newer engine fields (all optional: hidden when an older engine leaves them out)
+    var summary = typeof r.summary === 'string' ? r.summary.trim() : '';
+    el.summary.textContent = summary;
+    el.summary.hidden = !summary;
+    var conf = r.confidence && typeof r.confidence === 'object' ? r.confidence : null;
+    var showConf = !!(conf && conf.level && conf.level !== 'high' && conf.note);
+    el.confPill.hidden = !showConf;
+    if (showConf) {
+      el.confText.textContent = String(conf.note);
+      el.confPill.classList.toggle('is-low', conf.level === 'low');
+    }
+    var tt = typeof r.textType === 'string' ? r.textType.trim() : '';
+    el.typeChip.hidden = !tt;
+    if (tt) el.typeText.textContent = tt.replace(/[-_]+/g, ' ').toLowerCase();
     el.consensus.textContent = gradeWord(num(sc.consensusGrade, NaN)) || fmt1(sc.consensusGrade);
     el.readChip.textContent = fmtTime(st.readingTimeSec);
     var hardN = (r.sentences || []).filter(function (s) { return s.level === 'hard' || s.level === 'very-hard'; }).length;
@@ -495,42 +522,76 @@ if (!window.Readable) {
     { k: 'avgWordsPerSentence', label: 'Words / sentence', stat: true, tip: 'Average sentence length. Aim for 15–20; vary it so the rhythm doesn’t drone.' },
     { k: 'readingTimeSec', label: 'Reading time', stat: true, tip: 'Estimated time to read silently at a typical adult pace.' },
     { k: 'speakingTimeSec', label: 'Speaking time', stat: true, tip: 'Estimated time to read aloud at a comfortable presenting pace.' },
-    { k: 'complexPct', label: 'Complex words', stat: true, tip: 'Share of words with three or more syllables. Under 10% reads easily.' }
+    { k: 'complexPct', label: 'Complex words', stat: true, tip: 'Share of words with three or more syllables. Under 10% reads easily.' },
+    { k: 'daleChall', label: 'Dale–Chall', opt: true, tip: 'Score from sentence length and how many words fall outside a list of about 3,000 words most 10-year-olds know. Under 6 is easy; 9 and up is college level.' },
+    { k: 'unfamiliarPct', label: 'Unfamiliar words', stat: true, opt: true, tip: 'Share of words that are not on the Dale–Chall list of familiar words. Under 15% reads easily.' }
   ];
+  function daleWord(v) { return v < 5 ? 'Grade 4 and below' : v < 6 ? 'Grades 5–6' : v < 7 ? 'Grades 7–8' : v < 8 ? 'Grades 9–10' : v < 9 ? 'Grades 11–12' : 'College level'; }
+  // stats.unfamiliarWords is expected to be a count; a fraction or percent is handled too
+  function unfamiliarPct(st) {
+    var v = st.unfamiliarWords, w = num(st.words);
+    if (typeof st.unfamiliarPct === 'number' && isFinite(st.unfamiliarPct)) return { pct: st.unfamiliarPct, count: null };
+    if (typeof v !== 'number' || !isFinite(v) || v < 0) return null;
+    if (Number.isInteger(v)) return w ? { pct: v / w * 100, count: v } : null;
+    return { pct: v <= 1 ? v * 100 : v, count: null };
+  }
+  function cnt(v, dec, suffix) {
+    return '<span class="cnt" data-to="' + v + '" data-dec="' + (dec || 0) + '" data-suf="' + esc(suffix || '') + '">' +
+      esc(dec ? (Math.round(v * 10) / 10).toFixed(dec) : Math.round(v).toLocaleString('en-US')) + esc(suffix || '') + '</span>';
+  }
   function renderMetrics(sc, st) {
-    var html = METRICS.map(function (m) {
-      var value, sub = '', pip = '';
+    var list = METRICS.filter(function (m) {
+      if (!m.opt) return true;
+      if (m.k === 'daleChall') return typeof sc.daleChall === 'number' && isFinite(sc.daleChall);
+      if (m.k === 'unfamiliarPct') return !!unfamiliarPct(st);
+      return false;
+    });
+    var html = list.map(function (m, idx) {
+      var value, sub = '', pip = '', vhtml = null;
       if (m.grade) {
         var g = num(sc[m.k], NaN);
         value = fmt1(g);
+        if (isFinite(g)) vhtml = cnt(g, 1);
         sub = gradeWord(g);
         if (isFinite(g)) pip = '<span class="pip pip-' + gradePip(g) + '" aria-hidden="true"></span>';
       } else if (m.k === 'readingTimeSec' || m.k === 'speakingTimeSec') {
         value = fmtTime(st[m.k]);
         sub = m.k === 'readingTimeSec' ? 'silent reading' : 'read aloud';
+      } else if (m.k === 'daleChall') {
+        var dc = sc.daleChall;
+        value = fmt1(dc); vhtml = cnt(dc, 1);
+        sub = daleWord(dc);
+        pip = '<span class="pip pip-' + (dc < 6 ? 'easy' : dc < 8 ? 'mid' : dc < 9 ? 'hard' : 'vhard') + '" aria-hidden="true"></span>';
+      } else if (m.k === 'unfamiliarPct') {
+        var u = unfamiliarPct(st);
+        value = Math.round(u.pct) + '%'; vhtml = cnt(u.pct, 0, '%');
+        sub = u.count != null ? plural(u.count, 'word') : 'of all words';
+        pip = '<span class="pip pip-' + (u.pct < 15 ? 'easy' : u.pct < 22 ? 'mid' : u.pct < 30 ? 'hard' : 'vhard') + '" aria-hidden="true"></span>';
       } else if (m.k === 'complexPct') {
         var pct = num(st.words) ? num(st.complexWords) / num(st.words) * 100 : 0;
-        value = Math.round(pct) + '%';
+        value = Math.round(pct) + '%'; vhtml = cnt(pct, 0, '%');
         sub = plural(num(st.complexWords), 'word');
         pip = '<span class="pip pip-' + (pct < 10 ? 'easy' : pct < 15 ? 'mid' : pct < 20 ? 'hard' : 'vhard') + '" aria-hidden="true"></span>';
       } else if (m.k === 'avgWordsPerSentence') {
         var a = num(st.avgWordsPerSentence);
-        value = fmt1(a);
+        value = fmt1(a); vhtml = cnt(a, 1);
         sub = a <= 20 ? 'comfortable' : a <= 25 ? 'a bit long' : 'too long';
         pip = '<span class="pip pip-' + (a <= 17 ? 'easy' : a <= 21 ? 'mid' : a <= 25 ? 'hard' : 'vhard') + '" aria-hidden="true"></span>';
       } else {
         value = fmtInt(st[m.k]);
+        if (typeof st[m.k] === 'number' && isFinite(st[m.k])) vhtml = cnt(st[m.k], 0);
         sub = m.k === 'words' ? plural(num(st.paragraphs), 'paragraph') : (num(st.sentences) ? 'in your text' : '');
       }
       var id = 'tip-' + m.k;
-      return '<div class="metric' + (m.stat ? ' is-stat' : '') + '">' +
+      return '<div class="metric' + (m.stat ? ' is-stat' : '') + '" data-tilt style="--i:' + idx + '">' +
         '<div class="metric-top"><span class="metric-label">' + esc(m.label) + '</span>' +
-        '<button class="info" type="button" aria-label="What is ' + esc(m.label) + '?" aria-describedby="' + id + '">i</button>' +
+        '<button class="info" type="button" data-cursor="Info" aria-label="What is ' + esc(m.label) + '?" aria-describedby="' + id + '">i</button>' +
         '<span class="tip" role="tooltip" id="' + id + '">' + esc(m.tip) + '</span></div>' +
-        '<div class="metric-value">' + esc(value) + pip + '</div>' +
+        '<div class="metric-value">' + (vhtml || esc(value)) + pip + '</div>' +
         '<div class="metric-sub">' + esc(sub) + '</div></div>';
     }).join('');
     el.metrics.innerHTML = html;
+    decorateTilt(el.metrics);
   }
 
   /* five hardest */
@@ -556,7 +617,8 @@ if (!window.Readable) {
       fixes.push('<li><span class="fix-tag tag-tip">Tip</span><span>' + esc(tip) + '</span></li>');
     }
     var slideText = (state.text && typeof s.start === 'number' && typeof s.end === 'number') ? state.text.slice(s.start, s.end) : s.text;
-    return '<article class="slide" role="group" aria-roledescription="slide" aria-label="' + (i + 1) + ' of ' + n + '" data-i="' + i + '"' + (i ? ' hidden' : '') + '>' +
+    var tryThis = (typeof s.tip === 'string' && s.tip.trim()) ? '<div class="try"><span class="try-tag">Try this</span><p>' + esc(s.tip.trim()) + '</p></div>' : '';
+    return '<article class="slide" role="group" aria-roledescription="slide" aria-label="' + (i + 1) + ' of ' + n + '" data-i="' + i + '"' + (n > 1 ? ' data-cursor="Drag"' : '') + (i ? ' hidden' : '') + '>' +
       '<div class="rank-big" aria-hidden="true">' + rank + '</div>' +
       '<div class="slide-body">' +
       '<div class="slide-meta"><span class="lvl-pill ' + lvl + '">' + LEVEL_NAME[lvl] + '</span>' +
@@ -566,8 +628,9 @@ if (!window.Readable) {
       '<p class="slide-text">' + esc(slideText) + '</p>' +
       (reasons ? '<ul class="reasons" aria-label="Why it is hard">' + reasons + '</ul>' : '') +
       '<div class="diff"><span class="diff-label">Difficulty</span><div class="diff-track" role="img" aria-label="Difficulty ' + diff + ' out of 100"><div class="diff-fill" data-w="' + diff + '" style="--full:' + (diff ? (10000 / diff).toFixed(1) : 100) + '%"></div></div><span class="diff-val">' + diff + '/100</span></div>' +
-      '<div class="fixes"><h4>What to try</h4><ul>' + fixes.join('') + '</ul></div>' +
-      '<div class="slide-actions"><button class="btn btn-ink btn-sm" type="button" data-jump="' + esc(s.index) + '">Jump to it in your text' +
+      tryThis +
+      '<div class="fixes"><h4>' + (tryThis ? 'Also look at' : 'What to try') + '</h4><ul>' + fixes.join('') + '</ul></div>' +
+      '<div class="slide-actions"><button class="btn btn-ink btn-sm" type="button" data-cursor="Jump" data-jump="' + esc(s.index) + '">Jump to it in your text' +
       '<svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>' +
       '</div></article>';
   }
@@ -576,17 +639,21 @@ if (!window.Readable) {
     state.hardest = list;
     var stepper = $('.stepper', el.carousel);
     if (!list.length) {
-      el.slides.innerHTML = '<article class="slide"><div class="rank-big" aria-hidden="true">✓</div><div class="slide-body">' +
+      var note = (typeof r.hardestNote === 'string' && r.hardestNote.trim()) ? r.hardestNote.trim() :
+        'Every sentence reads comfortably. Nice work — keep sentences short and words familiar.';
+      el.slides.innerHTML = '<article class="slide slide-clear"><div class="rank-big is-clear" aria-hidden="true">✓</div><div class="slide-body">' +
         '<div class="slide-meta"><span class="lvl-pill easy">All clear</span></div>' +
-        '<p class="slide-text-plain" style="font:600 22px/1.4 var(--sans);margin:0 0 8px;letter-spacing:-.02em">No hard sentences found.</p>' +
-        '<p style="margin:0;color:var(--ink-soft)">Every sentence reads comfortably. Nice work — keep sentences short and words familiar.</p></div></article>';
+        '<p class="clear-title">Nothing hard here.</p>' +
+        '<p class="clear-note">' + esc(note) + '</p></div></article>';
+      el.dots.innerHTML = '';
       stepper.hidden = true;
+      state.slide = 0;
       return;
     }
     stepper.hidden = list.length < 2;
     el.slides.innerHTML = list.map(function (s, i) { return slideHTML(s, i, list.length, r); }).join('');
     el.dots.innerHTML = list.map(function (s, i) {
-      return '<button type="button" aria-label="Show hardest sentence ' + (i + 1) + '"><span></span></button>';
+      return '<button type="button" data-cursor="Go" aria-label="Show hardest sentence ' + (i + 1) + '"><span></span></button>';
     }).join('');
     state.slide = -1;
     go(0, 0);
@@ -628,11 +695,16 @@ if (!window.Readable) {
   });
   (function swipe() {
     var x0 = null, y0 = null;
-    el.slides.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') { x0 = e.clientX; y0 = e.clientY; } });
+    el.slides.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse' && (e.button !== 0 || e.target.closest('button, a'))) return;
+      x0 = e.clientX; y0 = e.clientY;
+    });
     el.slides.addEventListener('pointerup', function (e) {
       if (x0 == null) return;
       var dx = e.clientX - x0, dy = e.clientY - y0;
       x0 = null;
+      // a mouse drag that selected text is a selection, not a swipe
+      if (e.pointerType === 'mouse' && String(window.getSelection ? window.getSelection() : '').trim()) return;
       if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4) go(state.slide + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
     });
     el.slides.addEventListener('pointercancel', function () { x0 = null; });
@@ -653,6 +725,7 @@ if (!window.Readable) {
 
   /* highlighted text — built once per analysis by slicing the original string */
   function renderHighlight(r, text) {
+    setSentenceFocus(null);
     var sents = (r.sentences || []).filter(function (s) { return typeof s.start === 'number' && typeof s.end === 'number' && s.end > s.start; })
       .slice().sort(function (a, b) { return a.start - b.start; });
     var inline = (r.issues || []).filter(function (it) { return INLINE_GROUP[it.type] && it.end > it.start; })
@@ -783,9 +856,11 @@ if (!window.Readable) {
   el.hl.addEventListener('focusin', function (e) {
     var t = e.target.closest(TARGETS);
     if (t) showPop(t, false);
+    setSentenceFocus(e.target.closest('.s'));
   });
   el.hl.addEventListener('focusout', function (e) {
     if (e.target.closest(TARGETS) && !popPinned) hidePop(false);
+    if (!el.hl.contains(e.relatedTarget)) setSentenceFocus(null);
   });
   el.hl.addEventListener('click', function (e) {
     var t = e.target.closest(TARGETS);
@@ -802,11 +877,10 @@ if (!window.Readable) {
       else if (popTarget === t && popPinned) hidePop(true); else showPop(t, true);
     }
   });
-  el.hl.addEventListener('scroll', function () { if (!el.pop.hidden) placePop(); }, { passive: true });
+  el.hl.addEventListener('scroll', function () { if (!el.pop.hidden) placePop(); if (SH.cur) setSentenceFocus(null); }, { passive: true });
   document.addEventListener('click', function (e) { if (popPinned && !e.target.closest(TARGETS) && !e.target.closest('#popover')) hidePop(true); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !el.pop.hidden) hidePop(true); });
   window.addEventListener('resize', function () { if (!el.pop.hidden) placePop(); });
-  window.addEventListener('scroll', function () { if (!el.pop.hidden) placePop(); }, { passive: true });
 
   function openSlideFor(sentIndex) {
     var i = -1;
@@ -829,7 +903,7 @@ if (!window.Readable) {
       var e = Math.round(clamp(num(p.fleschReadingEase), 0, 100));
       var h = 34 + (100 - e) * 0.66;
       var label = 'Paragraph ' + (i + 1) + ': ' + plural(num(p.words), 'word') + ', reading ease ' + e + ' (' + easeWord(e) + ')';
-      return '<button type="button" class="heat-bar z-' + easeZone(e) + '" style="--w:' + Math.max(1, num(p.words) / total * 100).toFixed(2) + ';--h:' + h.toFixed(0) + '%;--d:' + (Math.min(i, 20) * 0.04).toFixed(2) + 's" data-start="' + esc(p.start) + '" data-pi="' + esc(p.index) + '" title="' + esc(label) + '" aria-label="' + esc(label) + '. Jump to it."></button>';
+      return '<button type="button" data-cursor="Jump" class="heat-bar z-' + easeZone(e) + '" style="--w:' + Math.max(1, num(p.words) / total * 100).toFixed(2) + ';--h:' + h.toFixed(0) + '%;--d:' + (Math.min(i, 20) * 0.04).toFixed(2) + 's" data-start="' + esc(p.start) + '" data-pi="' + esc(p.index) + '" title="' + esc(label) + '" aria-label="' + esc(label) + '. Jump to it."></button>';
     }).join('');
   }
   el.heat.addEventListener('click', function (e) {
@@ -859,18 +933,23 @@ if (!window.Readable) {
     var lines = [];
     lines.push('READABLE — readability report');
     lines.push('================================');
-    lines.push('Reading ease: ' + Math.round(num(sc.fleschReadingEase)) + '/100 — ' + (sc.label || '') + ' (grade ' + (sc.letter || '?') + ')');
+    lines.push('Reading ease: ' + Math.round(num(easeOf(sc))) + '/100 — ' + (sc.label || '') + ' (grade ' + (sc.letter || '?') + ')');
     if (sc.audience) lines.push(String(sc.audience).replace(/\.?$/, '.'));
+    if (typeof r.summary === 'string' && r.summary.trim()) lines.push(r.summary.trim());
+    if (r.confidence && r.confidence.level && r.confidence.level !== 'high' && r.confidence.note) lines.push('Note: ' + r.confidence.note);
     lines.push('');
     lines.push('Consensus grade: ' + fmt1(sc.consensusGrade) + ' (' + gradeWord(num(sc.consensusGrade, NaN)) + ')');
     lines.push('Flesch–Kincaid ' + fmt1(sc.fleschKincaidGrade) + ' · Gunning Fog ' + fmt1(sc.gunningFog) + ' · SMOG ' + fmt1(sc.smog) +
-      ' · Coleman–Liau ' + fmt1(sc.colemanLiau) + ' · ARI ' + fmt1(sc.ari));
+      ' · Coleman–Liau ' + fmt1(sc.colemanLiau) + ' · ARI ' + fmt1(sc.ari) +
+      (typeof sc.daleChall === 'number' && isFinite(sc.daleChall) ? ' · Dale–Chall ' + fmt1(sc.daleChall) : ''));
     lines.push('');
     var pct = num(st.words) ? Math.round(num(st.complexWords) / num(st.words) * 100) : 0;
     lines.push('Words: ' + fmtInt(st.words) + ' · Sentences: ' + fmtInt(st.sentences) + ' · Paragraphs: ' + fmtInt(st.paragraphs));
-    lines.push('Average sentence: ' + fmt1(st.avgWordsPerSentence) + ' words · Complex words: ' + pct + '%');
+    var unf = unfamiliarPct(st);
+    lines.push('Average sentence: ' + fmt1(st.avgWordsPerSentence) + ' words · Complex words: ' + pct + '%' + (unf ? ' · Unfamiliar words: ' + Math.round(unf.pct) + '%' : ''));
     lines.push('Reading time: ' + fmtTime(st.readingTimeSec) + ' · Speaking time: ' + fmtTime(st.speakingTimeSec));
     var hard = state.hardest;
+    if (!hard.length && typeof r.hardestNote === 'string' && r.hardestNote.trim()) { lines.push(''); lines.push('Hardest sentences: ' + r.hardestNote.trim()); }
     if (hard.length) {
       lines.push('');
       lines.push('THE ' + (hard.length === 5 ? 'FIVE' : hard.length) + ' HARDEST SENTENCES');
@@ -880,6 +959,7 @@ if (!window.Readable) {
         lines.push((s.rank || i + 1) + '. "' + String(body).replace(/\s+/g, ' ').trim() + '"');
         lines.push('   ' + (LEVEL_NAME[s.level] || '') + ' · ' + gradeWord(num(s.grade, NaN)) + ' · ' + plural(num(s.words), 'word') + ' · difficulty ' + Math.round(num(s.difficulty)) + '/100');
         if (s.reasons && s.reasons.length) lines.push('   Why: ' + s.reasons.join('; '));
+        if (typeof s.tip === 'string' && s.tip.trim()) lines.push('   Try this: ' + s.tip.trim());
         var seen = Object.create(null);
         issuesIn(r, s).forEach(function (it) {
           var k = it.type + '|' + it.text;
@@ -950,26 +1030,504 @@ if (!window.Readable) {
   el.bannerCta.addEventListener('click', function () { closeBanner(); setTimeout(function () { el.input.focus({ preventScroll: true }); }, 400); });
   window.addEventListener('hashchange', checkHash);
 
-  /* ---------------- motion: header, reveal, parallax ---------------- */
-  var ticking = false;
+  /* ======================================================================
+     Motion & interaction
+     One requestAnimationFrame loop drives everything that moves. It sleeps
+     when nothing is changing and stops while the tab is hidden. It is fed by
+     one passive scroll listener and one passive pointermove listener, writes
+     only transforms, opacity and custom properties, and reads layout in a
+     separate measure() pass (on resize, body resize, fonts, renders).
+     ?static and prefers-reduced-motion switch all of it off; cursor effects
+     only start after a real mouse moves, so touch devices never get them.
+     ====================================================================== */
+  var root = document.documentElement;
+  var FINE = !!(window.matchMedia && matchMedia('(any-hover: hover) and (any-pointer: fine)').matches);
+  var M = {
+    raf: 0, frames: 0, dirty: true, lastSy: -1, vw: 0, vh: 0, docH: 0,
+    px: -200, py: -200, mouse: false, cursorOn: false, native: false, away: false,
+    target: null, tweens: [], scrolledCls: null
+  };
+  var CURSOR_OK = MOTION && FINE;
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function sstep(a, b, v) { var t = clamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); }
+  function kick() { if (!M.raf && !document.hidden) M.raf = requestAnimationFrame(frame); }
+  function markDirty() { M.dirty = true; kick(); }
+
+  /* count-ups run inside the main loop */
+  function fmtCount(v, dec, suf) { return (dec ? v.toFixed(dec) : Math.round(v).toLocaleString('en-US')) + (suf || ''); }
+  function countUp(node, from, to, dec, suf, dur) {
+    if (node._tw) node._tw.dead = true;
+    node._tw = null;
+    if (!MOTION || from === to || document.hidden) { node.textContent = fmtCount(to, dec, suf); return; }
+    var tw = { t0: performance.now(), dur: dur || 900, fn: function (p) {
+      var e = 1 - Math.pow(1 - p, 3);
+      node.textContent = fmtCount(from + (to - from) * e, dec, suf);
+    } };
+    node._tw = tw;
+    M.tweens.push(tw);
+    kick();
+  }
+  function runTweens(now) {
+    M.tweens = M.tweens.filter(function (tw) {
+      if (tw.dead) return false;
+      var p = clamp((now - tw.t0) / tw.dur, 0, 1);
+      tw.fn(p);
+      return p < 1;
+    });
+    return M.tweens.length > 0;
+  }
+
+  /* ---------- elements ---------- */
+  var heroSec = $('#hero'), heroArt = $('.hero-art'), heroSvg = $('#heroSvg');
+  var layers = heroSvg ? $$('.lyr', heroSvg).map(function (n) { return { n: n, d: parseFloat(n.getAttribute('data-depth')) || 0, x: 0, y: 0 }; }) : [];
+  var pagesLayer = layers.filter(function (l) { return l.n.id === 'heroPages'; })[0] || { x: 0, y: 0 };
+  var pages = heroSvg ? $$('.pg', heroSvg).map(function (n) { return { n: n, k: +n.getAttribute('data-n') || 1, y: 0, o: 1, key: '' }; }) : [];
+  var mag = $('#heroMag'), magHandle = $('#heroHandle'), lens = $('#heroLens'), heroScore = $('#heroScore');
+  var letters = $$('.wm-l');
   var shapes = $$('[data-parallax]');
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function () {
-      var y = window.scrollY;
-      el.header.classList.toggle('is-scrolled', y > 12);
-      if (!REDUCED && y < window.innerHeight * 1.5) {
-        shapes.forEach(function (s) { s.style.transform = 'translate3d(0,' + (y * parseFloat(s.dataset.parallax)).toFixed(1) + 'px,0)'; });
+  var scrollPill = $('#scrollPill'), spLabel = $('#spLabel');
+  var conveyor = $('#scale'), cvTrack = $('#cvTrack'), cvRail = $('#cvRail'), cvBelt = $('.cv-belt', conveyor || document);
+  var cvBarFill = $('.cv-bar i', conveyor || document);
+  var cvCards = cvTrack ? $$('.cv-card', cvTrack) : [];
+  var cursorEl = $('#cursor'), cDot = cursorEl && $('.c-dot', cursorEl), cFollow = cursorEl && $('.c-follow', cursorEl), cLabel = $('#cursorLabel');
+  $$('.filter').forEach(function (b) { b.setAttribute('data-cursor', 'Toggle'); });
+
+  /* ---------- geometry cache (read pass) ---------- */
+  var G = { heroTop: 0, heroH: 0, art: { top: 0, left: 0, w: 1, h: 1 }, letters: [], magnets: [], shapes: [], cv: { pin: false } };
+  function measure() {
+    M.dirty = false;
+    M.vw = root.clientWidth; M.vh = window.innerHeight;
+    // conveyor writes first (pinning changes page height), then read everything
+    var pin = !!(conveyor && cvTrack && MOTION && M.vh >= 560);
+    if (conveyor) {
+      conveyor.classList.toggle('is-pinned', pin);
+      if (cvRail) { if (pin) cvRail.removeAttribute('tabindex'); else cvRail.setAttribute('tabindex', '0'); }
+      if (!pin && cvTrack) {
+        cvTrack.style.transform = '';
+        cvCards.forEach(function (c) { c.style.transform = ''; revealCv(c, false); });
       }
-      ticking = false;
+    }
+    var sy = window.scrollY, sx = window.scrollX, r;
+    if (pin) {
+      var dist = Math.max(0, cvTrack.scrollWidth - M.vw);
+      conveyor.style.setProperty('--cv-h', Math.round(M.vh + dist + M.vh * 0.3) + 'px');
+      r = conveyor.getBoundingClientRect();
+      G.cv = { pin: true, top: r.top + sy, dist: dist, cards: cvCards.map(function (c) { return { n: c, cx: c.offsetLeft + c.offsetWidth / 2, key: '' }; }) };
+    } else {
+      if (conveyor) conveyor.style.removeProperty('--cv-h');
+      G.cv = { pin: false };
+    }
+    M.docH = Math.max(root.scrollHeight, document.body.scrollHeight);
+    if (heroSec) { r = heroSec.getBoundingClientRect(); G.heroTop = r.top + sy; G.heroH = r.height; }
+    if (heroArt) {
+      r = heroArt.getBoundingClientRect();
+      var w = r.width || 1;
+      G.art = { top: r.top + sy, left: r.left + sx, w: w, h: w * 520 / 600 };
+    }
+    G.letters = letters.map(function (n, i) {
+      var b = n.getBoundingClientRect(), old = G.letters[i];
+      return { n: n, cx: b.left + sx + b.width / 2, cy: b.top + sy + b.height / 2, R: Math.max(150, b.height * 1.1), f: old ? old.f : 0, s: old ? old.s : 0, key: old ? old.key : '' };
+    });
+    G.shapes = shapes.map(function (n) {
+      var sec = n.closest('section') || heroSec, anchor = 0, top = 0, bottom = 1e9;
+      if (sec && sec !== heroSec) {
+        var b = sec.getBoundingClientRect();
+        top = b.top + sy; bottom = top + b.height; anchor = top - M.vh * 0.5;
+      } else if (sec) { bottom = G.heroTop + G.heroH; }
+      return { n: n, sp: parseFloat(n.getAttribute('data-parallax')) || 0, anchor: anchor, top: top, bottom: bottom, key: '' };
+    });
+    G.magnets = !M.cursorOn ? [] : $$('.btn, .round-btn').map(function (n) {
+      if (n.closest('.menu')) return null;
+      var st = n._mg || (n._mg = { x: 0, y: 0, key: '' });
+      var b = n.getBoundingClientRect();
+      if (!b.width || !b.height) return null;
+      var fixed = !!n.closest('.site-header, .share-banner');
+      return { n: n, st: st, fixed: fixed, l: b.left - st.x + (fixed ? 0 : sx), t: b.top - st.y + (fixed ? 0 : sy), w: b.width, h: b.height };
+    }).filter(Boolean);
+    M.lastSy = -1; // force a scroll pass with the new numbers
+  }
+
+  /* ---------- the loop ---------- */
+  function frame(now) {
+    M.raf = 0; M.frames++;
+    if (M.dirty) measure();
+    var sy = window.scrollY, busy = false;
+    var tiltRect = (M.cursorOn && T.cur) ? T.cur.getBoundingClientRect() : null; // the only per-frame read
+    if (sy !== M.lastSy) { M.lastSy = sy; scrollFrame(sy); }
+    if (MOTION) {
+      if (M.tweens.length) busy = runTweens(now) || busy;
+      busy = heroFrame(now, sy) || busy;
+      if (M.cursorOn) {
+        busy = cursorFrame() || busy;
+        busy = magnetFrame(sy) || busy;
+        busy = lettersFrame(sy) || busy;
+        busy = tiltFrame(tiltRect) || busy;
+      }
+    }
+    if (busy) kick();
+  }
+
+  /* ---------- scroll-driven ---------- */
+  function scrollFrame(sy) {
+    var scrolled = sy > 12;
+    if (scrolled !== M.scrolledCls) {
+      M.scrolledCls = scrolled;
+      el.header.classList.toggle('is-scrolled', scrolled);
+      setTimeout(markDirty, 360); // header buttons move when its padding changes
+    }
+    var p = M.docH > M.vh ? clamp(sy / (M.docH - M.vh), 0, 1) : 0;
+    if (scrollPill) scrollPill.style.setProperty('--p', p.toFixed(4));
+    if (!el.pop.hidden) placePop();
+    if (!MOTION) return;
+    var vh = M.vh;
+    G.shapes.forEach(function (s) {
+      if (sy + vh < s.top - 300 || sy > s.bottom + 300) return;
+      var key = ((sy - s.anchor) * s.sp).toFixed(1);
+      if (key !== s.key) { s.key = key; s.n.style.transform = 'translate3d(0,' + key + 'px,0)'; }
+    });
+    var cv = G.cv;
+    if (cv.pin && sy > cv.top - vh * 1.2 && sy < cv.top + cv.dist + vh * 1.6) {
+      var cp = cv.dist ? clamp((sy - cv.top) / cv.dist, 0, 1) : 0, off = cp * cv.dist, mid = M.vw / 2;
+      cvTrack.style.transform = 'translate3d(' + (-off).toFixed(1) + 'px,0,0)';
+      if (cvBarFill) cvBarFill.style.transform = 'scaleX(' + cp.toFixed(4) + ')';
+      if (cvBelt) cvBelt.style.setProperty('--spin', (cp * 1440).toFixed(1) + 'deg');
+      cv.cards.forEach(function (c) {
+        var x = c.cx - off - mid, k = 1 - Math.min(1, Math.abs(x) / (M.vw * 0.55));
+        var key = ((1 - k) * 30).toFixed(1) + 'px,0) rotate(' + (x / M.vw * 4).toFixed(2) + 'deg) scale(' + (0.9 + 0.1 * k).toFixed(3);
+        if (key !== c.key) { c.key = key; c.n.style.transform = 'translate3d(0,' + key + ')'; }
+        if (k > 0.5) revealCv(c.n, true);
+      });
+    }
+  }
+
+  /* ---------- hero: intro, scroll assembly, pointer depth, magnifier ---------- */
+  var H = { t0: 0, init: false, nx: 0, ny: 0, mx: 318, my: 176, rot: 0, vars: '', tilt: '', scoreDone: false };
+  if (heroSvg) {
+    $$('.hlm', heroSvg).forEach(function (n) {
+      var len = 0;
+      try { len = n.getTotalLength(); } catch (e) { len = 0; }
+      if (len) n.style.setProperty('--len', len.toFixed(1) + 'px');
     });
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  function heroFrame(now, sy) {
+    if (!heroSvg) return false;
+    var visible = sy < G.heroTop + G.heroH + 40;
+    if (!visible && H.init) return false;
+    H.init = true;
+    if (!H.t0) { H.t0 = now; heroArt.classList.add('ready'); }
+    var busy = false;
+    var it = clamp((now - H.t0) / 1500, 0, 1);
+    if (it < 1) busy = true;
+    var ie = 1 - Math.pow(1 - it, 3);
+    // scroll assembly: the stack settles and the highlighter draws as the art passes a line on screen.
+    var artTopVp = G.art.top - sy, artH = G.art.h;
+    var line = G.art.top < M.vh * 0.5 ? 0.4 : 0.72;
+    var A = clamp((M.vh * line - artTopVp) / (artH * 0.9), 0, 1);
+    var stack = sstep(0.42, 0.8, A), draw = sstep(0.55, 0.9, A), fill = sstep(0.82, 1, A), rk = sstep(0.88, 1, A);
+    var lines = sstep(0, 0.3, A) * sstep(0.25, 0.8, it);
+    var vars = draw.toFixed(3) + fill.toFixed(3) + rk.toFixed(3) + lines.toFixed(3);
+    if (vars !== H.vars) {
+      H.vars = vars;
+      heroSvg.style.setProperty('--hl-draw', draw.toFixed(3));
+      heroSvg.style.setProperty('--hl-fill', fill.toFixed(3));
+      heroSvg.style.setProperty('--rk', rk.toFixed(3));
+      heroSvg.style.setProperty('--lines', lines.toFixed(3));
+    }
+    var topPageY = 0;
+    pages.forEach(function (pg) {
+      var k = pg.k, d = (k - 1) * 0.12;
+      var drop = (1 - sstep(d, 0.55 + d, it)) * -(70 + k * 26);
+      var y = drop - (1 - stack) * k * 13;
+      var o = sstep(d, 0.3 + d, it);
+      if (k === 4) topPageY = y;
+      var key = y.toFixed(1) + '|' + o.toFixed(2);
+      if (key !== pg.key) { pg.key = key; pg.n.setAttribute('transform', 'translate(0 ' + y.toFixed(1) + ')'); pg.n.style.opacity = o.toFixed(2); }
+    });
+    if (!H.scoreDone && heroScore) {
+      heroScore.textContent = String(Math.round(72 * ie));
+      if (it >= 1) H.scoreDone = true;
+    }
+    // pointer depth (mouse only)
+    var tnx = 0, tny = 0;
+    if (M.cursorOn && M.mouse && !M.away) { tnx = clamp((M.px / M.vw - 0.5) * 2, -1, 1); tny = clamp((M.py / M.vh - 0.5) * 2, -1, 1); }
+    H.nx = lerp(H.nx, tnx, 0.08); H.ny = lerp(H.ny, tny, 0.08);
+    if (Math.abs(H.nx - tnx) > 0.002 || Math.abs(H.ny - tny) > 0.002) busy = true;
+    layers.forEach(function (l) {
+      var x = H.nx * l.d * 12, y = H.ny * l.d * 8;
+      if (Math.abs(x - l.x) > 0.02 || Math.abs(y - l.y) > 0.02 || !l.set) {
+        l.x = x; l.y = y; l.set = true;
+        l.n.setAttribute('transform', 'translate(' + x.toFixed(2) + ' ' + y.toFixed(2) + ')');
+      }
+    });
+    var tilt = 'rotateX(' + (-H.ny * 4).toFixed(2) + 'deg) rotateY(' + (H.nx * 6).toFixed(2) + 'deg)';
+    if (tilt !== H.tilt) { H.tilt = tilt; heroSvg.style.transform = tilt; }
+    // magnifier: follows the pointer across the page, otherwise drifts along the lines
+    var tx, ty, inHero = M.cursorOn && M.mouse && !M.away && M.py < G.heroTop + G.heroH - sy;
+    if (inHero) {
+      tx = (M.px - (G.art.left - window.scrollX)) / G.art.w * 600 - pagesLayer.x;
+      ty = (M.py - artTopVp) / artH * 520 - pagesLayer.y - topPageY;
+    } else {
+      var t = now / 1000;
+      tx = 280 + Math.cos(t * 0.45) * 105;
+      ty = 190 + Math.sin(t * 0.9) * 42;
+    }
+    var u = (tx - 271) / 150, v = (ty - 195) / 88, s = Math.abs(u) + Math.abs(v);
+    if (s > 1) { u /= s; v /= s; }
+    tx = 271 + u * 150 + pagesLayer.x; ty = 195 + v * 88 + pagesLayer.y + topPageY;
+    var ox = H.mx;
+    H.mx = lerp(H.mx, tx, inHero ? 0.14 : 0.05); H.my = lerp(H.my, ty, inHero ? 0.14 : 0.05);
+    H.rot = lerp(H.rot, clamp((H.mx - ox) * 2.2, -14, 14), 0.12);
+    if (Math.abs(H.mx - tx) > 0.05 || Math.abs(H.my - ty) > 0.05 || Math.abs(H.rot) > 0.05 || !inHero) busy = true;
+    mag.setAttribute('transform', 'translate(' + H.mx.toFixed(2) + ' ' + H.my.toFixed(2) + ')');
+    magHandle.setAttribute('transform', 'rotate(' + H.rot.toFixed(2) + ')');
+    lens.setAttribute('transform', 'scale(1.7) translate(' + (pagesLayer.x - H.mx).toFixed(2) + ' ' + (pagesLayer.y + topPageY - H.my).toFixed(2) + ')');
+    return busy;
+  }
 
+  /* ---------- wordmark letters lean away from the pointer ---------- */
+  function lettersFrame(sy) {
+    var busy = false, pdx = M.px + window.scrollX, pdy = M.py + sy;
+    var active = M.mouse && !M.away && sy < G.heroTop + G.heroH;
+    G.letters.forEach(function (L) {
+      var tf = 0, ts = 0;
+      if (active) {
+        var dx = L.cx - pdx, dy = L.cy - pdy, d = Math.sqrt(dx * dx + dy * dy);
+        if (d < L.R) { var q = 1 - d / L.R; tf = q * q * (3 - 2 * q); ts = clamp(dx / L.R * 2, -1, 1); }
+      }
+      L.f = lerp(L.f, tf, 0.14); L.s = lerp(L.s, ts, 0.14);
+      if (Math.abs(L.f - tf) > 0.002 || Math.abs(L.s - ts) > 0.01) busy = true;
+      var key = L.f.toFixed(3) + '|' + L.s.toFixed(2);
+      if (key !== L.key) { L.key = key; L.n.style.setProperty('--f', L.f.toFixed(3)); L.n.style.setProperty('--sx', L.s.toFixed(2)); }
+    });
+    return busy;
+  }
+
+  /* ---------- custom cursor ---------- */
+  var C = { rx: -200, ry: -200, cls: '', label: '' };
+  function cursorFrame() {
+    C.rx = lerp(C.rx, M.px, 0.2); C.ry = lerp(C.ry, M.py, 0.2);
+    cDot.style.transform = 'translate3d(' + M.px + 'px,' + M.py + 'px,0)';
+    cFollow.style.transform = 'translate3d(' + C.rx.toFixed(1) + 'px,' + C.ry.toFixed(1) + 'px,0)';
+    return Math.abs(C.rx - M.px) > 0.1 || Math.abs(C.ry - M.py) > 0.1;
+  }
+  var INTERACTIVE = 'a[href], button, [role="button"], label[for], select, summary';
+  var DARK = '.ph-ink, .ph-teal, .btn-ink, .btn-teal, .take-away, .privacy-card, .site-footer, .conveyor, .menu, .share-banner-inner, .tag, .rank-big, .chip-ink, .filter[aria-pressed="true"], .round-btn:hover, .letter[data-letter="A"], .toast';
+  var LIGHT = '.cv-card, .btn-white, .btn-yellow, .ph-white, .ph-yellow, .ph-coral, .cv-bar';
+  function resolveCursor(t) {
+    var o = { native: false, label: '', hover: false, dark: false, blend: false };
+    if (!t || t.nodeType !== 1) return o;
+    if (t.closest('textarea, input, select, .hl-view, .popover')) { o.native = true; return o; }
+    var lab = t.closest('[data-cursor]'), act = t.closest(INTERACTIVE);
+    if (act && (!lab || lab.contains(act))) {
+      if (!act.disabled && act.getAttribute('aria-disabled') !== 'true') {
+        o.hover = true;
+        o.label = act.getAttribute('data-cursor') || (/^#/.test(act.getAttribute('href') || '') ? 'Go' : 'Open');
+      }
+    } else if (lab) { o.hover = true; o.label = lab.getAttribute('data-cursor'); }
+    var dark = t.closest(DARK), light = t.closest(LIGHT);
+    o.dark = !!dark && !(light && dark.contains(light));
+    o.blend = !!t.closest('.wordmark');
+    return o;
+  }
+  function applyCursor(o) {
+    M.native = o.native;
+    var cls = 'cursor' + (o.native ? ' is-native' : '') + (o.hover && !o.label ? ' is-hover' : '') + (o.label ? ' is-label' : '') +
+      (o.dark ? ' is-dark' : '') + (o.blend ? ' is-blend' : '') + (M.away ? ' is-away' : '') + (M.down ? ' is-down' : '');
+    if (o.label && o.label !== C.label) { C.label = o.label; cLabel.textContent = o.label; }
+    if (cls !== C.cls) { C.cls = cls; cursorEl.className = cls; }
+  }
+  function enableCursor() {
+    if (M.cursorOn || !cursorEl) return;
+    M.cursorOn = true;
+    C.rx = M.px; C.ry = M.py;
+    root.classList.add('has-cursor');
+    decorateTilt(document);
+    markDirty();
+  }
+  function decorateTilt(scope) {
+    if (!M.cursorOn) return;
+    $$('[data-tilt]', scope).forEach(function (n) {
+      if (!n.querySelector(':scope > .sheen')) {
+        var s = document.createElement('span');
+        s.className = 'sheen'; s.setAttribute('aria-hidden', 'true');
+        n.appendChild(s);
+      }
+    });
+  }
+  var lastResolve = null;
+  function refreshCursor() { lastResolve = resolveCursor(M.target); applyCursor(lastResolve); setTiltTarget(M.target); }
+
+  /* ---------- magnetic pill buttons ---------- */
+  function magnetFrame(sy) {
+    var busy = false, sx = window.scrollX;
+    G.magnets.forEach(function (m) {
+      var px = M.px + (m.fixed ? 0 : sx), py = M.py + (m.fixed ? 0 : sy), tx = 0, ty = 0;
+      if (M.mouse && !M.away && !M.native && !m.n.disabled) {
+        var dx = Math.max(m.l - px, 0, px - (m.l + m.w)), dy = Math.max(m.t - py, 0, py - (m.t + m.h));
+        var d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 60) {
+          var k = 1 - d / 60;
+          tx = clamp((px - (m.l + m.w / 2)) * 0.18, -7, 7) * k;
+          ty = clamp((py - (m.t + m.h / 2)) * 0.3, -6, 6) * k;
+        }
+      }
+      var st = m.st;
+      st.x = lerp(st.x, tx, 0.2); st.y = lerp(st.y, ty, 0.2);
+      if (Math.abs(st.x - tx) < 0.05 && Math.abs(st.y - ty) < 0.05) { st.x = tx; st.y = ty; } else busy = true;
+      var key = st.x.toFixed(1) + 'px ' + st.y.toFixed(1) + 'px';
+      if (key !== st.key) { st.key = key; m.n.style.translate = (st.x || st.y) ? key : ''; }
+    });
+    return busy;
+  }
+
+  /* ---------- tilt cards ---------- */
+  var T = { cur: null, list: [] };
+  function setTiltTarget(t) {
+    var card = (t && t.closest && !M.native) ? t.closest('[data-tilt]') : null;
+    if (card === T.cur) return;
+    if (T.cur) T.cur.classList.remove('is-hot');
+    T.cur = card;
+    if (card) {
+      card.classList.add('is-tilting', 'is-hot');
+      if (!T.list.some(function (s) { return s.n === card; })) T.list.push({ n: card, rx: 0, ry: 0, lift: 0 });
+    }
+  }
+  function tiltFrame(rect) {
+    var busy = false;
+    T.list = T.list.filter(function (s) {
+      var trx = 0, try_ = 0, tl = 0;
+      if (s.n === T.cur && rect && rect.width && M.mouse && !M.away) {
+        var fx = clamp((M.px - rect.left) / rect.width, 0, 1), fy = clamp((M.py - rect.top) / rect.height, 0, 1);
+        var amp = clamp(380 / Math.max(rect.width, rect.height), 0.3, 1);
+        try_ = (fx - 0.5) * 10 * amp; trx = (0.5 - fy) * 8 * amp; tl = -3;
+        s.n.style.setProperty('--hx', (fx * 100).toFixed(1) + '%');
+        s.n.style.setProperty('--hy', (fy * 100).toFixed(1) + '%');
+      }
+      s.rx = lerp(s.rx, trx, 0.15); s.ry = lerp(s.ry, try_, 0.15); s.lift = lerp(s.lift, tl, 0.15);
+      var settled = Math.abs(s.rx - trx) < 0.02 && Math.abs(s.ry - try_) < 0.02 && Math.abs(s.lift - tl) < 0.02;
+      if (settled && s.n !== T.cur) {
+        s.n.classList.remove('is-tilting');
+        ['--rx', '--ry', '--lift'].forEach(function (k) { s.n.style.removeProperty(k); });
+        return false;
+      }
+      if (!settled) busy = true;
+      s.n.style.setProperty('--rx', s.rx.toFixed(2) + 'deg');
+      s.n.style.setProperty('--ry', s.ry.toFixed(2) + 'deg');
+      s.n.style.setProperty('--lift', s.lift.toFixed(2) + 'px');
+      return true;
+    });
+    return busy;
+  }
+
+  /* ---------- highlighted text: one sentence in focus ---------- */
+  var SH = { cur: null };
+  function setSentenceFocus(s) {
+    if (s === SH.cur) return;
+    if (SH.cur) SH.cur.classList.remove('is-focus');
+    SH.cur = s || null;
+    el.hl.classList.toggle('has-focus', !!SH.cur);
+    var data = SH.cur && state.sentById ? state.sentById[SH.cur.getAttribute('data-s')] : null;
+    if (!data) { el.sChip.hidden = true; return; }
+    SH.cur.classList.add('is-focus');
+    var lvl = LEVEL_NAME[data.level] ? data.level : 'easy';
+    el.sChip.innerHTML = '<i class="c-' + lvl + '"></i><span>' + esc(LEVEL_NAME[lvl]) + ' · difficulty <b>' + Math.round(num(data.difficulty)) + '</b>/100 · ' + plural(num(data.words), 'word') + '</span>';
+    el.sChip.hidden = false;
+    var rects = SH.cur.getClientRects(), first = rects[0], last = rects[rects.length - 1];
+    if (!first) { el.sChip.hidden = true; return; }
+    var cr = el.hlCard.getBoundingClientRect(), hr = el.hl.getBoundingClientRect();
+    var cw = el.sChip.offsetWidth, ch = el.sChip.offsetHeight;
+    var x = clamp(first.left - cr.left, 8, Math.max(8, cr.width - cw - 8));
+    var y = first.top - cr.top - ch - 6;
+    if (first.top - ch - 6 < hr.top) { y = last.bottom - cr.top + 6; x = clamp(last.left - cr.left, 8, Math.max(8, cr.width - cw - 8)); }
+    el.sChip.style.transform = 'translate(' + x.toFixed(0) + 'px,' + y.toFixed(0) + 'px)';
+  }
+  el.hl.addEventListener('mouseover', function (e) { setSentenceFocus(e.target.closest('.s')); });
+  el.hl.addEventListener('mouseleave', function () { setSentenceFocus(null); });
+
+  /* ---------- conveyor: real scores from the engine ---------- */
+  function revealCv(li, on) {
+    if (li.classList.contains('on') && on) return;
+    var val = $('.cv-val', li);
+    if (on) {
+      li.classList.add('on');
+      if (val) countUp(val, 0, +val.getAttribute('data-to'), 0, '', 900);
+    } else {
+      li.classList.add('on');
+      if (val) { if (val._tw) val._tw.dead = true; val.textContent = val.getAttribute('data-to'); }
+    }
+  }
+  (function initConveyor() {
+    if (!cvTrack) return;
+    var rows = cvCards.map(function (li, i) {
+      var text = ($('.cv-text', li) || li).textContent, r = null;
+      try { r = window.Readable.analyze(text); } catch (e) { r = null; }
+      var s = r && r.sentences && r.sentences[0];
+      return {
+        li: li, i: i, text: text, level: s && s.level,
+        diff: s && typeof s.difficulty === 'number' ? Math.round(clamp(s.difficulty, 0, 100)) : null,
+        grade: s && typeof s.grade === 'number' ? s.grade : (r && r.scores ? r.scores.fleschKincaidGrade : null),
+        ease: r && r.scores ? Math.round(clamp(num(easeOf(r.scores)), 0, 100)) : null
+      };
+    });
+    if (rows.every(function (x) { return x.diff != null; })) rows.sort(function (a, b) { return a.diff - b.diff || a.i - b.i; });
+    rows.forEach(function (row, i) {
+      var lvl = LEVEL_NAME[row.level] ? row.level : null;
+      var html = '<div class="cv-top"><span class="cv-num" aria-hidden="true">' + (i + 1) + '</span>' +
+        (lvl ? '<span class="lvl-pill ' + lvl + '">' + LEVEL_NAME[lvl] + '</span>' : '') + '</div>' +
+        '<p class="cv-text">' + esc(row.text) + '</p>';
+      if (row.diff != null) {
+        html += '<div class="cv-score" aria-hidden="true"><b class="cv-val" data-to="' + row.diff + '">' + (MOTION ? 0 : row.diff) + '</b><span>/100 difficulty</span></div>' +
+          '<span class="sr-only">Difficulty ' + row.diff + ' out of 100.</span>' +
+          '<div class="cv-meter" aria-hidden="true"><i style="--d:' + row.diff + '%;--full:' + (row.diff ? (10000 / row.diff).toFixed(1) : 100) + '%"></i></div>' +
+          '<p class="cv-foot">' + esc(gradeWord(num(row.grade, NaN)) || '') + (row.ease != null ? ' · reading ease ' + row.ease : '') + '</p>';
+      }
+      row.li.innerHTML = html;
+      cvTrack.appendChild(row.li);
+    });
+    cvCards = $$('.cv-card', cvTrack);
+  })();
+
+  /* ---------- listeners ---------- */
+  window.addEventListener('scroll', kick, { passive: true });
+  window.addEventListener('resize', markDirty);
+  if ('ResizeObserver' in window) new ResizeObserver(function () { markDirty(); }).observe(document.body);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(markDirty);
+  window.addEventListener('load', markDirty);
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { if (M.raf) cancelAnimationFrame(M.raf); M.raf = 0; }
+    else markDirty();
+  });
+  window.addEventListener('pointermove', function (e) {
+    if (e.pointerType !== 'mouse') return; // touch and pen: scroll effects only
+    M.px = e.clientX; M.py = e.clientY; M.mouse = true;
+    if (!M.cursorOn && CURSOR_OK) enableCursor();
+    if (M.cursorOn && (e.target !== M.target || M.away)) { M.target = e.target; M.away = false; refreshCursor(); }
+    kick();
+  }, { passive: true });
+  if (CURSOR_OK) {
+    document.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse') { M.mouse = false; M.away = true; if (M.cursorOn) refreshCursor(); kick(); return; }
+      M.down = true; if (M.cursorOn) applyCursor(lastResolve || resolveCursor(e.target));
+    }, { passive: true });
+    document.addEventListener('pointerup', function () {
+      M.down = false;
+      if (M.cursorOn) { refreshCursor(); setTimeout(markDirty, 60); }
+    }, { passive: true });
+    document.addEventListener('mouseout', function (e) {
+      if (!e.relatedTarget && M.cursorOn) { M.away = true; refreshCursor(); kick(); }
+    });
+    // keyboard users: the follower steps aside so focus rings stay the clearest thing on screen
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Tab' && M.cursorOn && !M.away) { M.away = true; refreshCursor(); kick(); }
+    });
+    // hover state can change without the pointer moving (menu opens, slide changes)
+    document.addEventListener('click', function () { if (M.cursorOn) setTimeout(function () { refreshCursor(); markDirty(); }, 30); });
+  }
+
+  /* ---------- reveals ---------- */
   var reveals = $$('.reveal');
-  if (REDUCED || !('IntersectionObserver' in window)) {
+  var IO = 'IntersectionObserver' in window;
+  if (!MOTION || !IO) {
     reveals.forEach(function (n) { n.classList.add('in'); });
   } else {
     var io = new IntersectionObserver(function (entries) {
@@ -979,6 +1537,50 @@ if (!window.Readable) {
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
     reveals.forEach(function (n, i) { n.style.transitionDelay = (n.closest('.how-grid') ? (i % 4) * 70 : 0) + 'ms'; io.observe(n); });
   }
+  // score gauge sweeps when the card comes into view (and again each time it returns)
+  if (MOTION && IO) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting && en.intersectionRatio >= 0.3) {
+          if (!gauge.seen) { gauge.seen = true; if (state.result) showGauge(state.ease, 0); }
+        } else if (!en.isIntersecting && gauge.seen) {
+          gauge.seen = false; if (state.result) resetGauge();
+        }
+      });
+    }, { threshold: [0, 0.3] }).observe(el.scoreCard);
+    // metric cards stagger in and their numbers count up, once
+    var mio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting || el.metrics.classList.contains('in') || !el.metrics.children.length) return;
+        el.metrics.classList.add('in');
+        $$('.cnt', el.metrics).forEach(function (n) {
+          countUp(n, 0, parseFloat(n.getAttribute('data-to')) || 0, +n.getAttribute('data-dec') || 0, n.getAttribute('data-suf') || '', 1000);
+        });
+        setTimeout(function () { el.metrics.classList.add('played'); }, 1500);
+        mio.disconnect();
+      });
+    }, { threshold: 0.15 });
+    mio.observe(el.metrics);
+  } else {
+    gauge.seen = true;
+    el.metrics.classList.add('in', 'played');
+  }
+  // header pill names the section in view
+  if (IO && spLabel) {
+    var lio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) spLabel.textContent = en.target.getAttribute('data-label'); });
+    }, { rootMargin: '-45% 0px -54% 0px' });
+    $$('[data-label]').forEach(function (n) { lio.observe(n); });
+  }
+
+  // for checks in the console / tests
+  window.__readableMotion = {
+    motion: MOTION, fine: FINE, isStatic: STATIC,
+    state: function () {
+      return { frames: M.frames, running: !!M.raf, cursorOn: M.cursorOn, pinned: !!G.cv.pin, magnets: G.magnets.length, letters: G.letters.length, shapes: G.shapes.length, tweens: M.tweens.length, gaugeSeen: gauge.seen };
+    }
+  };
+  markDirty();
 
   /* ---------------- boot ---------------- */
   updateCounter();

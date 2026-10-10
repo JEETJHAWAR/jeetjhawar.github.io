@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=4">
 <script>
   document.documentElement.classList.add('js');
   (function (d) {
@@ -194,10 +194,10 @@
               <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <ul class="menu" id="sampleMenu" role="menu" aria-labelledby="sampleBtn" hidden>
-              <li role="none"><button type="button" role="menuitem" data-sample="legal" data-cursor="Load"><span class="mi-dot mi-coral" aria-hidden="true"></span>Legal policy<small>Dense</small></button></li>
-              <li role="none"><button type="button" role="menuitem" data-sample="startup" data-cursor="Load"><span class="mi-dot mi-teal" aria-hidden="true"></span>Startup landing page<small>Punchy</small></button></li>
-              <li role="none"><button type="button" role="menuitem" data-sample="essay" data-cursor="Load"><span class="mi-dot mi-yellow" aria-hidden="true"></span>School essay<small>Mixed</small></button></li>
-              <li role="none"><button type="button" role="menuitem" data-sample="email" data-cursor="Load"><span class="mi-dot mi-ink" aria-hidden="true"></span>Cold email<small>Short</small></button></li>
+              <li role="none"><button type="button" role="menuitem" data-sample="cv" data-cursor="Load"><span class="mi-dot mi-teal" aria-hidden="true"></span>My CV summary<small>Clear</small></button></li>
+              <li role="none"><button type="button" role="menuitem" data-sample="council" data-cursor="Load"><span class="mi-dot mi-yellow" aria-hidden="true"></span>Students' Council app<small>Project</small></button></li>
+              <li role="none"><button type="button" role="menuitem" data-sample="skills" data-cursor="Load"><span class="mi-dot mi-ink" aria-hidden="true"></span>My skills<small>List</small></button></li>
+              <li role="none"><button type="button" role="menuitem" data-sample="wordy" data-cursor="Load"><span class="mi-dot mi-coral" aria-hidden="true"></span>Wordy CV draft<small>Dense</small></button></li>
             </ul>
           </div>
           <button class="btn btn-white" type="button" id="uploadBtn" data-cursor="Upload">
@@ -243,7 +243,7 @@
         <div class="empty-copy">
           <h3>Your score lands here.</h3>
           <p>Paste at least a few sentences above — or load a sample — and Readable will grade it, find the five hardest sentences and show you how to fix them.</p>
-          <button class="btn btn-ink" type="button" id="emptySample" data-cursor="Load">Load the legal policy sample</button>
+          <button class="btn btn-ink" type="button" id="emptySample" data-cursor="Load">Load my CV summary</button>
         </div>
       </div>
 
@@ -404,13 +404,13 @@
       </div>
       <div class="cv-rail" id="cvRail" data-cursor="Scroll" tabindex="0" role="region" aria-label="Seven example sentences, from easiest to hardest">
         <ol class="cv-track" id="cvTrack">
-          <li class="cv-card"><p class="cv-text">We delete your data when you ask.</p></li>
-          <li class="cv-card"><p class="cv-text">Ask us, and we will delete your data within 30 days.</p></li>
-          <li class="cv-card"><p class="cv-text">If you ask us to delete your data, we will remove it within 30 days.</p></li>
-          <li class="cv-card"><p class="cv-text">When you send us a written request, we will delete your personal information within a reasonable time.</p></li>
-          <li class="cv-card"><p class="cv-text">Requests for the deletion of personal information will be processed within a reasonable timeframe.</p></li>
-          <li class="cv-card"><p class="cv-text">Personal information that is collected in connection with the Services shall be deleted upon receipt of a written request.</p></li>
-          <li class="cv-card"><p class="cv-text">Notwithstanding the foregoing, deletion of personal information shall be effectuated pursuant to applicable regulatory requirements, subject to verification of the requesting individual’s identity.</p></li>
+          <li class="cv-card"><p class="cv-text">I built the ticketing site for our freshers' night.</p></li>
+          <li class="cv-card"><p class="cv-text">I built the ticketing site for SEQUEL 26, and 150+ students bought passes.</p></li>
+          <li class="cv-card"><p class="cv-text">I led SEQUEL 26 and built its ticketing site; 150+ students bought passes worth ₹1.67 lakh.</p></li>
+          <li class="cv-card"><p class="cv-text">As overall lead of SEQUEL 26, I built a QR-pass ticketing site that sold ₹1.67 lakh in passes to over 150 students.</p></li>
+          <li class="cv-card"><p class="cv-text">As overall lead, I was responsible for the development of a ticketing system that facilitated pass purchases by over 150 students.</p></li>
+          <li class="cv-card"><p class="cv-text">A comprehensive ticketing infrastructure was conceptualised and operationalised by me, facilitating the procurement of passes by in excess of 150 students.</p></li>
+          <li class="cv-card"><p class="cv-text">In my capacity as overall lead, I was entrusted with conceptualising and subsequently operationalising a comprehensive ticketing infrastructure, thereby facilitating the procurement of passes by upwards of 150 students and generating revenues amounting to approximately ₹1.67 lakh.</p></li>
         </ol>
       </div>
       <div class="cv-belt" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -521,7 +521,7 @@
   <div class="c-dot"><i></i></div>
 </div>
 
-<script src="engine.js"></script>
-<script src="app.js"></script>
+<script src="engine.js?v=4"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>

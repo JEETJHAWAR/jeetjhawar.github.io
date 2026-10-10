@@ -825,7 +825,7 @@ kbd {
 
 /* custom cursor */
 .cursor { display: none; }
-html.has-cursor .cursor { display: block; }
+/* custom cursor retired (Oct 2026): the native cursor reads as more professional */
 .c-dot, .c-follow { position: fixed; left: 0; top: 0; z-index: 300; pointer-events: none; will-change: transform; }
 .c-follow { transition: opacity .2s; }
 .c-dot i {
@@ -865,9 +865,7 @@ html.has-cursor .cursor { display: block; }
 .cursor.is-away .c-dot i, .cursor.is-away .c-follow { opacity: 0; }
 /* hide the system pointer only where the follower stands in for it;
    text fields and the highlighted text keep their normal cursors and caret */
-:where(html.has-cursor) :where(*) { cursor: none; }
 :where(html.has-cursor) :where(textarea, input, select, .hl-view, .hl-view *, .popover, .popover *) { cursor: auto; }
-html.has-cursor :is(a, button, .btn, .heat-bar, .info, label, [role="button"]):not(.hl-view *) { cursor: none; }
 
 /* tilt cards with a moving highlight */
 .sheen {

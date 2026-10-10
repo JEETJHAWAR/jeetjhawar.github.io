@@ -218,33 +218,14 @@ if (!window.Readable) {
     scoreCard: $('#scoreCard'), hlCard: $('#hlCard'), sChip: $('#sChip')
   };
 
-  /* ---------------- sample texts (original) ---------------- */
+  /* ---------------- sample texts: Jeet's own CV and skills ---------------- */
   var SAMPLES = {
-    legal: 'Data Retention and Account Termination Policy\n\n' +
-      'Pursuant to the provisions set forth herein, the Company reserves the right, at its sole and absolute discretion, to suspend or terminate any user account that is determined to be in violation of the aforementioned Terms of Service, notwithstanding any prior communication or informal assurance that may have been provided by representatives of the Company.\n\n' +
-      'Personal information that is collected in connection with the provision of the Services shall be retained for a period not exceeding thirty-six (36) months following the termination of the account, except where a longer retention period is required or permitted by applicable law, regulation, or the legitimate interests of the Company in the establishment, exercise, or defence of legal claims.\n\n' +
-      'Users may request the deletion of their personal information by submitting a written request. Requests will be processed within a reasonable timeframe. It is important to note that the deletion of information may result in the inability of the Company to facilitate the continued provision of certain features.\n\n' +
-      'The Company shall not be liable for any losses that are incurred as a consequence of the termination of an account in accordance with this policy.',
-    startup: 'Meet Tally. Your invoices, finally sorted.\n\n' +
-      'Small teams lose hours every week chasing payments. Tally fixes that. Connect your bank, upload your invoices, and we match every payment automatically.\n\n' +
-      'No spreadsheets. No copy-paste. No awkward reminder emails — Tally sends them for you, politely, at exactly the right time.\n\n' +
-      'Our platform leverages advanced machine-learning methodologies to facilitate the reconciliation of heterogeneous financial data sources in real time, enabling organisations to optimise working-capital utilisation across numerous accounts.\n\n' +
-      'Set it up in five minutes. Get paid faster from day one. Over 2,000 freelancers and small studios already use Tally, and most of them save around six hours a month.\n\n' +
-      'Try it free for 30 days. No credit card needed. If it does not save you time, you really do not pay a thing.',
-    essay: 'How the Printing Press Changed the World\n\n' +
-      'The printing press, which was invented by Johannes Gutenberg around 1440, is widely considered to be one of the most important inventions in human history. Before it existed, books were copied by hand, which was extremely slow and very expensive.\n\n' +
-      'Because books were so rare, knowledge was controlled by a small number of people, mainly priests and wealthy families. Most ordinary people could not read at all. When printed books became cheaper, more people actually began to learn to read, and ideas were able to spread much more quickly than ever before.\n\n' +
-      'The effects of this were enormous. The Protestant Reformation was significantly accelerated by printed pamphlets that were distributed across Europe in their thousands. Scientists were able to share their discoveries with each other, which eventually contributed to the development of the Scientific Revolution and the gradual standardisation of experimental methodologies.\n\n' +
-      'In conclusion, the printing press basically changed how people learned and communicated. Without it, the modern world would look completely different. In many ways, the internet is simply the latest chapter of the same revolution.',
-    email: 'Subject: A quick idea for your onboarding\n\n' +
-      'Hi Priya,\n\n' +
-      'I read your post about cutting onboarding time for new store managers, and I wanted to reach out.\n\n' +
-      'Over the summer I built a small tool that turns long training manuals into short, readable checklists. In a pilot with a local retail chain, new hires finished their first-week training two days faster. The checklists use plain language, work on a phone and are easy to update when a policy changes.\n\n' +
-      'I would be very grateful if you would consider the possibility of a brief fifteen-minute call at some point in the coming weeks in order to explore whether a similar approach could potentially be of value to your team.\n\n' +
-      'If it helps, I can send a one-page summary first. No pressure either way.\n\n' +
-      'Thanks for reading,\nSam'
+      "cv": "Jeet Jhawar — CV summary\n\nBMS (Honours) student at IIM Kozhikode with 95.6% in Class XII. I build things people use: the Students' Council web app, a QR-pass ticketing site and live browser games, all made with AI coding tools.\n\nSenior Marketing Manager at NextGenix since July 2026. I lead a sales team and work with the CEO on client relationships, social media and campaigns. I also built the team's lead-finding tools: a Google Maps scraper and a 76-college contact database.\n\nHR Intern at Jarurat Care Foundation, a cancer-care NGO. I coordinated candidates and interviews, then built a Python bot that sends interview confirmations on WhatsApp.\n\nCouncil Member at IIM Kozhikode. I led SEQUEL 26, our freshers' night: 150+ students bought passes and ticket sales reached ₹1.67 lakh.\n\nI also started Blind Bluff, a small games brand. Three card games are on sale and six more are in production.",
+      "council": "Students' Council web app — scouncilbms.vercel.app\n\nThe BMS Students' Council at IIM Kozhikode runs on a platform I built on my own with Claude Code, using Next.js and Supabase. The public site covers 4 committees and 10 clubs, with events that move from upcoming to live to archive on their own, a calendar, a gallery, notices and search across every year.\n\nBehind the login, committees get a working portal. Only official committee and council accounts can sign in. Tasks can have several assignees, and the whole committee can see them. There is attendance, committee chat, and a document vault where each committee files event and expense reports on its own letterhead.\n\nAnnouncements expire after a week, and a retired club keeps its history. Before handing it over, I ran a security review of the whole app.",
+      "skills": "Skills\n\nTechnical\n- AI-assisted development with Claude Code\n- Next.js, Supabase, Firebase and React, HTML and JavaScript\n- Python: Selenium, BeautifulSoup, pandas and REST APIs\n- Advanced Excel and Google Sheets: pivot tables and XLOOKUP\n- Video editing in DaVinci Resolve\n\nProfessional\n- Event management, budgeting and P&L tracking\n- B2B outreach and sales coordination\n- Public speaking: 1st in English elocution at school, Best Delegate at Masters' Summit MUN\n- Rapid chess: 1st in Under-20 with 6 out of 6 at the International Chess Day Trophy 2026",
+      "wordy": "Wordy CV draft (before editing)\n\nIn my capacity as overall lead for SEQUEL 26, the freshers' night that was organised for the incoming second BMS batch, I was entrusted with the responsibility of conceptualising, developing and subsequently operationalising a comprehensive ticketing infrastructure, which facilitated the procurement of passes by in excess of 150 students and generated ticket revenues amounting to approximately ₹1.67 lakh.\n\nAdditionally, in my role as Council Member, I have been instrumental in spearheading end-to-end logistics for campus events, the maintenance of a sponsor outreach pipeline comprising upwards of 100 B2B contacts, and the documentation of event P&L for council leadership, thereby ensuring that strategic communications were optimised so as to maximise student engagement.\n\nThe same thing, edited: I built the ticketing site for SEQUEL 26. 150+ students bought passes, and ticket sales hit ₹1.67 lakh."
   };
-  var SAMPLE_NAMES = { legal: 'legal policy', startup: 'startup landing page', essay: 'school essay', email: 'cold email' };
+  var SAMPLE_NAMES = {"cv": "CV summary", "council": "Students' Council project", "skills": "skills list", "wordy": "wordy CV draft"};
 
   /* ---------------- helpers ---------------- */
   var ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
@@ -386,7 +367,7 @@ if (!window.Readable) {
   document.addEventListener('click', function (e) {
     if (!e.target.closest('.menu-wrap')) closeMenu(false);
   });
-  el.emptySample.addEventListener('click', function () { setText(SAMPLES.legal, 'legal policy sample'); });
+  el.emptySample.addEventListener('click', function () { setText(SAMPLES.cv, 'CV summary sample'); });
 
   /* upload + drag/drop (read locally with FileReader) */
   function readFile(f) {
@@ -1152,17 +1133,11 @@ if (!window.Readable) {
     M.raf = 0; M.frames++;
     if (M.dirty) measure();
     var sy = window.scrollY, busy = false;
-    var tiltRect = (M.cursorOn && T.cur) ? T.cur.getBoundingClientRect() : null; // the only per-frame read
     if (sy !== M.lastSy) { M.lastSy = sy; scrollFrame(sy); }
     if (MOTION) {
       if (M.tweens.length) busy = runTweens(now) || busy;
       busy = heroFrame(now, sy) || busy;
-      if (M.cursorOn) {
-        busy = cursorFrame() || busy;
-        busy = magnetFrame(sy) || busy;
-        busy = lettersFrame(sy) || busy;
-        busy = tiltFrame(tiltRect) || busy;
-      }
+      // pointer effects are limited to the hero illustration; no custom cursor, magnets, letter or card tilt
     }
     if (busy) kick();
   }
@@ -1259,7 +1234,7 @@ if (!window.Readable) {
         l.n.setAttribute('transform', 'translate(' + x.toFixed(2) + ' ' + y.toFixed(2) + ')');
       }
     });
-    var tilt = 'rotateX(' + (-H.ny * 4).toFixed(2) + 'deg) rotateY(' + (H.nx * 6).toFixed(2) + 'deg)';
+    var tilt = 'rotateX(' + (-H.ny * 2).toFixed(2) + 'deg) rotateY(' + (H.nx * 3).toFixed(2) + 'deg)';
     if (tilt !== H.tilt) { H.tilt = tilt; heroSvg.style.transform = tilt; }
     // magnifier: follows the pointer across the page, otherwise drifts along the lines
     var tx, ty, inHero = M.cursorOn && M.mouse && !M.away && M.py < G.heroTop + G.heroH - sy;
@@ -1341,7 +1316,6 @@ if (!window.Readable) {
     M.cursorOn = true;
     C.rx = M.px; C.ry = M.py;
     root.classList.add('has-cursor');
-    decorateTilt(document);
     markDirty();
   }
   function decorateTilt(scope) {

@@ -272,17 +272,19 @@ kbd {
 
 /* ---------- Editor ---------- */
 .editor-section { padding-top: clamp(40px, 6vw, 80px); }
+/* the yellow disc lives on the wrapper so it stays behind the card while the reveal animates */
+.editor-wrap { position: relative; isolation: isolate; }
+.editor-wrap::before {
+  content: ""; position: absolute; z-index: 0;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: var(--yellow); right: -28px; top: -34px;
+}
 .editor-card {
-  position: relative;
+  position: relative; z-index: 1;
   background: var(--white);
   border-radius: 36px;
   padding: clamp(16px, 2.6vw, 32px);
   box-shadow: var(--shadow);
-}
-.editor-card::before {
-  content: ""; position: absolute; z-index: -1;
-  width: 120px; height: 120px; border-radius: 50%;
-  background: var(--yellow); right: -28px; top: -34px;
 }
 .editor-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 4px 14px; flex-wrap: wrap; }
 .editor-label { display: inline-flex; align-items: center; gap: 10px; font: 700 16px/1 var(--sans); }
@@ -1072,7 +1074,7 @@ html.has-cursor [data-tilt].is-tilting {
   .pill-heading-md { font-size: clamp(28px, 8.6vw, 40px); }
   .section-lede { font-size: 15px; }
   .editor-card { border-radius: 28px; }
-  .editor-card::before { width: 80px; height: 80px; right: -12px; top: -26px; }
+  .editor-wrap::before { width: 80px; height: 80px; right: -12px; top: -26px; }
   #input { min-height: 220px; padding: 16px 16px; font-size: 16px; border-radius: 20px; }
   .editor-actions .btn { flex: 1 1 auto; }
   .editor-actions #runBtn { flex-basis: 100%; }
